@@ -1,0 +1,15 @@
+[
+	{
+		"family": "MaterialIcons",
+		"fonts": [{ "asset": "fonts/MaterialIcons-Regular.otf" }]
+	},
+	{ "family": "Inter", "fonts": [{ "asset": "assets/fonts/Inter.ttf" }] },
+	{
+		"family": "JetBrainsMono",
+		"fonts": [{ "asset": "assets/fonts/JetBrainsMono.ttf" }]
+	},
+	{
+		"family": "RingoIcons",
+		"fonts": [{ "asset": "assets/fonts/RingoIcons.ttf" }]
+	}
+]

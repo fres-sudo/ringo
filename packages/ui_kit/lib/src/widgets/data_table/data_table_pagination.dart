@@ -1,0 +1,218 @@
+import 'package:flutter/material.dart';
+import 'package:ui_kit/ui_kit.dart';
+
+/// Pagination widget for the data table.
+///
+/// Displays rows per page selector and page navigation buttons.
+class DataTablePagination extends StatelessWidget {
+  const DataTablePagination({
+    super.key,
+    required this.currentPage,
+    required this.totalPages,
+    required this.rowsPerPage,
+    required this.rowsPerPageOptions,
+    this.onPageChanged,
+    this.onRowsPerPageChanged,
+  });
+
+  final int currentPage;
+  final int totalPages;
+  final int rowsPerPage;
+  final List<int> rowsPerPageOptions;
+  final ValueChanged<int>? onPageChanged;
+  final ValueChanged<int>? onRowsPerPageChanged;
+
+  @override
+  Widget build(BuildContext context) {
+    return AdaptiveLayout(mobile: _buildMobile, desktop: _buildDesktop);
+  }
+
+  /// Phone pagination: no rows-per-page picker and no numbered pages — just
+  /// position and prev/next, which is all that fits and all that gets used.
+  Widget _buildMobile(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: context.tokens.spacing.md,
+        vertical: context.tokens.spacing.sm,
+      ),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          AppIconButton.ghost(
+            onPressed: currentPage > 0
+                ? () => onPageChanged?.call(currentPage - 1)
+                : null,
+            icon: const Icon(RingoIcons.chevron_left),
+          ),
+          AppText.bodySm(
+            'Page ${currentPage + 1} of ${totalPages < 1 ? 1 : totalPages}',
+            color: context.colors.mutedForeground,
+          ),
+          AppIconButton.ghost(
+            onPressed: currentPage < totalPages - 1
+                ? () => onPageChanged?.call(currentPage + 1)
+                : null,
+            icon: const Icon(RingoIcons.chevron_right),
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildDesktop(BuildContext context) {
+    return Padding(
+      padding: EdgeInsets.symmetric(
+        horizontal: context.tokens.spacing.md,
+        vertical: context.tokens.spacing.sm,
+      ),
+      child: Row(
+        children: [
+          // Rows per page
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Text(
+                'Rows per page',
+                style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                  color: context.colors.mutedForeground,
+                ),
+              ),
+              SizedBox(width: context.tokens.spacing.xs),
+              SizedBox(
+                width: 72,
+                child: AppSelect<int>(
+                  value: rowsPerPage,
+                  items: [
+                    for (final count in rowsPerPageOptions)
+                      AppSelectItem(value: count, label: '$count'),
+                  ],
+                  onChanged: (value) {
+                    if (value != null) {
+                      onRowsPerPageChanged?.call(value);
+                    }
+                  },
+                ),
+              ),
+            ],
+          ),
+          const Spacer(),
+          // Page navigation
+          Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              // Previous button
+              AppIconButton.ghost(
+                onPressed: currentPage > 0
+                    ? () => onPageChanged?.call(currentPage - 1)
+                    : null,
+                icon: const Icon(RingoIcons.chevron_left),
+                style: IconButton.styleFrom(
+                  iconSize: 20,
+                  padding: EdgeInsets.zero,
+                  minimumSize: const Size(32, 32),
+                ),
+              ),
+              // Page numbers
+              ..._buildPageNumbers(context),
+              // Next button
+              AppIconButton.ghost(
+                onPressed: currentPage < totalPages - 1
+                    ? () => onPageChanged?.call(currentPage + 1)
+                    : null,
+                icon: const Icon(RingoIcons.chevron_right),
+                style: IconButton.styleFrom(
+                  iconSize: 20,
+                  padding: EdgeInsets.zero,
+                  minimumSize: const Size(32, 32),
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+
+  List<Widget> _buildPageNumbers(BuildContext context) {
+    final List<Widget> pageButtons = [];
+    const int maxVisiblePages = 5;
+
+    if (totalPages <= maxVisiblePages) {
+      // Show all pages
+      for (int i = 0; i < totalPages; i++) {
+        pageButtons.add(_buildPageButton(context, i));
+      }
+    } else {
+      // Show first page
+      pageButtons.add(_buildPageButton(context, 0));
+
+      // Calculate visible range around current page
+      int start = (currentPage - 1).clamp(1, totalPages - 4);
+      final int end = (start + 2).clamp(2, totalPages - 2);
+
+      // Adjust start if end is at the limit
+      if (end == totalPages - 2) {
+        start = (end - 2).clamp(1, totalPages - 4);
+      }
+
+      // Add ellipsis if needed
+      if (start > 1) {
+        pageButtons.add(_buildEllipsis(context));
+      }
+
+      // Add middle pages
+      for (int i = start; i <= end; i++) {
+        pageButtons.add(_buildPageButton(context, i));
+      }
+
+      // Add ellipsis if needed
+      if (end < totalPages - 2) {
+        pageButtons.add(_buildEllipsis(context));
+      }
+
+      // Show last page
+      pageButtons.add(_buildPageButton(context, totalPages - 1));
+    }
+
+    return pageButtons;
+  }
+
+  Widget _buildPageButton(BuildContext context, int page) {
+    final isSelected = page == currentPage;
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 2),
+      child: Material(
+        color: isSelected ? context.colors.primary : Colors.transparent,
+        borderRadius: BorderRadius.circular(context.tokens.radius.xs),
+        child: InkWell(
+          onTap: isSelected ? null : () => onPageChanged?.call(page),
+          borderRadius: BorderRadius.circular(context.tokens.radius.xs),
+          child: Container(
+            width: 32,
+            height: 32,
+            alignment: Alignment.center,
+            child: Text(
+              '${page + 1}',
+              style: Theme.of(context).textTheme.bodySmall?.copyWith(
+                color: isSelected
+                    ? context.colors.primaryForeground
+                    : context.colors.mutedForeground,
+                fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildEllipsis(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 4),
+      child: Text(
+        '...',
+        style: TextStyle(color: context.colors.mutedForeground),
+      ),
+    );
+  }
+}

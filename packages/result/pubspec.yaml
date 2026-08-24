@@ -1,0 +1,15 @@
+name: result
+description: Result<T> pattern and Repository base class for Ringo
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ">=3.10.0 <4.0.0"
+
+dependencies:
+  errors:
+    path: ../errors
+  talker: ^5.1.9
+
+dev_dependencies:
+  test: ^1.24.0

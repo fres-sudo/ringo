@@ -1,0 +1,43 @@
+# flutter_flavorizr configuration for the Ringo POS app.
+#
+# Run from `apps/ringo` with a RESTRICTED processor set so the existing
+# hand-written entrypoints (lib/main.dart, lib/app/app.dart) are NOT
+# overwritten by the `flutter:app` / `flutter:pages` / `flutter:main`
+# processors. See docs/ENVIRONMENTS.md for the exact command.
+#
+#   fvm flutter pub run flutter_flavorizr \
+#     -p android:androidManifest,android:flavorizrGradle,android:buildGradle,android:dummyAssets,android:icons,flutter:flavors,ios:podfile,ios:xcconfig,ios:buildTargets,ios:schema,ios:dummyAssets,ios:icons,ios:plist,ios:launchScreen,ide:config
+#
+# Flavor  -> native build (applicationId / bundleId / app name / icon)
+# Tier    -> runtime entitlement (free vs paid), owned by packages/feature_flags
+#            and supplied via --dart-define-from-file=config/<env>.json
+ide: vscode
+
+app:
+  android:
+    flavorDimensions: "env"
+
+flavors:
+  dev:
+    app:
+      name: "Ringo Dev"
+    android:
+      applicationId: "space.fres.ringo.dev"
+    ios:
+      bundleId: "space.fres.ringo.dev"
+
+  staging:
+    app:
+      name: "Ringo Staging"
+    android:
+      applicationId: "space.fres.ringo.stg"
+    ios:
+      bundleId: "space.fres.ringo.stg"
+
+  prod:
+    app:
+      name: "Ringo POS"
+    android:
+      applicationId: "space.fres.ringo"
+    ios:
+      bundleId: "space.fres.ringo"

@@ -1,0 +1,1 @@
+{"valid_import":true,"imports":[{"uri":"package:database/src/database_mixin.dart","transitive":false},{"uri":"package:database/src/tables/products_table.dart","transitive":false},{"uri":"package:drift/drift.dart","transitive":false}],"elements":[{"kind":"table","name":"stocks_table","dart_name":"StocksTable"}]}

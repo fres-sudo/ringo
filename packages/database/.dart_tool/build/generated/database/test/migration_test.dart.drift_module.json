@@ -1,0 +1,9 @@
+{
+  "elements": {},
+  "imports": [
+    "package:database/database.dart",
+    "package:drift/native.dart",
+    "package:flutter_test/flutter_test.dart",
+    "package:sqlite3/sqlite3.dart"
+  ]
+}

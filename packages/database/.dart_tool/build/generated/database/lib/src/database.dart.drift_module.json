@@ -1,0 +1,197 @@
+{
+	"elements": {
+		"RingoDatabase": {
+			"id": {
+				"library_uri": "package:database/src/database.dart",
+				"name": "RingoDatabase"
+			},
+			"declaration": {
+				"source_uri": "package:database/src/database.dart",
+				"offset": 1308,
+				"name": "RingoDatabase"
+			},
+			"references": [
+				{
+					"library_uri": "package:database/src/tables/categories_table.dart",
+					"name": "categories_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/products_table.dart",
+					"name": "products_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/modifiers_table.dart",
+					"name": "modifiers_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/modifiers_table.dart",
+					"name": "modifier_options_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/modifiers_table.dart",
+					"name": "product_modifier_links_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/stocks_table.dart",
+					"name": "stocks_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/stock_movements_table.dart",
+					"name": "stock_movements_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/orders_table.dart",
+					"name": "orders_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/order_items_table.dart",
+					"name": "order_items_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/order_items_table.dart",
+					"name": "order_item_modifiers"
+				},
+				{
+					"library_uri": "package:database/src/tables/discounts_table.dart",
+					"name": "discounts_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/settings_table.dart",
+					"name": "app_settings_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/outbox_table.dart",
+					"name": "outbox_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/employees_table.dart",
+					"name": "employees_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/clock_records_table.dart",
+					"name": "clock_records_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/combos_table.dart",
+					"name": "combos_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/combos_table.dart",
+					"name": "combo_items_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/cash_reconciliations_table.dart",
+					"name": "cash_reconciliations_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/catalog_templates_table.dart",
+					"name": "catalog_templates_table"
+				}
+			],
+			"type": "database",
+			"tables": [
+				{
+					"library_uri": "package:database/src/tables/categories_table.dart",
+					"name": "categories_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/products_table.dart",
+					"name": "products_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/modifiers_table.dart",
+					"name": "modifiers_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/modifiers_table.dart",
+					"name": "modifier_options_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/modifiers_table.dart",
+					"name": "product_modifier_links_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/stocks_table.dart",
+					"name": "stocks_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/stock_movements_table.dart",
+					"name": "stock_movements_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/orders_table.dart",
+					"name": "orders_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/order_items_table.dart",
+					"name": "order_items_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/order_items_table.dart",
+					"name": "order_item_modifiers"
+				},
+				{
+					"library_uri": "package:database/src/tables/discounts_table.dart",
+					"name": "discounts_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/settings_table.dart",
+					"name": "app_settings_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/outbox_table.dart",
+					"name": "outbox_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/employees_table.dart",
+					"name": "employees_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/clock_records_table.dart",
+					"name": "clock_records_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/combos_table.dart",
+					"name": "combos_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/combos_table.dart",
+					"name": "combo_items_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/cash_reconciliations_table.dart",
+					"name": "cash_reconciliations_table"
+				},
+				{
+					"library_uri": "package:database/src/tables/catalog_templates_table.dart",
+					"name": "catalog_templates_table"
+				}
+			],
+			"views": [],
+			"includes": [],
+			"queries": [],
+			"schema_version": 11,
+			"daos": [],
+			"has_constructor_arg": true
+		}
+	},
+	"imports": [
+		"package:drift/drift.dart",
+		"package:database/src/color_converter.dart",
+		"package:database/src/tables/cash_reconciliations_table.dart",
+		"package:database/src/tables/catalog_templates_table.dart",
+		"package:database/src/tables/categories_table.dart",
+		"package:database/src/tables/clock_records_table.dart",
+		"package:database/src/tables/combos_table.dart",
+		"package:database/src/tables/discounts_table.dart",
+		"package:database/src/tables/employees_table.dart",
+		"package:database/src/tables/modifiers_table.dart",
+		"package:database/src/tables/order_items_table.dart",
+		"package:database/src/tables/orders_table.dart",
+		"package:database/src/tables/outbox_table.dart",
+		"package:database/src/tables/products_table.dart",
+		"package:database/src/tables/settings_table.dart",
+		"package:database/src/tables/stock_movements_table.dart",
+		"package:database/src/tables/stocks_table.dart"
+	]
+}

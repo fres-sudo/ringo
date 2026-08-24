@@ -1,0 +1,10 @@
+{
+	"FLAVOR": "staging",
+	"APP_NAME": "Ringo Staging",
+	"API_BASE_URL": "https://staging.api.ringo.fres.space",
+	"WS_BASE_URL": "wss://staging.api.ringo.fres.space/ws",
+	"BOOTSTRAP_MODE": "hybrid",
+	"TIER": "paidPro",
+	"ENABLE_LOGGING": true,
+	"ENABLE_INSPECTOR": false
+}

@@ -1,0 +1,45 @@
+name: ui_kit
+description: Ringo Design System — tokens, theme and atomic components
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ">=3.10.0 <4.0.0"
+  flutter: ">=3.38.5"
+
+dependencies:
+  auto_route: ^11.1.0
+  bloc: ^9.0.0
+  calendar_date_picker2: ^3.0.0
+  flutter:
+    sdk: flutter
+  flutter_bloc: ^9.1.1
+  flutter_svg: ^2.2.3
+  freezed_annotation: ^3.1.0
+  google_fonts: ^6.2.1
+  skeletonizer: ^2.1.2
+  utils:
+    path: ../utils
+
+dev_dependencies:
+  build_runner: ^2.4.7
+  flutter_test:
+    sdk: flutter
+  freezed: ^3.2.3
+
+flutter:
+  uses-material-design: true
+  assets:
+    - assets/product_gallery/
+    - assets/product_icons/bulk/
+    - assets/product_icons/twotone/
+  fonts:
+    - family: Inter
+      fonts:
+        - asset: assets/fonts/Inter.ttf
+    - family: JetBrainsMono
+      fonts:
+        - asset: assets/fonts/JetBrainsMono.ttf
+    - family: RingoIcons
+      fonts:
+        - asset: assets/fonts/RingoIcons.ttf

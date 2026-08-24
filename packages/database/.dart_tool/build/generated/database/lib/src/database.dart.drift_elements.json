@@ -1,0 +1,74 @@
+{
+	"valid_import": true,
+	"imports": [
+		{ "uri": "package:drift/drift.dart", "transitive": false },
+		{ "uri": "package:database/src/color_converter.dart", "transitive": false },
+		{
+			"uri": "package:database/src/tables/cash_reconciliations_table.dart",
+			"transitive": false
+		},
+		{
+			"uri": "package:database/src/tables/catalog_templates_table.dart",
+			"transitive": false
+		},
+		{
+			"uri": "package:database/src/tables/categories_table.dart",
+			"transitive": false
+		},
+		{
+			"uri": "package:database/src/tables/clock_records_table.dart",
+			"transitive": false
+		},
+		{
+			"uri": "package:database/src/tables/combos_table.dart",
+			"transitive": false
+		},
+		{
+			"uri": "package:database/src/tables/discounts_table.dart",
+			"transitive": false
+		},
+		{
+			"uri": "package:database/src/tables/employees_table.dart",
+			"transitive": false
+		},
+		{
+			"uri": "package:database/src/tables/modifiers_table.dart",
+			"transitive": false
+		},
+		{
+			"uri": "package:database/src/tables/order_items_table.dart",
+			"transitive": false
+		},
+		{
+			"uri": "package:database/src/tables/orders_table.dart",
+			"transitive": false
+		},
+		{
+			"uri": "package:database/src/tables/outbox_table.dart",
+			"transitive": false
+		},
+		{
+			"uri": "package:database/src/tables/products_table.dart",
+			"transitive": false
+		},
+		{
+			"uri": "package:database/src/tables/settings_table.dart",
+			"transitive": false
+		},
+		{
+			"uri": "package:database/src/tables/stock_movements_table.dart",
+			"transitive": false
+		},
+		{
+			"uri": "package:database/src/tables/stocks_table.dart",
+			"transitive": false
+		}
+	],
+	"elements": [
+		{
+			"kind": "database",
+			"name": "RingoDatabase",
+			"dart_name": "RingoDatabase"
+		}
+	]
+}

@@ -1,0 +1,32 @@
+import 'package:result/result.dart';
+import '../services/version_checker_service.dart';
+
+abstract class VersionCheckerRepository {
+  Future<String> get currentVersion;
+  Future<String> get currentBuild;
+  Future<String> get currentPlatform;
+}
+
+class VersionCheckerRepositoryImpl extends Repository
+    implements VersionCheckerRepository {
+  const VersionCheckerRepositoryImpl({required this.versionCheckerService});
+  final VersionCheckerService versionCheckerService;
+
+  @override
+  Future<String> get currentVersion => safe(
+    'currentVersion',
+    () => versionCheckerService.currentVersion,
+  ).unwrapAsync();
+
+  @override
+  Future<String> get currentBuild => safe(
+    'currentBuild',
+    () => versionCheckerService.currentBuild,
+  ).unwrapAsync();
+
+  @override
+  Future<String> get currentPlatform => safe(
+    'currentPlatform',
+    () => versionCheckerService.currentPlatform,
+  ).unwrapAsync();
+}

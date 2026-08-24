@@ -1,0 +1,717 @@
+{
+  "elements": {
+    "order_items_table": {
+      "id": {
+        "library_uri": "package:database/src/tables/order_items_table.dart",
+        "name": "order_items_table"
+      },
+      "declaration": {
+        "source_uri": "package:database/src/tables/order_items_table.dart",
+        "offset": 264,
+        "name": "OrderItemsTable"
+      },
+      "references": [
+        {
+          "library_uri": "package:database/src/tables/orders_table.dart",
+          "name": "orders_table"
+        },
+        {
+          "library_uri": "package:database/src/tables/products_table.dart",
+          "name": "products_table"
+        },
+        {
+          "library_uri": "package:database/src/tables/combos_table.dart",
+          "name": "combos_table"
+        }
+      ],
+      "type": "table",
+      "columns": [
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": false,
+          "nameInSql": "id",
+          "nameInDart": "id",
+          "declaration": {
+            "source_uri": "package:database/src/database_mixin.dart",
+            "offset": 80,
+            "name": "id"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [
+            {
+              "type": "primary",
+              "is_auto_increment": true
+            }
+          ],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "dateTime"
+          },
+          "nullable": false,
+          "nameInSql": "created_at",
+          "nameInDart": "createdAt",
+          "declaration": {
+            "source_uri": "package:database/src/database_mixin.dart",
+            "offset": 136,
+            "name": "createdAt"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": {
+            "elements": [
+              {
+                "lexeme": "currentDateAndTime",
+                "import_uri": "package:drift/src/runtime/query_builder/query_builder.dart"
+              }
+            ]
+          },
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "dateTime"
+          },
+          "nullable": true,
+          "nameInSql": "updated_at",
+          "nameInDart": "updatedAt",
+          "declaration": {
+            "source_uri": "package:database/src/database_mixin.dart",
+            "offset": 216,
+            "name": "updatedAt"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "dateTime"
+          },
+          "nullable": true,
+          "nameInSql": "deleted_at",
+          "nameInDart": "deletedAt",
+          "declaration": {
+            "source_uri": "package:database/src/database_mixin.dart",
+            "offset": 275,
+            "name": "deletedAt"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": false,
+          "nameInSql": "order_id",
+          "nameInDart": "orderId",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 328,
+            "name": "orderId"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [
+            {
+              "type": "foreign_key",
+              "column": {
+                "table": {
+                  "library_uri": "package:database/src/tables/orders_table.dart",
+                  "name": "orders_table"
+                },
+                "name": "id"
+              },
+              "onUpdate": null,
+              "onDelete": "cascade",
+              "initiallyDeferred": false
+            }
+          ],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": true,
+          "nameInSql": "product_id",
+          "nameInDart": "productId",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 432,
+            "name": "productId"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [
+            {
+              "type": "foreign_key",
+              "column": {
+                "table": {
+                  "library_uri": "package:database/src/tables/products_table.dart",
+                  "name": "products_table"
+                },
+                "name": "id"
+              },
+              "onUpdate": null,
+              "onDelete": null,
+              "initiallyDeferred": false
+            }
+          ],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": false,
+          "nameInSql": "product_name",
+          "nameInDart": "productName",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 565,
+            "name": "productName"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": false,
+          "nameInSql": "unit_price",
+          "nameInDart": "unitPrice",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 606,
+            "name": "unitPrice"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": false,
+          "nameInSql": "cost_price",
+          "nameInDart": "costPrice",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 684,
+            "name": "costPrice"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": false,
+          "nameInSql": "quantity",
+          "nameInDart": "quantity",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 793,
+            "name": "quantity"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": {
+            "elements": [
+              "const ",
+              {
+                "lexeme": "Constant",
+                "import_uri": "package:drift/src/runtime/query_builder/query_builder.dart"
+              },
+              "(1)"
+            ]
+          },
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": false,
+          "nameInSql": "discount_amount",
+          "nameInDart": "discountAmount",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 865,
+            "name": "discountAmount"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": {
+            "elements": [
+              "const ",
+              {
+                "lexeme": "Constant",
+                "import_uri": "package:drift/src/runtime/query_builder/query_builder.dart"
+              },
+              "(0)"
+            ]
+          },
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": true,
+          "nameInSql": "prep_station",
+          "nameInDart": "prepStation",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 1196,
+            "name": "prepStation"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": false,
+          "nameInSql": "ticket_status",
+          "nameInDart": "ticketStatus",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 1373,
+            "name": "ticketStatus"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": {
+            "elements": [
+              "const ",
+              {
+                "lexeme": "Constant",
+                "import_uri": "package:drift/src/runtime/query_builder/query_builder.dart"
+              },
+              "(0)"
+            ]
+          },
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": true,
+          "nameInSql": "combo_id",
+          "nameInDart": "comboId",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 1797,
+            "name": "comboId"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [
+            {
+              "type": "foreign_key",
+              "column": {
+                "table": {
+                  "library_uri": "package:database/src/tables/combos_table.dart",
+                  "name": "combos_table"
+                },
+                "name": "id"
+              },
+              "onUpdate": null,
+              "onDelete": null,
+              "initiallyDeferred": false
+            }
+          ],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": true,
+          "nameInSql": "combo_name",
+          "nameInDart": "comboName",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 1878,
+            "name": "comboName"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": true,
+          "nameInSql": "combo_line_id",
+          "nameInDart": "comboLineId",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 2082,
+            "name": "comboLineId"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": true,
+          "nameInSql": "combo_sale_quantity",
+          "nameInDart": "comboSaleQuantity",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 2366,
+            "name": "comboSaleQuantity"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        }
+      ],
+      "existing_data_class": null,
+      "table_constraints": [],
+      "custom_parent_class": null,
+      "interfaces_for_row_class": [],
+      "fixed_entity_info_name": null,
+      "base_dart_name": "OrderItemsTable",
+      "row_class_name": "OrderItemEntity",
+      "companion_class_name": null,
+      "without_rowid": false,
+      "strict": false,
+      "write_default_constraints": true,
+      "custom_constraints": [],
+      "attached_indices": []
+    },
+    "order_item_modifiers": {
+      "id": {
+        "library_uri": "package:database/src/tables/order_items_table.dart",
+        "name": "order_item_modifiers"
+      },
+      "declaration": {
+        "source_uri": "package:database/src/tables/order_items_table.dart",
+        "offset": 2529,
+        "name": "OrderItemModifiers"
+      },
+      "references": [
+        {
+          "library_uri": "package:database/src/tables/order_items_table.dart",
+          "name": "order_items_table"
+        }
+      ],
+      "type": "table",
+      "columns": [
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": false,
+          "nameInSql": "id",
+          "nameInDart": "id",
+          "declaration": {
+            "source_uri": "package:database/src/database_mixin.dart",
+            "offset": 80,
+            "name": "id"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [
+            {
+              "type": "primary",
+              "is_auto_increment": true
+            }
+          ],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "dateTime"
+          },
+          "nullable": false,
+          "nameInSql": "created_at",
+          "nameInDart": "createdAt",
+          "declaration": {
+            "source_uri": "package:database/src/database_mixin.dart",
+            "offset": 136,
+            "name": "createdAt"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": {
+            "elements": [
+              {
+                "lexeme": "currentDateAndTime",
+                "import_uri": "package:drift/src/runtime/query_builder/query_builder.dart"
+              }
+            ]
+          },
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "dateTime"
+          },
+          "nullable": true,
+          "nameInSql": "updated_at",
+          "nameInDart": "updatedAt",
+          "declaration": {
+            "source_uri": "package:database/src/database_mixin.dart",
+            "offset": 216,
+            "name": "updatedAt"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "dateTime"
+          },
+          "nullable": true,
+          "nameInSql": "deleted_at",
+          "nameInDart": "deletedAt",
+          "declaration": {
+            "source_uri": "package:database/src/database_mixin.dart",
+            "offset": 275,
+            "name": "deletedAt"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": false,
+          "nameInSql": "order_item_id",
+          "nameInDart": "orderItemId",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 2596,
+            "name": "orderItemId"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [
+            {
+              "type": "foreign_key",
+              "column": {
+                "table": {
+                  "library_uri": "package:database/src/tables/order_items_table.dart",
+                  "name": "order_items_table"
+                },
+                "name": "id"
+              },
+              "onUpdate": null,
+              "onDelete": "cascade",
+              "initiallyDeferred": false
+            }
+          ],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": false,
+          "nameInSql": "modifier_name",
+          "nameInDart": "modifierName",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 2769,
+            "name": "modifierName"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "string"
+          },
+          "nullable": false,
+          "nameInSql": "option_name",
+          "nameInDart": "optionName",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 2827,
+            "name": "optionName"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        },
+        {
+          "sqlType": {
+            "builtin": "int"
+          },
+          "nullable": false,
+          "nameInSql": "price_change",
+          "nameInDart": "priceChange",
+          "declaration": {
+            "source_uri": "package:database/src/tables/order_items_table.dart",
+            "offset": 2883,
+            "name": "priceChange"
+          },
+          "typeConverter": null,
+          "clientDefaultCode": null,
+          "defaultArgument": null,
+          "overriddenJsonName": null,
+          "referenceName": null,
+          "documentationComment": null,
+          "constraints": [],
+          "customConstraints": null
+        }
+      ],
+      "existing_data_class": null,
+      "table_constraints": [],
+      "custom_parent_class": null,
+      "interfaces_for_row_class": [],
+      "fixed_entity_info_name": null,
+      "base_dart_name": "OrderItemModifiers",
+      "row_class_name": "OrderItemModifierEntity",
+      "companion_class_name": null,
+      "without_rowid": false,
+      "strict": false,
+      "write_default_constraints": true,
+      "custom_constraints": [],
+      "attached_indices": []
+    }
+  },
+  "imports": [
+    "package:drift/drift.dart",
+    "package:database/src/database_mixin.dart",
+    "package:database/src/tables/combos_table.dart",
+    "package:database/src/tables/orders_table.dart",
+    "package:database/src/tables/products_table.dart"
+  ]
+}
