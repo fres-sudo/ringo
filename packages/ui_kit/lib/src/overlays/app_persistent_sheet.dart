@@ -12,18 +12,17 @@ typedef PersistentSheetBuilder =
 ///
 /// Unlike a modal sheet, it snaps between a short *peek* (a summary bar with a
 /// call to action) and a near-full-height *expanded* state, and the page
-/// underneath stays scrollable and tappable in both. Built for the phone POS,
-/// where the cart has to stay visible while the operator keeps tapping
-/// products — a modal cart would force a close/reopen per item.
+/// underneath stays scrollable and tappable in both. It is useful where a
+/// compact summary needs to stay visible while the user works in the page.
 ///
 /// ```dart
 /// AppPersistentSheet(
-///   body: const ProductList(),
+///   body: const ItemList(),
 ///   peekHeight: 88,
-///   peekBuilder: (context, controller) => CartSummaryBar(
-///     onCheckout: controller.expand,
+///   peekBuilder: (context, controller) => SummaryBar(
+///     onOpen: controller.expand,
 ///   ),
-///   expandedBuilder: (context, _) => const CartPanel(),
+///   expandedBuilder: (context, _) => const DetailsPanel(),
 /// )
 /// ```
 class AppPersistentSheet extends StatefulWidget {
@@ -60,7 +59,7 @@ class AppPersistentSheet extends StatefulWidget {
   final double maxSize;
 
   /// When false the sheet is removed entirely and [body] gets the full screen
-  /// — e.g. an empty cart.
+  /// — for example, when there is no active selection.
   final bool isVisible;
 
   final PersistentSheetController? controller;

@@ -1,4 +1,4 @@
-// Reusable data table components for POS applications.
+// Reusable data table components for Flutter applications.
 //
 // This library exports all the components needed to build data table views
 // with search, sort, filter, pagination, and various states.

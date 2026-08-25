@@ -13,7 +13,7 @@ import 'package:ui_kit/ui_kit.dart';
 ///
 /// ```dart
 /// Scaffold(
-///   appBar: AdaptiveAppBar.of(context, title: 'Products'),
+///   appBar: AdaptiveAppBar.of(context, title: 'Overview'),
 ///   body: ...,
 /// )
 /// ```

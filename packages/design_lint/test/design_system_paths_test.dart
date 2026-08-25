@@ -12,8 +12,8 @@ void main() {
 
     test('exempts generated sources', () {
       for (final path in [
-        '/repo/features/pos/lib/foo.g.dart',
-        '/repo/features/pos/lib/foo.freezed.dart',
+        '/repo/features/example/lib/foo.g.dart',
+        '/repo/features/example/lib/foo.freezed.dart',
         '/repo/apps/ringo/lib/app_router.gr.dart',
         '/repo/apps/ringo/lib/di.config.dart',
       ]) {
@@ -23,15 +23,15 @@ void main() {
 
     test('exempts test files and test directories', () {
       expect(
-        isExemptPath('/repo/features/pos/test/pos_bloc_test.dart'),
+        isExemptPath('/repo/features/example/test/example_bloc_test.dart'),
         isTrue,
       );
-      expect(isExemptPath('/repo/test/products/foo_test.dart'), isTrue);
+      expect(isExemptPath('/repo/test/example/foo_test.dart'), isTrue);
     });
 
     test('does NOT exempt ordinary production sources', () {
       expect(
-        isExemptPath('/repo/features/pos/lib/presentation/pos_page.dart'),
+        isExemptPath('/repo/features/example/lib/presentation/example_page.dart'),
         isFalse,
       );
       expect(isExemptPath('/repo/apps/ringo/lib/app/app.dart'), isFalse);

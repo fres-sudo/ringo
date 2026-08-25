@@ -13,14 +13,14 @@ void main() {
       await tester.pumpComponent(
         AppToast(
           variant: AppToastVariant.success,
-          message: 'Order #42 completed',
+          message: 'Changes saved',
           actionLabel: 'Undo',
           onAction: () => actionCalled = true,
         ),
       );
 
       expect(find.text('Success'), findsOneWidget);
-      expect(find.text('Order #42 completed'), findsOneWidget);
+      expect(find.text('Changes saved'), findsOneWidget);
       expect(find.byTooltip('Dismiss'), findsOneWidget);
       await tester.tap(find.text('Undo'));
       expect(actionCalled, isTrue);
@@ -48,7 +48,7 @@ void main() {
             body: Builder(
               builder: (context) => ElevatedButton(
                 onPressed: () =>
-                    AppToast.warning(context, message: 'Low stock'),
+                    AppToast.warning(context, message: 'Attention needed'),
                 child: const Text('Show toast'),
               ),
             ),

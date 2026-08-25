@@ -10,13 +10,13 @@ enum AppToastVariant { info, success, warning, error }
 ///
 /// The widget can be embedded in previews, while the convenience methods show
 /// it through the nearest [ScaffoldMessenger]. New messages replace the
-/// current toast, keeping time-sensitive POS feedback easy to scan.
+/// current toast, keeping time-sensitive feedback easy to scan.
 ///
 /// ```dart
 /// AppToast.success(
 ///   context,
-///   message: 'Order #42 completed',
-///   title: 'Sale complete',
+///   message: 'Changes saved',
+///   title: 'Complete',
 /// );
 /// ```
 class AppToast extends StatelessWidget {

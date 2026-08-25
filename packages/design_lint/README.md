@@ -40,8 +40,8 @@ They also surface live in the IDE (VS Code / IntelliJ with the Dart plugin).
 
 ## Suppressing a deliberate exception
 
-Some code legitimately needs a raw primitive — a Drift `Color` type-converter,
-a monochrome thermal-receipt preview, etc. Silence a single line and say why:
+Some code legitimately needs a raw primitive — for example, a persisted color
+value or a monochrome preview. Silence a single line and say why:
 
 ```dart
 // ignore: avoid_hardcoded_colors — persisted category color, not a theme token
@@ -61,6 +61,5 @@ custom_lint:
 
 ## Wiring (already done)
 
-- `analysis_options.yaml` (repo root) enables `analyzer: plugins: - custom_lint`.
-- `custom_lint` + `design_lint` are dev-dependencies of the workspace root, so
-  the shared package config resolves them for every member package.
+- Add `custom_lint` and `design_lint` to the workspace root when these rules
+  should be enabled for an application.

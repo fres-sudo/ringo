@@ -1,116 +1,22 @@
 name: ringo
-description: Ringo POS — Flutter application entry point
+description: Ringo Flutter application
 publish_to: none
 resolution: workspace
 
 version: 1.0.0+1
 
 environment:
-  sdk: ">=3.10.0 <4.0.0"
-  flutter: ">=3.38.5"
+  sdk: '>=3.10.0 <4.0.0'
+  flutter: '>=3.38.5'
 
 dependencies:
-  app_info:
-    path: ../../packages/app_info
-  app_reset:
-    path: ../../packages/app_reset
-  app_settings:
-    path: ../../packages/app_settings
-  auth_session:
-    path: ../../packages/auth_session
-  auto_route: ^11.1.0
-  bloc: ^9.0.0
-  bloc_exports:
-    path: ../../packages/bloc
-  config:
-    path: ../../packages/config
-  cupertino_icons: ^1.0.8
-  database:
-    path: ../../packages/database
-  dio: ^5.9.0
-  drift_flutter: ^0.2.8
-  errors:
-    path: ../../packages/errors
-  feature_auth:
-    path: ../../features/auth
-  feature_discounts:
-    path: ../../features/discounts
-  feature_flags:
-    path: ../../packages/feature_flags
-  feature_inventory:
-    path: ../../features/inventory
-  feature_kitchen:
-    path: ../../features/kitchen
-  feature_onboarding:
-    path: ../../features/onboarding
-  feature_orders:
-    path: ../../features/orders
-  feature_pos:
-    path: ../../features/pos
-  feature_products:
-    path: ../../features/products
-  feature_reports:
-    path: ../../features/reports
-  feature_settings:
-    path: ../../features/settings
-  feature_workforce:
-    path: ../../features/workforce
   flutter:
     sdk: flutter
-  flutter_bloc: ^9.1.1
-  flutter_native_splash: ^2.4.6
-  flutter_secure_storage: ^10.0.0
-  freezed_annotation: ^3.1.0
-  i18n:
-    path: ../../packages/i18n
-  lan_hub:
-    path: ../../packages/lan_hub
-  launcher:
-    path: ../../packages/launcher
-  logger:
-    path: ../../packages/logger
-  observer:
-    path: ../../packages/observer
-  order_management:
-    path: ../../packages/order_management
-  payment_contracts:
-    path: ../../packages/payment_contracts
-  pine: ^1.0.4
-  printing:
-    path: ../../packages/printing
-  provider: ^6.1.5+1
-  remote_config:
-    path: ../../packages/remote_config
-  result:
-    path: ../../packages/result
-  shared_preferences: ^2.5.2
-  sync_engine:
-    path: ../../packages/sync_engine
-  talker: ^5.1.9
-  talker_dio_logger: ^5.1.9
-  ui_kit:
-    path: ../../packages/ui_kit
-  utils:
-    path: ../../packages/utils
 
 dev_dependencies:
-  auto_route_generator: ^10.2.6
-  build_runner: ^2.4.7
-  flutter_flavorizr: ^2.5.0
-  flutter_launcher_icons: ^0.14.4
+  flutter_lints: ^6.0.0
   flutter_test:
     sdk: flutter
 
-flutter_gen:
-  output: lib/gen/
-
-  integrations:
-    image: true
-    flutter_svg: true
-
 flutter:
   uses-material-design: true
-
-  assets:
-    - assets/brand/
-    - assets/icons/

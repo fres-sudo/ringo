@@ -1,1 +1,0 @@
-{"valid_import":true,"imports":[{"uri":"package:database/src/color_converter.dart","transitive":false},{"uri":"package:database/src/database_mixin.dart","transitive":false},{"uri":"package:drift/drift.dart","transitive":false}],"elements":[{"kind":"table","name":"categories_table","dart_name":"CategoriesTable"}]}

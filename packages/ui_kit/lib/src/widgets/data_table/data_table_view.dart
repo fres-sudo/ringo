@@ -6,7 +6,7 @@ import 'package:ui_kit/ui_kit.dart';
 /// Row action types for the data table.
 enum DataTableRowAction { edit, reprint, delete }
 
-/// A reusable data table view component for POS applications.
+/// A reusable data table view component for Flutter applications.
 ///
 /// Provides a complete table UI with:
 /// - Header (title, search, sort, filter, add button)
@@ -17,16 +17,16 @@ enum DataTableRowAction { edit, reprint, delete }
 ///
 /// Example usage:
 /// ```dart
-/// DataTableView<Product>(
-///   items: products,
+/// DataTableView<ExampleItem>(
+///   items: items,
 ///   columns: [
 ///     DataTableColumn(
 ///       id: 'name',
-///       label: 'Product Name',
+///       label: 'Name',
 ///       cellBuilder: (context, item) => Text(item.name),
 ///     ),
 ///   ],
-///   config: DataTableConfig(title: 'Products'),
+///   config: DataTableConfig(title: 'Items'),
 ///   controller: controller,
 ///   onAdd: () => print('Add clicked'),
 /// )

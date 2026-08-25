@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+<module fileurl="file://$PROJECT_DIR$/packages/app_info/melos_app_info.iml" filepath="$PROJECT_DIR$/packages/app_info/melos_app_info.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/bloc/melos_bloc_exports.iml" filepath="$PROJECT_DIR$/packages/bloc/melos_bloc_exports.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/design_lint/melos_design_lint.iml" filepath="$PROJECT_DIR$/packages/design_lint/melos_design_lint.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/errors/melos_errors.iml" filepath="$PROJECT_DIR$/packages/errors/melos_errors.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/i18n/melos_i18n.iml" filepath="$PROJECT_DIR$/packages/i18n/melos_i18n.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/launcher/melos_launcher.iml" filepath="$PROJECT_DIR$/packages/launcher/melos_launcher.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/logger/melos_logger.iml" filepath="$PROJECT_DIR$/packages/logger/melos_logger.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/observer/melos_observer.iml" filepath="$PROJECT_DIR$/packages/observer/melos_observer.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/remote_config/melos_remote_config.iml" filepath="$PROJECT_DIR$/packages/remote_config/melos_remote_config.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/result/melos_result.iml" filepath="$PROJECT_DIR$/packages/result/melos_result.iml"/>
+<module fileurl="file://$PROJECT_DIR$/apps/ringo/melos_ringo.iml" filepath="$PROJECT_DIR$/apps/ringo/melos_ringo.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/ui_kit/melos_ui_kit.iml" filepath="$PROJECT_DIR$/packages/ui_kit/melos_ui_kit.iml"/>
+<module fileurl="file://$PROJECT_DIR$/packages/utils/melos_utils.iml" filepath="$PROJECT_DIR$/packages/utils/melos_utils.iml"/>
+<module fileurl="file://$PROJECT_DIR$/melos_ringo_workspace.iml" filepath="$PROJECT_DIR$/melos_ringo_workspace.iml"/>
+    </modules>
+  </component>
+</project>

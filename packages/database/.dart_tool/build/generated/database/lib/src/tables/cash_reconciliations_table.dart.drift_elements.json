@@ -1,1 +1,0 @@
-{"valid_import":true,"imports":[{"uri":"package:drift/drift.dart","transitive":false},{"uri":"package:database/src/database_mixin.dart","transitive":false},{"uri":"package:database/src/tables/clock_records_table.dart","transitive":false}],"elements":[{"kind":"table","name":"cash_reconciliations_table","dart_name":"CashReconciliationsTable"}]}

@@ -1,91 +1,13 @@
-import 'package:ringo/app/app_providers.dart';
-import 'package:ringo/app/app_router.dart';
-import 'package:config/config.dart';
-import 'package:database/database.dart';
-import 'package:ringo/app/widgets/app_root_listener.dart';
-import 'package:i18n/i18n.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:sync_engine/sync_engine.dart';
-import 'package:talker/talker.dart';
-import 'package:ui_kit/ui_kit.dart';
-import 'package:utils/utils.dart';
 
-class RingoApp extends StatefulWidget {
-  const RingoApp({
-    required this.config,
-    required this.database,
-    required this.talker,
-    required this.deviceId,
-    super.key,
-  });
-
-  final AppConfig config;
-  final RingoDatabase database;
-  final Talker talker;
-  final DeviceId deviceId;
+class RingoApp extends StatelessWidget {
+  const RingoApp({super.key});
 
   @override
-  State<RingoApp> createState() => _RingoAppState();
-}
-
-class _RingoAppState extends State<RingoApp> {
-  AppRouter? _router;
-
-  @override
-  Widget build(BuildContext context) {
-    return AppProviders(
-      config: widget.config,
-      database: widget.database,
-      talker: widget.talker,
-      deviceId: widget.deviceId,
-      child: BlocBuilder<ThemeCubit, ThemeState>(
-        builder: (context, state) {
-          _router ??= AppRouter(
-            persistenceService: context.read<PersistenceService>(),
-          );
-          final themeMode = switch (state) {
-            SettedThemeState() => state.mode,
-            _ => ThemeMode.system,
-          };
-
-          return MaterialApp.router(
-            title: widget.config.appName,
-            debugShowCheckedModeBanner: false,
-            themeMode: themeMode,
-            theme: AppTheme.light,
-            darkTheme: AppTheme.dark,
-            routerDelegate: _router?.delegate(),
-            routeInformationParser: _router?.defaultRouteParser(),
-            locale: TranslationProvider.of(context).flutterLocale,
-            supportedLocales: AppLocaleUtils.supportedLocales,
-            builder: _flavorBanner,
-          );
-        },
-      ),
-    );
-  }
-
-  /// Wraps the app in a corner banner for non-production flavors so it is
-  /// always obvious which environment a build is pointing at.
-  Widget _flavorBanner(BuildContext context, Widget? child) {
-    // Mounted here (inside MaterialApp.builder) so it sits above the router's
-    // navigator: every page, dialog and sheet resolves the same breakpoint.
-    final content = ResponsiveScope.fromMediaQuery(
-      child: AppRootListener(
-        router: _router!,
-        child: child ?? const SizedBox(),
-      ),
-    );
-    if (!widget.config.flavor.isNonProduction) return content;
-    return Banner(
-      message: widget.config.flavor.name.toUpperCase(),
-      location: BannerLocation.topStart,
-      // Fixed environment-indicator colors (dev = blue, staging = orange) — a
-      // debug banner must read the same regardless of the app theme.
-      // ignore: avoid_hardcoded_colors
-      color: widget.config.flavor.isStaging ? Colors.deepOrange : Colors.blue,
-      child: content,
-    );
-  }
+  Widget build(BuildContext context) => MaterialApp(
+    title: 'Ringo',
+    debugShowCheckedModeBanner: false,
+    theme: ThemeData(colorSchemeSeed: Colors.indigo),
+    home: const Scaffold(body: Center(child: Text('Ringo'))),
+  );
 }
