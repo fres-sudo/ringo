@@ -16,6 +16,7 @@
     "ring_transport",
     "ringo",
     "ringo_workspace",
+    "storage_tostore",
     "ui_kit",
     "utils"
   ],
@@ -215,6 +216,16 @@
       ],
       "devDependencies": [
         "flutter_test"
+      ]
+    },
+    {
+      "name": "storage_tostore",
+      "version": "0.0.0",
+      "dependencies": [
+        "tostore"
+      ],
+      "devDependencies": [
+        "test"
       ]
     },
     {
@@ -454,6 +465,47 @@
       ]
     },
     {
+      "name": "test",
+      "version": "1.29.0",
+      "dependencies": [
+        "analyzer",
+        "async",
+        "boolean_selector",
+        "collection",
+        "coverage",
+        "http_multi_server",
+        "io",
+        "matcher",
+        "node_preamble",
+        "package_config",
+        "path",
+        "pool",
+        "shelf",
+        "shelf_packages_handler",
+        "shelf_static",
+        "shelf_web_socket",
+        "source_span",
+        "stack_trace",
+        "stream_channel",
+        "test_api",
+        "test_core",
+        "typed_data",
+        "web_socket_channel",
+        "webkit_inspection_protocol",
+        "yaml"
+      ]
+    },
+    {
+      "name": "tostore",
+      "version": "3.1.2",
+      "dependencies": [
+        "archive",
+        "ffi",
+        "path",
+        "web"
+      ]
+    },
+    {
       "name": "reactive_ble_platform_interface",
       "version": "5.4.0",
       "dependencies": [
@@ -483,37 +535,6 @@
         "meta",
         "reactive_ble_mobile",
         "reactive_ble_platform_interface"
-      ]
-    },
-    {
-      "name": "test",
-      "version": "1.29.0",
-      "dependencies": [
-        "analyzer",
-        "async",
-        "boolean_selector",
-        "collection",
-        "coverage",
-        "http_multi_server",
-        "io",
-        "matcher",
-        "node_preamble",
-        "package_config",
-        "path",
-        "pool",
-        "shelf",
-        "shelf_packages_handler",
-        "shelf_static",
-        "shelf_web_socket",
-        "source_span",
-        "stack_trace",
-        "stream_channel",
-        "test_api",
-        "test_core",
-        "typed_data",
-        "web_socket_channel",
-        "webkit_inspection_protocol",
-        "yaml"
       ]
     },
     {
@@ -1229,30 +1250,6 @@
       "dependencies": []
     },
     {
-      "name": "plugin_platform_interface",
-      "version": "2.1.8",
-      "dependencies": [
-        "meta"
-      ]
-    },
-    {
-      "name": "functional_data",
-      "version": "1.2.0",
-      "dependencies": [
-        "collection",
-        "meta"
-      ]
-    },
-    {
-      "name": "protobuf",
-      "version": "2.1.0",
-      "dependencies": [
-        "collection",
-        "fixnum",
-        "meta"
-      ]
-    },
-    {
       "name": "webkit_inspection_protocol",
       "version": "1.2.1",
       "dependencies": [
@@ -1357,6 +1354,43 @@
       "dependencies": [
         "source_span",
         "string_scanner"
+      ]
+    },
+    {
+      "name": "ffi",
+      "version": "2.2.0",
+      "dependencies": []
+    },
+    {
+      "name": "archive",
+      "version": "4.2.0",
+      "dependencies": [
+        "path",
+        "posix"
+      ]
+    },
+    {
+      "name": "plugin_platform_interface",
+      "version": "2.1.8",
+      "dependencies": [
+        "meta"
+      ]
+    },
+    {
+      "name": "functional_data",
+      "version": "1.2.0",
+      "dependencies": [
+        "collection",
+        "meta"
+      ]
+    },
+    {
+      "name": "protobuf",
+      "version": "2.1.0",
+      "dependencies": [
+        "collection",
+        "fixnum",
+        "meta"
       ]
     },
     {
@@ -1563,11 +1597,6 @@
       ]
     },
     {
-      "name": "ffi",
-      "version": "2.2.0",
-      "dependencies": []
-    },
-    {
       "name": "permission_handler_platform_interface",
       "version": "4.4.0",
       "dependencies": [
@@ -1771,11 +1800,6 @@
       ]
     },
     {
-      "name": "fixnum",
-      "version": "1.1.1",
-      "dependencies": []
-    },
-    {
       "name": "vm_service",
       "version": "15.0.2",
       "dependencies": []
@@ -1803,6 +1827,20 @@
         "args",
         "yaml"
       ]
+    },
+    {
+      "name": "posix",
+      "version": "6.5.2",
+      "dependencies": [
+        "ffi",
+        "meta",
+        "path"
+      ]
+    },
+    {
+      "name": "fixnum",
+      "version": "1.1.1",
+      "dependencies": []
     },
     {
       "name": "ansicolor",
