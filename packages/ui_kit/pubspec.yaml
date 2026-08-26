@@ -30,6 +30,32 @@ dev_dependencies:
 flutter:
   uses-material-design: true
   fonts:
+    - family: SF Pro Display
+      fonts:
+        - asset: assets/fonts/sf-pro-display/SFPRODISPLAYREGULAR.OTF
+          weight: 400
+        - asset: assets/fonts/sf-pro-display/SFPRODISPLAYMEDIUM.OTF
+          weight: 500
+        - asset: assets/fonts/sf-pro-display/SFPRODISPLAYBOLD.OTF
+          weight: 700
+        - asset: assets/fonts/sf-pro-display/SFPRODISPLAYULTRALIGHTITALIC.OTF
+          weight: 200
+          style: italic
+        - asset: assets/fonts/sf-pro-display/SFPRODISPLAYTHINITALIC.OTF
+          weight: 100
+          style: italic
+        - asset: assets/fonts/sf-pro-display/SFPRODISPLAYLIGHTITALIC.OTF
+          weight: 300
+          style: italic
+        - asset: assets/fonts/sf-pro-display/SFPRODISPLAYSEMIBOLDITALIC.OTF
+          weight: 600
+          style: italic
+        - asset: assets/fonts/sf-pro-display/SFPRODISPLAYHEAVYITALIC.OTF
+          weight: 800
+          style: italic
+        - asset: assets/fonts/sf-pro-display/SFPRODISPLAYBLACKITALIC.OTF
+          weight: 900
+          style: italic
     - family: Inter
       fonts:
         - asset: assets/fonts/Inter.ttf

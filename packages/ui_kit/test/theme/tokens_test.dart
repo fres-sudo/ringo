@@ -41,6 +41,24 @@ void main() {
   });
 
   group('AppTheme', () {
+    test('uses SF Pro Display for the sans-serif typography scale', () {
+      final typography = AppTypography.standard();
+
+      expect(AppTypography.sansFontFamily, 'SF Pro Display');
+      expect(
+        typography.body.fontFamily,
+        endsWith(AppTypography.sansFontFamily),
+      );
+      expect(
+        typography.headingLg.fontFamily,
+        endsWith(AppTypography.sansFontFamily),
+      );
+      expect(
+        AppTheme.light.textTheme.bodyLarge?.fontFamily,
+        endsWith(AppTypography.sansFontFamily),
+      );
+    });
+
     test('light registers all three design-system extensions', () {
       final theme = AppTheme.light;
       expect(theme.extension<AppColors>(), isNotNull);

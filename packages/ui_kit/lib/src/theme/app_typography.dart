@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-/// Named typographic scale (Inter), resolved via `context.typography`.
+/// Named typographic scale (SF Pro Display), resolved via `context.typography`.
 ///
 /// Styles are intentionally **color-agnostic** — they carry size/weight/spacing
 /// only and inherit their color from the surrounding [DefaultTextStyle] /
@@ -53,11 +53,11 @@ class AppTypography extends ThemeExtension<AppTypography> {
   final TextStyle mono;
 
   /// Font family names (bundled as assets in this package — no runtime fetch).
-  static const String sansFontFamily = 'Inter';
+  static const String sansFontFamily = 'SF Pro Display';
   static const String monoFontFamily = 'JetBrainsMono';
   static const String _package = 'ui_kit';
 
-  /// The Inter-based standard scale used by both light and dark themes.
+  /// The SF Pro Display standard scale used by both light and dark themes.
   factory AppTypography.standard() {
     TextStyle sans({
       required double size,

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
+import 'package:onboarding/onboarding.dart';
 import 'package:ring_protocol/ring_protocol.dart';
 import 'package:ring_transport/ring_transport.dart';
 import 'package:ui_kit/ui_kit.dart';
@@ -16,10 +17,16 @@ class RingSetupPage extends StatefulWidget {
     super.key,
     this.connectionManager,
     this.permissionService,
+    this.onBack,
+    this.onSkip,
+    this.onComplete,
   });
 
   final RingConnectionManager? connectionManager;
   final BluetoothPermissionService? permissionService;
+  final VoidCallback? onBack;
+  final VoidCallback? onSkip;
+  final VoidCallback? onComplete;
 
   @override
   State<RingSetupPage> createState() => _RingSetupPageState();
@@ -68,9 +75,10 @@ class _RingSetupPageState extends State<RingSetupPage> {
     if (!mounted) return;
     if (permission != BluetoothPermissionResult.granted) {
       setState(() {
-        _message = permission == BluetoothPermissionResult.permanentlyDenied
-            ? 'Bluetooth access is disabled in system settings.'
-            : 'Bluetooth access is needed to find a compatible ring.';
+        _message =
+            permission == BluetoothPermissionResult.permanentlyDenied
+                ? 'Bluetooth access is disabled in system settings.'
+                : 'Bluetooth access is needed to find a compatible ring.';
         _messageVariant = AppAlertVariant.warning;
       });
       return;
@@ -139,9 +147,10 @@ class _RingSetupPageState extends State<RingSetupPage> {
         _deviceInfo = info;
         _battery = battery;
         _message = diagnostic;
-        _messageVariant = diagnostic == null
-            ? AppAlertVariant.success
-            : AppAlertVariant.warning;
+        _messageVariant =
+            diagnostic == null
+                ? AppAlertVariant.success
+                : AppAlertVariant.warning;
       });
     } on Exception catch (error) {
       await lease?.release();
@@ -200,105 +209,119 @@ class _RingSetupPageState extends State<RingSetupPage> {
 
   Future<void> _openSettings() => _permissions.openSettings();
 
+  Future<void> _handlePrimaryAction() async {
+    if (_connectedRing != null) {
+      widget.onComplete?.call();
+      return;
+    }
+    if (_isScanning) {
+      await _stopScan();
+    } else {
+      await _startScan();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final tokens = context.tokens;
-    return Scaffold(
-      appBar: AppBar(title: const Text('Connect a ring')),
-      body: SafeArea(
-        top: false,
-        child: ListView(
-          padding: EdgeInsets.fromLTRB(
-            tokens.spacing.md,
-            tokens.spacing.lg,
-            tokens.spacing.md,
-            tokens.spacing.xxl,
+    final spacing = context.tokens.spacing;
+    return OnboardingScaffold(
+      onBack: widget.onBack ?? () => Navigator.of(context).maybePop(),
+      trailingHeaderAction:
+          widget.onSkip == null
+              ? null
+              : TextButton(onPressed: widget.onSkip, child: const Text('Skip')),
+      footer: const OnboardingPrivacyNote(),
+      actions: OnboardingActions(
+        backLabel: null,
+        nextLabel:
+            _connectedRing != null
+                ? widget.onComplete == null
+                    ? 'Ring connected'
+                    : 'Get started'
+                : _isScanning
+                ? 'Stop scanning'
+                : 'Find my ring',
+        onNext:
+            _isConnecting ||
+                    (_connectedRing != null && widget.onComplete == null)
+                ? null
+                : _handlePrimaryAction,
+      ),
+      child: Column(
+        children: [
+          const OnboardingGlyph(
+            icon: RingoIcons.bluetooth,
+            semanticLabel: 'Connect your ring',
           ),
-          children: [
-            Text(
-              'Pair a compatible COLMI ring',
-              style: context.typography.headingLg,
-            ),
-            SizedBox(height: tokens.spacing.xs),
-            Text(
-              'Ringo looks for R02 first, then checks R08 and newer models before enabling their diagnostics.',
-              style: context.typography.body.copyWith(
-                color: context.colors.mutedForeground,
-              ),
-            ),
-            SizedBox(height: tokens.spacing.lg),
-            StreamBuilder<BleAdapterStatus>(
-              stream: _manager.adapterStatus,
-              initialData: BleAdapterStatus.unknown,
-              builder: (context, snapshot) => _AdapterStatusCard(
-                status: snapshot.data ?? BleAdapterStatus.unknown,
-              ),
-            ),
-            if (_message != null) ...[
-              SizedBox(height: tokens.spacing.md),
-              AppAlert(
-                title: _messageVariant == AppAlertVariant.success
-                    ? 'Ready'
-                    : 'Connection note',
-                message: _message!,
-                variant: _messageVariant,
-                action: _messageVariant == AppAlertVariant.warning
-                    ? AppButton.ghost(
+          const OnboardingTitle(
+            title: 'Connect your ring',
+            subtitle:
+                'Keep your ring nearby, then we’ll pair it securely\nwith your sleep insights.',
+          ),
+          SizedBox(height: spacing.xxl),
+          StreamBuilder<BleAdapterStatus>(
+            stream: _manager.adapterStatus,
+            initialData: BleAdapterStatus.unknown,
+            builder:
+                (context, snapshot) => _AdapterStatusCard(
+                  status: snapshot.data ?? BleAdapterStatus.unknown,
+                ),
+          ),
+          if (_message != null) ...[
+            SizedBox(height: spacing.md),
+            AppAlert(
+              title:
+                  _messageVariant == AppAlertVariant.success
+                      ? 'Ready'
+                      : 'Connection note',
+              message: _message!,
+              variant: _messageVariant,
+              action:
+                  _messageVariant == AppAlertVariant.warning
+                      ? AppButton.ghost(
                         label: 'Open settings',
                         onPressed: _openSettings,
                         size: AppButtonSize.sm,
                       )
-                    : null,
-              ),
-            ],
-            SizedBox(height: tokens.spacing.lg),
-            AppButton.primary(
-              label: _isScanning ? 'Scanning nearby rings' : 'Find rings',
-              onPressed: _isScanning ? _stopScan : _startScan,
-              isLoading: _isScanning,
-              fullWidth: true,
-              size: AppButtonSize.lg,
-              leadingIcon: Icon(RingoIcons.bluetooth, size: tokens.iconSize.md),
+                      : null,
             ),
-            if (_isScanning) ...[
-              SizedBox(height: tokens.spacing.sm),
-              AppButton.ghost(
-                label: 'Stop scanning',
-                onPressed: _stopScan,
-                fullWidth: true,
-              ),
-            ],
-            SizedBox(height: tokens.spacing.xl),
-            Text('Nearby compatible rings', style: context.typography.titleLg),
-            SizedBox(height: tokens.spacing.sm),
-            if (_rings.isEmpty)
-              _EmptyScanState(isScanning: _isScanning)
-            else
-              ..._rings.values.map(
-                (ring) => Padding(
-                  padding: EdgeInsets.only(bottom: tokens.spacing.sm),
-                  child: _RingCandidateTile(
-                    ring: ring,
-                    isConnecting: _isConnecting,
-                    onTap: () => _connect(ring),
-                  ),
+          ],
+          SizedBox(height: spacing.xl),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: AppText.titleLg('Nearby compatible rings'),
+          ),
+          SizedBox(height: spacing.sm),
+          if (_rings.isEmpty)
+            _EmptyScanState(isScanning: _isScanning)
+          else
+            ..._rings.values.map(
+              (ring) => Padding(
+                padding: EdgeInsets.only(bottom: spacing.sm),
+                child: _RingCandidateTile(
+                  ring: ring,
+                  isConnecting: _isConnecting,
+                  isConnected:
+                      ring.advertisement.deviceId ==
+                      _connectedRing?.advertisement.deviceId,
+                  onTap: () => _connect(ring),
                 ),
               ),
-            if (_lease != null && _connectedRing != null) ...[
-              SizedBox(height: tokens.spacing.xl),
-              _DiagnosticsCard(
-                ring: _connectedRing!,
-                info: _deviceInfo,
-                battery: _battery,
-                rawPackets: _lease!.session.rawPackets,
-                isRefreshingBattery: _isConnecting,
-                isSyncingClock: _isSyncingClock,
-                onRefreshBattery: _refreshBattery,
-                onSetClock: _setClock,
-              ),
-            ],
+            ),
+          if (_lease != null && _connectedRing != null) ...[
+            SizedBox(height: spacing.xl),
+            _DiagnosticsCard(
+              ring: _connectedRing!,
+              info: _deviceInfo,
+              battery: _battery,
+              rawPackets: _lease!.session.rawPackets,
+              isRefreshingBattery: _isConnecting,
+              isSyncingClock: _isSyncingClock,
+              onRefreshBattery: _refreshBattery,
+              onSetClock: _setClock,
+            ),
           ],
-        ),
+        ],
       ),
     );
   }
@@ -385,11 +408,13 @@ class _RingCandidateTile extends StatelessWidget {
   const _RingCandidateTile({
     required this.ring,
     required this.isConnecting,
+    required this.isConnected,
     required this.onTap,
   });
 
   final SupportedRingAdvertisement ring;
   final bool isConnecting;
+  final bool isConnected;
   final VoidCallback onTap;
 
   @override
@@ -400,6 +425,7 @@ class _RingCandidateTile extends StatelessWidget {
       label: 'Connect to ${ring.advertisement.name}',
       child: AppSurface(
         onTap: isConnecting ? null : onTap,
+        bordered: false,
         padding: EdgeInsets.all(context.tokens.spacing.md),
         child: Row(
           children: [
@@ -408,8 +434,8 @@ class _RingCandidateTile extends StatelessWidget {
               height: 48,
               alignment: Alignment.center,
               decoration: BoxDecoration(
-                color: context.colors.secondary,
-                borderRadius: context.tokens.radius.borderMd,
+                color: context.colors.muted,
+                borderRadius: BorderRadius.circular(context.tokens.radius.full),
               ),
               child: Icon(
                 RingoIcons.bluetooth,
@@ -423,7 +449,7 @@ class _RingCandidateTile extends StatelessWidget {
                 children: [
                   Text(
                     ring.advertisement.name,
-                    style: context.typography.titleMd,
+                    style: context.typography.titleLg,
                   ),
                   SizedBox(height: context.tokens.spacing.xxs),
                   Text(
@@ -435,7 +461,12 @@ class _RingCandidateTile extends StatelessWidget {
                 ],
               ),
             ),
-            Icon(Icons.chevron_right, color: context.colors.mutedForeground),
+            Icon(
+              isConnected ? Icons.check_circle : Icons.arrow_forward,
+              color:
+                  isConnected ? context.colors.success : context.colors.primary,
+              size: context.tokens.iconSize.md,
+            ),
           ],
         ),
       ),
@@ -481,9 +512,10 @@ class _DiagnosticsCard extends StatelessWidget {
         SizedBox(height: context.tokens.spacing.lg),
         _DiagnosticRow(
           label: 'Battery',
-          value: battery == null
-              ? 'Not available'
-              : '${battery!.percent}%${battery!.isCharging ? ' · charging' : ''}',
+          value:
+              battery == null
+                  ? 'Not available'
+                  : '${battery!.percent}%${battery!.isCharging ? ' · charging' : ''}',
         ),
         _DiagnosticRow(
           label: 'Model',
@@ -500,15 +532,16 @@ class _DiagnosticsCard extends StatelessWidget {
         SizedBox(height: context.tokens.spacing.md),
         StreamBuilder<List<int>>(
           stream: rawPackets,
-          builder: (context, snapshot) => Text(
-            snapshot.hasData
-                ? 'Latest packet: ${_hex(snapshot.data!)}'
-                : 'Latest packet: waiting for a ring response',
-            style: context.typography.bodySm.copyWith(
-              color: context.colors.mutedForeground,
-              fontFeatures: const [FontFeature.tabularFigures()],
-            ),
-          ),
+          builder:
+              (context, snapshot) => Text(
+                snapshot.hasData
+                    ? 'Latest packet: ${_hex(snapshot.data!)}'
+                    : 'Latest packet: waiting for a ring response',
+                style: context.typography.bodySm.copyWith(
+                  color: context.colors.mutedForeground,
+                  fontFeatures: const [FontFeature.tabularFigures()],
+                ),
+              ),
         ),
         SizedBox(height: context.tokens.spacing.lg),
         AppButton.outline(

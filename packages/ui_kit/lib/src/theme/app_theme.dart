@@ -33,7 +33,8 @@ abstract final class AppTheme {
     required AppTokens tokens,
   }) {
     final typography = AppTypography.standard();
-    // Text styles already carry the bundled Inter family; only apply colors.
+    // Text styles already carry the bundled SF Pro Display family; only apply
+    // colors.
     final textTheme = typography.toTextTheme().apply(
       bodyColor: colors.foreground,
       displayColor: colors.foreground,

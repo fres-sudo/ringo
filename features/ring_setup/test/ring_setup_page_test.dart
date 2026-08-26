@@ -20,8 +20,9 @@ void main() {
       ),
     );
 
-    expect(find.text('Pair a compatible COLMI ring'), findsOneWidget);
-    await tester.tap(find.text('Find rings'));
+    expect(find.text('Connect your ring'), findsOneWidget);
+    expect(find.text('Find my ring'), findsOneWidget);
+    await tester.tap(find.text('Find my ring'));
     await tester.pump();
     adapter.emit(
       const RingAdvertisement(deviceId: 'r02', name: 'R02_341C', rssi: -48),

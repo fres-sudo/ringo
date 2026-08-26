@@ -20,8 +20,19 @@ class _RingoStartPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) => WelcomePage(
-    onContinue: () => Navigator.of(
-      context,
-    ).push(MaterialPageRoute<void>(builder: (_) => const RingSetupPage())),
+    onContinue:
+        () => Navigator.of(context).push(
+          MaterialPageRoute<void>(
+            builder:
+                (_) => OnboardingFlowPage(
+                  onComplete:
+                      () => Navigator.of(context).push(
+                        MaterialPageRoute<void>(
+                          builder: (_) => const RingSetupPage(),
+                        ),
+                      ),
+                ),
+          ),
+        ),
   );
 }
