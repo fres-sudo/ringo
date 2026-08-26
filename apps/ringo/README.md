@@ -1,17 +1,36 @@
-# ringo
+# Ringo app
 
-A new Flutter project.
+Ringo is a local-first health and wellness companion for wearables. It helps
+people turn their wearable data into evidence-backed personal insights and
+small experiments—not just another daily dashboard.
 
-## Getting Started
+The application is designed around a stable shell:
 
-This project is a starting point for a Flutter application.
+- **Today** — wearable status and meaningful changes.
+- **Timeline** — measurements, sleep, activity, and context over time.
+- **Lab** — questions and personal N-of-1 experiments.
+- **Playbook** — evidence-backed habits that work for the individual.
 
-A few resources to get you started if this is your first Flutter project:
+Health data stays on-device by default. Optional AI features follow a BYOK
+model, receive only a user-visible evidence pack, and cannot access raw BLE
+packets or freely query local health data. Ringo provides wellness information,
+not medical advice, diagnosis, or treatment.
 
-- [Learn Flutter](https://docs.flutter.dev/get-started/learn-flutter)
-- [Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Flutter learning resources](https://docs.flutter.dev/reference/learning-resources)
+## Development
 
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+From the workspace root:
+
+```bash
+melos bootstrap
+cd apps/ringo
+fvm flutter run
+```
+
+Use the Flutter version pinned by FVM for Flutter commands.
+
+## Current focus
+
+The first product milestone validates the wearable connection: BLE discovery,
+device metadata and battery reading, raw-packet capture, and reliable syncing
+of the data exposed by the supported device. Protocol parsing remains isolated
+from Flutter and is backed by fixtures and golden tests as support expands.
