@@ -1,0 +1,29 @@
+{
+  "version": "0.2.0",
+  "configurations": [
+    {
+      "name": "Ringo (debug)",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "${workspaceFolder}/apps/ringo",
+      "program": "lib/main.dart",
+      "flutterMode": "debug"
+    },
+    {
+      "name": "Ringo (profile)",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "${workspaceFolder}/apps/ringo",
+      "program": "lib/main.dart",
+      "flutterMode": "profile"
+    },
+    {
+      "name": "Ringo (release)",
+      "request": "launch",
+      "type": "dart",
+      "cwd": "${workspaceFolder}/apps/ringo",
+      "program": "lib/main.dart",
+      "flutterMode": "release"
+    }
+  ]
+}
