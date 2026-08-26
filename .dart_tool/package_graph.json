@@ -10,6 +10,8 @@
     "observer",
     "remote_config",
     "result",
+    "ring_protocol",
+    "ring_transport",
     "ringo",
     "ringo_workspace",
     "ui_kit",
@@ -158,6 +160,28 @@
       ],
       "devDependencies": [
         "test"
+      ]
+    },
+    {
+      "name": "ring_protocol",
+      "version": "0.0.0",
+      "dependencies": [],
+      "devDependencies": [
+        "test"
+      ]
+    },
+    {
+      "name": "ring_transport",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter",
+        "flutter_reactive_ble",
+        "reactive_ble_mobile",
+        "reactive_ble_platform_interface",
+        "ring_protocol"
+      ],
+      "devDependencies": [
+        "flutter_test"
       ]
     },
     {
@@ -394,6 +418,38 @@
         "meta",
         "path",
         "web"
+      ]
+    },
+    {
+      "name": "reactive_ble_platform_interface",
+      "version": "5.4.0",
+      "dependencies": [
+        "collection",
+        "flutter",
+        "functional_data",
+        "meta",
+        "plugin_platform_interface"
+      ]
+    },
+    {
+      "name": "reactive_ble_mobile",
+      "version": "5.4.0",
+      "dependencies": [
+        "flutter",
+        "protobuf",
+        "reactive_ble_platform_interface"
+      ]
+    },
+    {
+      "name": "flutter_reactive_ble",
+      "version": "5.4.0",
+      "dependencies": [
+        "collection",
+        "flutter",
+        "functional_data",
+        "meta",
+        "reactive_ble_mobile",
+        "reactive_ble_platform_interface"
       ]
     },
     {
@@ -1127,6 +1183,30 @@
       "dependencies": []
     },
     {
+      "name": "plugin_platform_interface",
+      "version": "2.1.8",
+      "dependencies": [
+        "meta"
+      ]
+    },
+    {
+      "name": "functional_data",
+      "version": "1.2.0",
+      "dependencies": [
+        "collection",
+        "meta"
+      ]
+    },
+    {
+      "name": "protobuf",
+      "version": "2.1.0",
+      "dependencies": [
+        "collection",
+        "fixnum",
+        "meta"
+      ]
+    },
+    {
       "name": "webkit_inspection_protocol",
       "version": "1.2.1",
       "dependencies": [
@@ -1527,13 +1607,6 @@
       ]
     },
     {
-      "name": "plugin_platform_interface",
-      "version": "2.1.8",
-      "dependencies": [
-        "meta"
-      ]
-    },
-    {
       "name": "path_provider_linux",
       "version": "2.2.1",
       "dependencies": [
@@ -1608,6 +1681,11 @@
       ]
     },
     {
+      "name": "fixnum",
+      "version": "1.1.1",
+      "dependencies": []
+    },
+    {
       "name": "vm_service",
       "version": "15.0.2",
       "dependencies": []
@@ -1661,11 +1739,6 @@
         "meta",
         "path"
       ]
-    },
-    {
-      "name": "fixnum",
-      "version": "1.1.1",
-      "dependencies": []
     }
   ],
   "configVersion": 1

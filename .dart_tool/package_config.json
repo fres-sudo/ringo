@@ -284,6 +284,12 @@
       "languageVersion": "3.9"
     },
     {
+      "name": "flutter_reactive_ble",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/flutter_reactive_ble-5.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
+    },
+    {
       "name": "flutter_svg",
       "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/flutter_svg-2.2.3",
       "packageUri": "lib/",
@@ -318,6 +324,12 @@
       "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/frontend_server_client-4.0.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
+    },
+    {
+      "name": "functional_data",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/functional_data-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.19"
     },
     {
       "name": "glob",
@@ -566,6 +578,12 @@
       "languageVersion": "2.12"
     },
     {
+      "name": "protobuf",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/protobuf-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "provider",
       "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/provider-6.1.5+1",
       "packageUri": "lib/",
@@ -588,6 +606,18 @@
       "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/pubspec_parse-1.5.0",
       "packageUri": "lib/",
       "languageVersion": "3.6"
+    },
+    {
+      "name": "reactive_ble_mobile",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/reactive_ble_mobile-5.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
+      "name": "reactive_ble_platform_interface",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/reactive_ble_platform_interface-5.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "2.17"
     },
     {
       "name": "rxdart",
@@ -994,6 +1024,18 @@
     {
       "name": "result",
       "rootUri": "../packages/result",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
+    },
+    {
+      "name": "ring_protocol",
+      "rootUri": "../packages/ring_protocol",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
+    },
+    {
+      "name": "ring_transport",
+      "rootUri": "../packages/ring_transport",
       "packageUri": "lib/",
       "languageVersion": "3.10"
     },

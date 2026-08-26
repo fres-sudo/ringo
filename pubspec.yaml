@@ -16,6 +16,8 @@ workspace:
   - packages/observer
   - packages/remote_config
   - packages/result
+  - packages/ring_protocol
+  - packages/ring_transport
   - packages/ui_kit
   - packages/utils
 

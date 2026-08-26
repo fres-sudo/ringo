@@ -1,0 +1,23 @@
+name: ring_transport
+description: Flutter BLE transport and shared-session manager for supported Ringo rings.
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: ">=3.10.0 <4.0.0"
+  flutter: ">=3.38.5"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  flutter_reactive_ble: 5.4.0
+  # The 5.5 platform implementation raises Ringo's minimum SDK to Dart 3.11
+  # and Flutter 3.41. Keep all three packages on the compatible 5.4 release.
+  reactive_ble_mobile: 5.4.0
+  reactive_ble_platform_interface: 5.4.0
+  ring_protocol:
+    path: ../ring_protocol
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
