@@ -6,7 +6,10 @@ import 'package:flutter/material.dart';
 /// Wrap the [AutoTabsRouter] builder output with this to make user/operator
 /// info available to all feature page AppBars without prop-drilling.
 class AppShellScope extends InheritedWidget {
-  const AppShellScope({super.key, required super.child});
+  const AppShellScope({super.key, this.openSidebar, required super.child});
+
+  /// Opens the phone navigation drawer when the shell provides one.
+  final VoidCallback? openSidebar;
 
   static AppShellScope? maybeOf(BuildContext context) {
     return context.dependOnInheritedWidgetOfExactType<AppShellScope>();

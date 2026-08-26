@@ -1,9 +1,7 @@
-name: ringo
-description: Ringo Flutter application
+name: ring_setup
+description: Pairing and diagnostics feature for supported Ringo rings.
 publish_to: none
 resolution: workspace
-
-version: 1.0.0+1
 
 environment:
   sdk: '>=3.10.0 <4.0.0'
@@ -12,10 +10,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-  onboarding:
-    path: ../../features/onboarding
-  ring_setup:
-    path: ../../features/ring_setup
+  permission_handler: ^13.0.1
+  ring_protocol:
+    path: ../../packages/ring_protocol
+  ring_transport:
+    path: ../../packages/ring_transport
   ui_kit:
     path: ../../packages/ui_kit
 

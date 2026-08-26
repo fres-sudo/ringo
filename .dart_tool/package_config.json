@@ -536,6 +536,42 @@
       "languageVersion": "3.2"
     },
     {
+      "name": "permission_handler",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/permission_handler-13.0.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.6"
+    },
+    {
+      "name": "permission_handler_android",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/permission_handler_android-14.0.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.6"
+    },
+    {
+      "name": "permission_handler_apple",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/permission_handler_apple-9.6.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.6"
+    },
+    {
+      "name": "permission_handler_html",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/permission_handler_html-0.1.4+1",
+      "packageUri": "lib/",
+      "languageVersion": "3.5"
+    },
+    {
+      "name": "permission_handler_platform_interface",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/permission_handler_platform_interface-4.4.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.6"
+    },
+    {
+      "name": "permission_handler_windows",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/permission_handler_windows-0.2.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.6"
+    },
+    {
       "name": "petitparser",
       "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/petitparser-7.0.1",
       "packageUri": "lib/",
@@ -964,6 +1000,18 @@
     {
       "name": "ringo",
       "rootUri": "../apps/ringo",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
+    },
+    {
+      "name": "onboarding",
+      "rootUri": "../features/onboarding",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
+    },
+    {
+      "name": "ring_setup",
+      "rootUri": "../features/ring_setup",
       "packageUri": "lib/",
       "languageVersion": "3.10"
     },

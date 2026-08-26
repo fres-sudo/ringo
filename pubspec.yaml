@@ -6,6 +6,8 @@ environment:
 
 workspace:
   - apps/ringo
+  - features/onboarding
+  - features/ring_setup
   - packages/app_info
   - packages/bloc
   - packages/design_lint
