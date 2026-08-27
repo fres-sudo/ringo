@@ -5,7 +5,7 @@ import 'package:ui_kit/ui_kit.dart';
 import '../helpers/pump_component.dart';
 
 void main() {
-  testWidgets('highlights the initial item with a visible selection band', (
+  testWidgets('highlights the initial item with a muted selection band', (
     tester,
   ) async {
     for (final brightness in Brightness.values) {
@@ -24,23 +24,32 @@ void main() {
       expect(find.bySemanticsLabel('Height picker'), findsOneWidget);
       expect(find.byType(ListWheelScrollView), findsOneWidget);
 
-      final band = tester.widget<Container>(
+      final band = tester.widget<AnimatedContainer>(
         find.byWidgetPredicate(
           (widget) =>
-              widget is Container &&
-              widget.constraints?.maxHeight == 52 &&
-              widget.decoration is BoxDecoration &&
-              (widget.decoration! as BoxDecoration).border != null,
+              widget is AnimatedContainer && widget.decoration is BoxDecoration,
         ),
       );
       final decoration = band.decoration! as BoxDecoration;
       expect(
         decoration.color,
         brightness == Brightness.light
-            ? AppColors.light.secondary
-            : AppColors.dark.secondary,
+            ? AppColors.light.muted
+            : AppColors.dark.muted,
       );
-      expect((decoration.border! as Border).top.width, greaterThan(1));
+      expect(decoration.border, isNull);
+      expect(
+        find.byWidgetPredicate(
+          (widget) =>
+              widget is AnimatedDefaultTextStyle &&
+              widget.style.fontWeight == FontWeight.w700 &&
+              widget.style.color ==
+                  (brightness == Brightness.light
+                      ? AppColors.light.foreground
+                      : AppColors.dark.foreground),
+        ),
+        findsOneWidget,
+      );
     }
   });
 

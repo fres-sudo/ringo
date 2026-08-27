@@ -82,71 +82,54 @@ class _AppWheelPickerState<T> extends State<AppWheelPicker<T>> {
     final colors = context.colors;
     final tokens = context.tokens;
     final height = widget.itemExtent * widget.visibleItemCount;
-    final animationDuration =
-        MediaQuery.disableAnimationsOf(context)
-            ? Duration.zero
-            : tokens.durations.fast;
+    final animationDuration = MediaQuery.disableAnimationsOf(context)
+        ? Duration.zero
+        : tokens.durations.fast;
 
     return Semantics(
       label: widget.semanticsLabel,
       value: widget.itemLabel(widget.items[_selectedIndex]),
       child: SizedBox(
         height: height,
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            IgnorePointer(
-              child: Container(
+        child: ListWheelScrollView.useDelegate(
+          controller: _controller,
+          itemExtent: widget.itemExtent,
+          perspective: 0.003,
+          useMagnifier: true,
+          magnification: 1.04,
+          physics: const FixedExtentScrollPhysics(),
+          onSelectedItemChanged: _select,
+          childDelegate: ListWheelChildBuilderDelegate(
+            childCount: widget.items.length,
+            builder: (context, index) {
+              final isSelected = index == _selectedIndex;
+              return AnimatedContainer(
+                duration: animationDuration,
+                curve: Curves.easeOut,
                 height: widget.itemExtent,
+                width: double.infinity,
                 margin: EdgeInsets.symmetric(horizontal: tokens.spacing.xs),
-                decoration: BoxDecoration(
-                  color: colors.secondary,
-                  borderRadius: tokens.radius.borderMd,
-                  border: Border.all(
-                    color: colors.ring,
-                    width: tokens.border.thick,
+                alignment: Alignment.center,
+                decoration: isSelected
+                    ? BoxDecoration(color: colors.muted, borderRadius: tokens.radius.borderMd)
+                    : null,
+                child: AnimatedDefaultTextStyle(
+                  duration: animationDuration,
+                  curve: Curves.easeOut,
+                  style: (isSelected ? context.typography.headingSm : context.typography.titleLg)
+                      .copyWith(
+                        color: isSelected ? colors.foreground : colors.mutedForeground,
+                        fontWeight: isSelected ? FontWeight.w700 : FontWeight.w500,
+                      ),
+                  child: AnimatedOpacity(
+                    duration: animationDuration,
+                    opacity: isSelected ? 1 : 0.56,
+                    child: Text(widget.itemLabel(widget.items[index])),
                   ),
                 ),
-              ),
-            ),
-            ListWheelScrollView.useDelegate(
-              controller: _controller,
-              itemExtent: widget.itemExtent,
-              perspective: 0.003,
-              useMagnifier: true,
-              magnification: 1.04,
-              physics: const FixedExtentScrollPhysics(),
-              onSelectedItemChanged: _select,
-              childDelegate: ListWheelChildBuilderDelegate(
-                childCount: widget.items.length,
-                builder: (context, index) {
-                  final isSelected = index == _selectedIndex;
-                  return Center(
-                    child: AnimatedDefaultTextStyle(
-                      duration: animationDuration,
-                      curve: Curves.easeOut,
-                      style: (isSelected
-                              ? context.typography.headingSm
-                              : context.typography.titleLg)
-                          .copyWith(
-                            color:
-                                isSelected
-                                    ? colors.foreground
-                                    : colors.mutedForeground,
-                            fontWeight:
-                                isSelected ? FontWeight.w700 : FontWeight.w500,
-                          ),
-                      child: AnimatedOpacity(
-                        duration: animationDuration,
-                        opacity: isSelected ? 1 : 0.56,
-                        child: Text(widget.itemLabel(widget.items[index])),
-                      ),
-                    ),
-                  );
-                },
-              ),
-            ),
-          ],
+              );
+            },
+          ),
         ),
       ),
     );

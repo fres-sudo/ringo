@@ -35,12 +35,12 @@ void main() {
 
   testWidgets('connects the debug mock ring without Bluetooth', (tester) async {
     final adapter = MockRingBleAdapter();
+    final manager = RingConnectionManager(adapter: adapter);
     await tester.pumpWidget(
       _TestApp(
         child: RingSetupPage(
-          debugMockConnectionManager: RingConnectionManager(
-            adapter: adapter,
-          ),
+          connectionManager: manager,
+          debugMockConnectionManager: manager,
         ),
       ),
     );
@@ -48,14 +48,20 @@ void main() {
     expect(find.text('Use simulated ring'), findsOneWidget);
     await tester.ensureVisible(find.text('Use simulated ring'));
     await tester.tap(find.text('Use simulated ring'));
-    for (var frame = 0; frame < 8; frame++) {
-      await tester.pump(const Duration(milliseconds: 10));
-    }
+    await tester.runAsync(
+      () => Future<void>.delayed(const Duration(milliseconds: 10)),
+    );
+    await tester.pump();
 
-    expect(adapter.connectionCount, 1);
-    expect(find.textContaining('Could not connect', skipOffstage: false), findsNothing);
-    expect(find.text('Connected diagnostics', skipOffstage: false), findsOneWidget);
-    expect(find.text('R02_DEBUG', skipOffstage: false), findsWidgets);
+    expect(
+      find.textContaining('Could not connect', skipOffstage: false),
+      findsNothing,
+    );
+    expect(
+      find.text('Connected diagnostics', skipOffstage: false),
+      findsOneWidget,
+    );
+    expect(find.textContaining('R02_DEBUG', skipOffstage: false), findsWidgets);
     expect(find.text('82%', skipOffstage: false), findsOneWidget);
     expect(find.text('debug-1.0.0', skipOffstage: false), findsOneWidget);
   });

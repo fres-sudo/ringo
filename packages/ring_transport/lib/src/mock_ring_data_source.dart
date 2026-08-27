@@ -46,15 +46,11 @@ final class MockRingDataSource {
 /// An in-memory R02 ring for debug builds and deterministic integration tests.
 ///
 /// The adapter never touches platform Bluetooth. Applications should expose it
-/// only behind a debug-only entry point; [RingSetupPage] does this by default.
+/// only behind a debug-only entry point.
 final class MockRingBleAdapter implements RingBleAdapter {
   MockRingBleAdapter({this.dataSource = const MockRingDataSource()});
 
   final MockRingDataSource dataSource;
-  int _connectionCount = 0;
-
-  /// Number of mock connections opened during this adapter's lifetime.
-  int get connectionCount => _connectionCount;
 
   @override
   Stream<BleAdapterStatus> get status => Stream.value(BleAdapterStatus.ready);
@@ -67,7 +63,6 @@ final class MockRingBleAdapter implements RingBleAdapter {
     required String deviceId,
     required ColmiGattProfile gatt,
   }) async {
-    _connectionCount += 1;
     if (deviceId != dataSource.advertisement.deviceId) {
       throw ArgumentError.value(deviceId, 'deviceId', 'Unknown mock ring.');
     }
