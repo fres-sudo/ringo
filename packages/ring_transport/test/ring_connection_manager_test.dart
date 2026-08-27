@@ -65,6 +65,26 @@ void main() {
       expect((await second).percent, 43);
       await lease.release();
     });
+
+    test('uses the mock data source through a normal ring session', () async {
+      final adapter = MockRingBleAdapter();
+      final manager = RingConnectionManager(adapter: adapter);
+      final discovered = await manager.scan().single;
+      final lease = await manager.connect(discovered);
+
+      final info = await lease.session.readDeviceInfo();
+      final battery = await lease.session.readBattery();
+      final capabilities = await lease.session.setClock(DateTime(2026, 8, 27));
+
+      expect(discovered.profile, same(ColmiDeviceProfiles.r02));
+      expect(info.modelNumber, 'R02');
+      expect(info.manufacturerName, 'Ringo');
+      expect(battery.percent, 82);
+      expect(battery.isCharging, isFalse);
+      expect(capabilities.supportsTemperature, isTrue);
+      expect(capabilities.usesNewSleepProtocol, isTrue);
+      await lease.release();
+    });
   });
 }
 

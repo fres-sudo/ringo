@@ -111,9 +111,9 @@ class AppButton extends StatelessWidget {
   final AppButtonVariant variant;
 
   double get _height => switch (size) {
-    AppButtonSize.sm => 36,
-    AppButtonSize.md => 44,
-    AppButtonSize.lg => 52,
+    AppButtonSize.sm => 40,
+    AppButtonSize.md => 52,
+    AppButtonSize.lg => 60,
   };
 
   double _horizontalPadding(BuildContext context) => switch (size) {
@@ -168,9 +168,10 @@ class AppButton extends StatelessWidget {
     final p = _palette(context);
     final enabled = onPressed != null && !isLoading;
 
-    final textStyle =
-        (size == AppButtonSize.sm ? typography.label : typography.titleMd)
-            .copyWith(color: p.fg);
+    final textStyle = (size == AppButtonSize.sm
+            ? typography.label
+            : typography.titleMd)
+        .copyWith(color: p.fg);
 
     final baseStyle = ButtonStyle(
       minimumSize: WidgetStatePropertyAll(Size(0, _height)),
@@ -206,16 +207,18 @@ class AppButton extends StatelessWidget {
       // primary-button icons invisible.
       iconColor: WidgetStatePropertyAll(p.fg),
       shape: WidgetStatePropertyAll(
-        RoundedRectangleBorder(borderRadius: tokens.radius.borderMd),
+        RoundedRectangleBorder(borderRadius: tokens.radius.borderFull),
       ),
-      side: p.border == null
-          ? null
-          : WidgetStateProperty.resolveWith((states) {
-              final color = states.contains(WidgetState.disabled)
-                  ? colors.border
-                  : p.border!;
-              return BorderSide(color: color, width: tokens.border.hairline);
-            }),
+      side:
+          p.border == null
+              ? null
+              : WidgetStateProperty.resolveWith((states) {
+                final color =
+                    states.contains(WidgetState.disabled)
+                        ? colors.border
+                        : p.border!;
+                return BorderSide(color: color, width: tokens.border.hairline);
+              }),
       elevation: const WidgetStatePropertyAll(0),
     );
 

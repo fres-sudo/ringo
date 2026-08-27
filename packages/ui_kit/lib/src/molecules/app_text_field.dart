@@ -110,8 +110,9 @@ class AppTextField extends StatelessWidget {
       forceErrorText: errorText,
       validator: validator,
       autovalidateMode: autovalidateMode,
-      errorBuilder: (context, message) =>
-          AppText.caption(message, color: colors.destructive),
+      errorBuilder:
+          (context, message) =>
+              AppText.caption(message, color: colors.destructive),
       style: context.typography.body.copyWith(color: colors.foreground),
       cursorColor: colors.ring,
       decoration: InputDecoration(
@@ -129,8 +130,8 @@ class AppTextField extends StatelessWidget {
         suffixText: suffixText,
         suffixStyle: context.typography.body.copyWith(color: colors.foreground),
         contentPadding: EdgeInsets.symmetric(
-          horizontal: tokens.spacing.sm,
-          vertical: tokens.spacing.xs,
+          horizontal: tokens.spacing.md,
+          vertical: tokens.spacing.sm,
         ),
         counterText: '',
         enabledBorder: _border(colors.input, tokens.border.hairline, context),

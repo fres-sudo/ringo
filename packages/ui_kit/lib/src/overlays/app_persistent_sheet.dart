@@ -150,9 +150,10 @@ class _AppPersistentSheetState extends State<AppPersistentSheet> {
         // has to account for the bottom inset too.
         final bottomInset = MediaQuery.paddingOf(context).bottom;
         final peekExtent = widget.peekHeight + bottomInset;
-        _minSize = available <= 0
-            ? 0.1
-            : (peekExtent / available).clamp(0.05, widget.maxSize);
+        _minSize =
+            available <= 0
+                ? 0.1
+                : (peekExtent / available).clamp(0.05, widget.maxSize);
         final expandedHeight = available * widget.maxSize;
 
         return Stack(
@@ -166,9 +167,13 @@ class _AppPersistentSheetState extends State<AppPersistentSheet> {
             NotificationListener<DraggableScrollableNotification>(
               onNotification: (notification) {
                 final span = widget.maxSize - _minSize;
-                _progress.value = span <= 0
-                    ? 0
-                    : ((notification.extent - _minSize) / span).clamp(0.0, 1.0);
+                _progress.value =
+                    span <= 0
+                        ? 0
+                        : ((notification.extent - _minSize) / span).clamp(
+                          0.0,
+                          1.0,
+                        );
                 return false;
               },
               child: DraggableScrollableSheet(
@@ -178,14 +183,18 @@ class _AppPersistentSheetState extends State<AppPersistentSheet> {
                 maxChildSize: widget.maxSize,
                 expand: true,
                 snap: true,
-                builder: (context, scrollController) => _SheetSurface(
-                  progress: _progress,
-                  expandedHeight: expandedHeight,
-                  scrollController: scrollController,
-                  onGrabberTap: _toggle,
-                  peek: widget.peekBuilder(context, _controller),
-                  expanded: widget.expandedBuilder(context, scrollController),
-                ),
+                builder:
+                    (context, scrollController) => _SheetSurface(
+                      progress: _progress,
+                      expandedHeight: expandedHeight,
+                      scrollController: scrollController,
+                      onGrabberTap: _toggle,
+                      peek: widget.peekBuilder(context, _controller),
+                      expanded: widget.expandedBuilder(
+                        context,
+                        scrollController,
+                      ),
+                    ),
               ),
             ),
           ],
@@ -215,27 +224,24 @@ class _SheetSurface extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final colors = context.colors;
+    final radius = BorderRadius.vertical(
+      top: Radius.circular(context.tokens.radius.lg),
+    );
 
     return DecoratedBox(
       decoration: BoxDecoration(
         color: colors.card,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+        borderRadius: radius,
         border: Border(
           top: BorderSide(
             color: colors.border,
             width: context.tokens.border.hairline,
           ),
         ),
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withValues(alpha: 0.12),
-            blurRadius: 16,
-            offset: const Offset(0, -4),
-          ),
-        ],
+        boxShadow: context.tokens.shadows.lg,
       ),
       child: ClipRRect(
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
+        borderRadius: radius,
         child: Stack(
           children: [
             // The expanded panel is hosted inside the sheet's own scroll view

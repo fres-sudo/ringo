@@ -98,8 +98,20 @@ abstract final class AppTheme {
           side: BorderSide(color: colors.border, width: tokens.border.hairline),
         ),
       ),
-      // Dropdowns/menus are the one place depth is allowed — keep it a crisp,
-      // hard-edged offset rather than a soft Material blur.
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: colors.popover,
+        surfaceTintColor: Colors.transparent,
+        elevation: 0,
+        modalElevation: 0,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(tokens.radius.lg),
+          ),
+          side: BorderSide(color: colors.border, width: tokens.border.hairline),
+        ),
+      ),
+      // Floating content gets the same gentle depth as the rest of the
+      // system, rather than a contrasting hard-edged desktop treatment.
       popupMenuTheme: PopupMenuThemeData(
         color: colors.popover,
         surfaceTintColor: Colors.transparent,

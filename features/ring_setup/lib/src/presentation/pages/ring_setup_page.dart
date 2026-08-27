@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:onboarding/onboarding.dart';
 import 'package:ring_protocol/ring_protocol.dart';
@@ -16,6 +17,7 @@ class RingSetupPage extends StatefulWidget {
   const RingSetupPage({
     super.key,
     this.connectionManager,
+    this.debugMockConnectionManager,
     this.permissionService,
     this.onBack,
     this.onSkip,
@@ -23,6 +25,9 @@ class RingSetupPage extends StatefulWidget {
   });
 
   final RingConnectionManager? connectionManager;
+
+  /// Manager used exclusively by the debug-only simulated-ring shortcut.
+  final RingConnectionManager? debugMockConnectionManager;
   final BluetoothPermissionService? permissionService;
   final VoidCallback? onBack;
   final VoidCallback? onSkip;
@@ -34,8 +39,10 @@ class RingSetupPage extends StatefulWidget {
 
 class _RingSetupPageState extends State<RingSetupPage> {
   late final RingConnectionManager _manager;
+  RingConnectionManager? _debugMockManager;
   late final BluetoothPermissionService _permissions;
   late final bool _ownsManager;
+  var _ownsDebugMockManager = false;
   final Map<String, SupportedRingAdvertisement> _rings = {};
 
   StreamSubscription<SupportedRingAdvertisement>? _scanSubscription;
@@ -56,6 +63,12 @@ class _RingSetupPageState extends State<RingSetupPage> {
     _manager =
         widget.connectionManager ??
         RingConnectionManager(adapter: ReactiveBleRingAdapter());
+    if (kDebugMode) {
+      _ownsDebugMockManager = widget.debugMockConnectionManager == null;
+      _debugMockManager =
+          widget.debugMockConnectionManager ??
+          RingConnectionManager(adapter: MockRingBleAdapter());
+    }
     _permissions =
         widget.permissionService ??
         const PermissionHandlerBluetoothPermissionService();
@@ -66,6 +79,7 @@ class _RingSetupPageState extends State<RingSetupPage> {
     unawaited(_scanSubscription?.cancel());
     unawaited(_lease?.release());
     if (_ownsManager) unawaited(_manager.close());
+    if (_ownsDebugMockManager) unawaited(_debugMockManager?.close());
     super.dispose();
   }
 
@@ -111,7 +125,10 @@ class _RingSetupPageState extends State<RingSetupPage> {
     if (mounted) setState(() => _isScanning = false);
   }
 
-  Future<void> _connect(SupportedRingAdvertisement ring) async {
+  Future<void> _connect(
+    SupportedRingAdvertisement ring, {
+    RingConnectionManager? manager,
+  }) async {
     if (_isConnecting) return;
     await _stopScan();
     await _lease?.release();
@@ -127,7 +144,7 @@ class _RingSetupPageState extends State<RingSetupPage> {
 
     RingConnectionLease? lease;
     try {
-      lease = await _manager.connect(ring);
+      lease = await (manager ?? _manager).connect(ring);
       final info = await lease.session.readDeviceInfo();
       RingBattery? battery;
       String? diagnostic;
@@ -208,6 +225,17 @@ class _RingSetupPageState extends State<RingSetupPage> {
   }
 
   Future<void> _openSettings() => _permissions.openSettings();
+
+  Future<void> _connectMockRing() async {
+    if (!kDebugMode || _debugMockManager == null) return;
+    await _connect(
+      SupportedRingAdvertisement(
+        advertisement: const MockRingDataSource().advertisement,
+        profile: ColmiDeviceProfiles.r02,
+      ),
+      manager: _debugMockManager,
+    );
+  }
 
   Future<void> _handlePrimaryAction() async {
     if (_connectedRing != null) {
@@ -308,6 +336,13 @@ class _RingSetupPageState extends State<RingSetupPage> {
                 ),
               ),
             ),
+          if (kDebugMode) ...[
+            SizedBox(height: spacing.md),
+            _DebugMockRingShortcut(
+              isConnecting: _isConnecting,
+              onTap: _connectMockRing,
+            ),
+          ],
           if (_lease != null && _connectedRing != null) ...[
             SizedBox(height: spacing.xl),
             _DiagnosticsCard(
@@ -325,6 +360,40 @@ class _RingSetupPageState extends State<RingSetupPage> {
       ),
     );
   }
+}
+
+class _DebugMockRingShortcut extends StatelessWidget {
+  const _DebugMockRingShortcut({
+    required this.isConnecting,
+    required this.onTap,
+  });
+
+  final bool isConnecting;
+  final VoidCallback onTap;
+
+  @override
+  Widget build(BuildContext context) => AppSurface(
+    padding: EdgeInsets.all(context.tokens.spacing.md),
+    child: Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text('Debug tools', style: context.typography.titleMd),
+        SizedBox(height: context.tokens.spacing.xxs),
+        Text(
+          'Connect a simulated R02 ring without Bluetooth.',
+          style: context.typography.bodySm.copyWith(
+            color: context.colors.mutedForeground,
+          ),
+        ),
+        SizedBox(height: context.tokens.spacing.md),
+        AppButton.outline(
+          label: 'Use simulated ring',
+          onPressed: isConnecting ? null : onTap,
+          fullWidth: true,
+        ),
+      ],
+    ),
+  );
 }
 
 class _AdapterStatusCard extends StatelessWidget {

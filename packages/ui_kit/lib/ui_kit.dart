@@ -61,6 +61,7 @@ export 'src/organisms/app_dialog.dart';
 export 'src/organisms/app_app_bar.dart';
 export 'src/organisms/adaptive_app_bar.dart';
 export 'src/widgets/adaptive_sheet.dart';
+export 'src/widgets/app_wheel_picker.dart';
 export 'src/widgets/app_toast.dart';
 export 'src/widgets/app_snack_bar.dart';
 export 'src/widgets/app_shell/app_shell.dart';

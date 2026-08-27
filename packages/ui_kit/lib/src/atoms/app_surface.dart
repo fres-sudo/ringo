@@ -18,7 +18,7 @@ class AppSurface extends StatelessWidget {
     this.padding,
     this.borderRadius,
     this.bordered = true,
-    this.elevation = AppElevation.none,
+    this.elevation = AppElevation.sm,
     this.width,
     this.height,
     this.onTap,
@@ -55,12 +55,13 @@ class AppSurface extends StatelessWidget {
       decoration: BoxDecoration(
         color: color ?? colors.card,
         borderRadius: radius,
-        border: bordered
-            ? Border.all(
-                color: colors.border,
-                width: context.tokens.border.hairline,
-              )
-            : null,
+        border:
+            bordered
+                ? Border.all(
+                  color: colors.border,
+                  width: context.tokens.border.hairline,
+                )
+                : null,
         boxShadow: _shadow(context),
       ),
       clipBehavior: clipBehavior,

@@ -5,7 +5,7 @@ import 'package:ui_kit/src/theme/context_extensions.dart';
 /// Visual emphasis of an [AppIconButton].
 enum AppIconButtonVariant { primary, secondary, ghost, outline, destructive }
 
-/// Square, icon-only button bound to design tokens.
+/// Circular, icon-only button bound to design tokens.
 ///
 /// Always pass a [tooltip] — it doubles as the accessible label so screen
 /// readers announce the action and the 48dp tap target stays labeled.
@@ -142,25 +142,25 @@ class AppIconButton extends StatelessWidget {
         }
         return null;
       }),
-      shape: WidgetStatePropertyAll(
-        RoundedRectangleBorder(borderRadius: tokens.radius.borderMd),
-      ),
-      side: p.border == null
-          ? null
-          : WidgetStatePropertyAll(
-              BorderSide(color: p.border!, width: tokens.border.hairline),
-            ),
+      shape: WidgetStatePropertyAll(const CircleBorder()),
+      side:
+          p.border == null
+              ? null
+              : WidgetStatePropertyAll(
+                BorderSide(color: p.border!, width: tokens.border.hairline),
+              ),
     );
 
     return IconButton(
       onPressed: enabled ? onPressed : null,
       onLongPress: enabled ? onLongPress : null,
-      icon: isLoading
-          ? AppSpinner(size: tokens.iconSize.md, color: p.fg)
-          : IconTheme.merge(
-              data: IconThemeData(color: p.fg, size: tokens.iconSize.md),
-              child: icon,
-            ),
+      icon:
+          isLoading
+              ? AppSpinner(size: tokens.iconSize.md, color: p.fg)
+              : IconTheme.merge(
+                data: IconThemeData(color: p.fg, size: tokens.iconSize.md),
+                child: icon,
+              ),
       tooltip: tooltip,
       autofocus: autofocus,
       focusNode: focusNode,

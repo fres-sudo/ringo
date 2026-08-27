@@ -91,11 +91,11 @@ class AppSpacing {
     : xxxs = 2,
       xxs = 4,
       xs = 8,
-      sm = 12,
-      md = 16,
-      lg = 20,
-      xl = 28,
-      xxl = 40;
+      sm = 16,
+      md = 20,
+      lg = 28,
+      xl = 36,
+      xxl = 52;
 
   final double xxxs;
   final double xxs;
@@ -176,7 +176,9 @@ class AppRadius {
     required this.full,
   });
 
-  const AppRadius.standard() : xs = 4, sm = 8, md = 12, lg = 16, full = 999;
+  /// Generous geometry is a core part of the Ringo language: compact controls
+  /// are softly rounded, while surfaces are intentionally pillowy.
+  const AppRadius.standard() : xs = 8, sm = 12, md = 20, lg = 28, full = 999;
 
   final double xs;
   final double sm;
@@ -265,36 +267,48 @@ class AppShadows {
   const AppShadows({required this.sm, required this.md, required this.lg});
 
   const AppShadows.light()
-    : sm = const [],
+    : sm = const [
+        BoxShadow(
+          color: Color(0x0A17161B),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
+      ],
       md = const [
         BoxShadow(
-          color: Color(0x33141414),
-          blurRadius: 0,
-          offset: Offset(2, 2),
+          color: Color(0x1217161B),
+          blurRadius: 24,
+          offset: Offset(0, 8),
         ),
       ],
       lg = const [
         BoxShadow(
-          color: Color(0x40141414),
-          blurRadius: 0,
-          offset: Offset(4, 4),
+          color: Color(0x1A17161B),
+          blurRadius: 40,
+          offset: Offset(0, 16),
         ),
       ];
 
   const AppShadows.dark()
-    : sm = const [],
+    : sm = const [
+        BoxShadow(
+          color: Color(0x12000000),
+          blurRadius: 12,
+          offset: Offset(0, 4),
+        ),
+      ],
       md = const [
         BoxShadow(
-          color: Color(0x33FFFFFF),
-          blurRadius: 0,
-          offset: Offset(2, 2),
+          color: Color(0x26000000),
+          blurRadius: 24,
+          offset: Offset(0, 8),
         ),
       ],
       lg = const [
         BoxShadow(
-          color: Color(0x40FFFFFF),
-          blurRadius: 0,
-          offset: Offset(4, 4),
+          color: Color(0x3D000000),
+          blurRadius: 40,
+          offset: Offset(0, 16),
         ),
       ];
 

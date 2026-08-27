@@ -6,7 +6,7 @@ import 'package:ui_kit/src/theme/app_palette.dart';
 /// This is a [ThemeExtension], so the *same* field (e.g. [background]) returns a
 /// different [Color] under light vs dark automatically — components never branch
 /// on [Brightness]. Values are mapped from raw [AppPalette] ramps; the naming
-/// follows the shadcn model (background/foreground pairs, muted, border, ring…).
+/// follows semantic roles (background/foreground pairs, muted, border, ring…).
 ///
 /// ```dart
 /// Container(color: context.colors.card) // resolves per theme, animates on switch
@@ -104,21 +104,21 @@ class AppColors extends ThemeExtension<AppColors> {
 
   /// Light theme token mapping.
   static const AppColors light = AppColors(
-    background: AppPalette.white,
+    background: AppPalette.neutral50,
     foreground: AppPalette.neutral900,
     card: AppPalette.white,
     cardForeground: AppPalette.neutral900,
     popover: AppPalette.white,
     popoverForeground: AppPalette.neutral900,
-    // shadcn "zinc" convention: primary is near-black ink, not a brand hue —
-    // color is reserved for feedback states, not actions.
+    // Near-black ink anchors primary actions; the surrounding palette carries
+    // the warmth and personality of the system.
     primary: AppPalette.neutral900,
     primaryForeground: AppPalette.white,
-    secondary: AppPalette.neutral100,
+    secondary: AppPalette.lavender100,
     secondaryForeground: AppPalette.neutral900,
     muted: AppPalette.neutral100,
     mutedForeground: AppPalette.neutral500,
-    accent: AppPalette.neutral100,
+    accent: AppPalette.mint100,
     accentForeground: AppPalette.neutral900,
     destructive: AppPalette.error500,
     // Feedback states lean on dark, high-contrast text rather than a second
@@ -130,12 +130,9 @@ class AppColors extends ThemeExtension<AppColors> {
     warningForeground: AppPalette.neutral100,
     info: AppPalette.info500,
     infoForeground: AppPalette.neutral100,
-    // A slightly firmer line than a barely-there hairline: structure here is
-    // drawn with borders, not shadows, so it needs to actually read.
-    border: AppPalette.neutral300,
-    input: AppPalette.neutral300,
-    // Distinct from border so a focus ring is still legible against it.
-    ring: AppPalette.neutral400,
+    border: AppPalette.neutral200,
+    input: AppPalette.neutral200,
+    ring: AppPalette.neutral700,
     overlay: Color(0x80000000),
   );
 
@@ -151,11 +148,11 @@ class AppColors extends ThemeExtension<AppColors> {
     // still reads as "the darkest/lightest thing on screen", shadcn-style.
     primary: AppPalette.neutral50,
     primaryForeground: AppPalette.neutral900,
-    secondary: AppPalette.neutral800,
+    secondary: AppPalette.neutral700,
     secondaryForeground: AppPalette.neutral50,
     muted: AppPalette.neutral800,
     mutedForeground: AppPalette.neutral400,
-    accent: AppPalette.neutral700,
+    accent: AppPalette.neutral600,
     accentForeground: AppPalette.neutral50,
     destructive: AppPalette.error500,
     destructiveForeground: AppPalette.neutral100,
@@ -216,7 +213,8 @@ class AppColors extends ThemeExtension<AppColors> {
       accent: accent ?? this.accent,
       accentForeground: accentForeground ?? this.accentForeground,
       destructive: destructive ?? this.destructive,
-      destructiveForeground: destructiveForeground ?? this.destructiveForeground,
+      destructiveForeground:
+          destructiveForeground ?? this.destructiveForeground,
       success: success ?? this.success,
       successForeground: successForeground ?? this.successForeground,
       warning: warning ?? this.warning,
@@ -250,7 +248,10 @@ class AppColors extends ThemeExtension<AppColors> {
       accent: c(accent, other.accent),
       accentForeground: c(accentForeground, other.accentForeground),
       destructive: c(destructive, other.destructive),
-      destructiveForeground: c(destructiveForeground, other.destructiveForeground),
+      destructiveForeground: c(
+        destructiveForeground,
+        other.destructiveForeground,
+      ),
       success: c(success, other.success),
       successForeground: c(successForeground, other.successForeground),
       warning: c(warning, other.warning),

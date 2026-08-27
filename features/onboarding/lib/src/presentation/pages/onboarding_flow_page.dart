@@ -704,11 +704,11 @@ Future<void> _showWheelPicker(
       selected == null
           ? values.length ~/ 2
           : values.indexOf(selected).clamp(0, values.length - 1);
-  final controller = FixedExtentScrollController(initialItem: initialIndex);
   var picked = values[initialIndex];
   final value = await showModalBottomSheet<String>(
     context: context,
     showDragHandle: true,
+    isScrollControlled: true,
     builder:
         (context) => SafeArea(
           child: Padding(
@@ -719,21 +719,12 @@ Future<void> _showWheelPicker(
               children: [
                 AppText.headingSm(title, textAlign: TextAlign.center),
                 SizedBox(height: context.tokens.spacing.md),
-                SizedBox(
-                  height: context.tokens.spacing.xxl * 3,
-                  child: ListWheelScrollView.useDelegate(
-                    controller: controller,
-                    itemExtent: context.tokens.spacing.xxl,
-                    perspective: 0.003,
-                    physics: const FixedExtentScrollPhysics(),
-                    onSelectedItemChanged: (index) => picked = values[index],
-                    childDelegate: ListWheelChildBuilderDelegate(
-                      childCount: values.length,
-                      builder:
-                          (context, index) =>
-                              Center(child: AppText.headingSm(values[index])),
-                    ),
-                  ),
+                AppWheelPicker<String>(
+                  items: values,
+                  initialItem: initialIndex,
+                  itemLabel: (value) => value,
+                  semanticsLabel: '$title picker',
+                  onSelectedItemChanged: (value) => picked = value,
                 ),
                 SizedBox(height: context.tokens.spacing.md),
                 Row(
@@ -758,7 +749,6 @@ Future<void> _showWheelPicker(
           ),
         ),
   );
-  controller.dispose();
   if (value != null) onSaved(value);
 }
 

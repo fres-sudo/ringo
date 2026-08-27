@@ -41,9 +41,10 @@ class AppCalendarPickerView extends StatelessWidget {
     final typography = context.typography;
 
     final config = CalendarDatePicker2Config(
-      calendarType: _isRange
-          ? CalendarDatePicker2Type.range
-          : CalendarDatePicker2Type.single,
+      calendarType:
+          _isRange
+              ? CalendarDatePicker2Type.range
+              : CalendarDatePicker2Type.single,
       rangeBidirectional: _isRange,
       firstDate: firstDate,
       lastDate: lastDate,
@@ -157,13 +158,16 @@ class AppCalendarPickerDialogLayout extends StatelessWidget {
         key: surfaceKey,
         constraints: const BoxConstraints(maxWidth: 390),
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(vertical: tokens.spacing.lg),
+          // Calendar pickers are intentionally the compact exception: their
+          // dense, seven-column grid must remain fully usable on a small
+          // phone, while the rest of the system uses the more generous rhythm.
+          padding: EdgeInsets.symmetric(vertical: tokens.spacing.md),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: tokens.spacing.lg),
+                padding: EdgeInsets.symmetric(horizontal: tokens.spacing.md),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
@@ -173,16 +177,16 @@ class AppCalendarPickerDialogLayout extends StatelessWidget {
                   ],
                 ),
               ),
-              SizedBox(height: tokens.spacing.sm),
+              SizedBox(height: tokens.spacing.xs),
               content,
-              SizedBox(height: tokens.spacing.md),
+              SizedBox(height: tokens.spacing.xs),
               Padding(
-                padding: EdgeInsets.symmetric(horizontal: tokens.spacing.lg),
+                padding: EdgeInsets.symmetric(horizontal: tokens.spacing.md),
                 child: OverflowBar(
                   alignment: MainAxisAlignment.end,
                   overflowAlignment: OverflowBarAlignment.end,
-                  spacing: tokens.spacing.sm,
-                  overflowSpacing: tokens.spacing.sm,
+                  spacing: tokens.spacing.xs,
+                  overflowSpacing: tokens.spacing.xs,
                   children: actions,
                 ),
               ),

@@ -34,9 +34,10 @@ class AdaptiveModalScope extends InheritedWidget {
 
   final AdaptiveModalPresentation presentation;
 
-  static AdaptiveModalPresentation? maybeOf(BuildContext context) => context
-      .dependOnInheritedWidgetOfExactType<AdaptiveModalScope>()
-      ?.presentation;
+  static AdaptiveModalPresentation? maybeOf(BuildContext context) =>
+      context
+          .dependOnInheritedWidgetOfExactType<AdaptiveModalScope>()
+          ?.presentation;
 
   @override
   bool updateShouldNotify(AdaptiveModalScope oldWidget) =>
@@ -120,14 +121,15 @@ class AdaptiveModal {
       isDismissible: isDismissible,
       enableDrag: isDismissible,
       backgroundColor: Colors.transparent,
-      builder: (ctx) => AdaptiveModalScope(
-        presentation: AdaptiveModalPresentation.bottomSheet,
-        child: _BottomSheetSurface(
-          builder: builder,
-          initialSize: initialSize,
-          minSize: minSize,
-        ),
-      ),
+      builder:
+          (ctx) => AdaptiveModalScope(
+            presentation: AdaptiveModalPresentation.bottomSheet,
+            child: _BottomSheetSurface(
+              builder: builder,
+              initialSize: initialSize,
+              minSize: minSize,
+            ),
+          ),
     );
   }
 
@@ -140,31 +142,32 @@ class AdaptiveModal {
     return showDialog<T>(
       context: context,
       barrierDismissible: barrierDismissible,
-      builder: (ctx) => AdaptiveModalScope(
-        presentation: AdaptiveModalPresentation.dialog,
-        child: Dialog(
-          backgroundColor: ctx.colors.popover,
-          surfaceTintColor: Colors.transparent,
-          elevation: 0,
-          clipBehavior: Clip.antiAlias,
-          shape: RoundedRectangleBorder(
-            borderRadius: ctx.tokens.radius.borderLg,
-            side: BorderSide(
-              color: ctx.colors.border,
-              width: ctx.tokens.border.hairline,
+      builder:
+          (ctx) => AdaptiveModalScope(
+            presentation: AdaptiveModalPresentation.dialog,
+            child: Dialog(
+              backgroundColor: ctx.colors.popover,
+              surfaceTintColor: Colors.transparent,
+              elevation: 0,
+              clipBehavior: Clip.antiAlias,
+              shape: RoundedRectangleBorder(
+                borderRadius: ctx.tokens.radius.borderLg,
+                side: BorderSide(
+                  color: ctx.colors.border,
+                  width: ctx.tokens.border.hairline,
+                ),
+              ),
+              child: ConstrainedBox(
+                // Height is bounded so a long form scrolls inside the dialog
+                // rather than overflowing off-screen.
+                constraints: BoxConstraints(
+                  maxWidth: maxWidth,
+                  maxHeight: MediaQuery.sizeOf(ctx).height * 0.85,
+                ),
+                child: builder(ctx, null),
+              ),
             ),
           ),
-          child: ConstrainedBox(
-            // Height is bounded so a long form scrolls inside the dialog
-            // rather than overflowing off-screen.
-            constraints: BoxConstraints(
-              maxWidth: maxWidth,
-              maxHeight: MediaQuery.sizeOf(ctx).height * 0.85,
-            ),
-            child: builder(ctx, null),
-          ),
-        ),
-      ),
     );
   }
 
@@ -182,20 +185,23 @@ class AdaptiveModal {
       transitionDuration: const Duration(milliseconds: 300),
       transitionBuilder: (ctx, animation, secondaryAnimation, child) {
         return SlideTransition(
-          position: Tween<Offset>(begin: const Offset(1, 0), end: Offset.zero)
-              .animate(
-                CurvedAnimation(parent: animation, curve: Curves.easeInOut),
-              ),
+          position: Tween<Offset>(
+            begin: const Offset(1, 0),
+            end: Offset.zero,
+          ).animate(
+            CurvedAnimation(parent: animation, curve: Curves.easeInOut),
+          ),
           child: child,
         );
       },
-      pageBuilder: (ctx, _, _) => AdaptiveModalScope(
-        presentation: AdaptiveModalPresentation.sideSheet,
-        child: Align(
-          alignment: Alignment.centerRight,
-          child: _SideSheetSurface(width: width, builder: builder),
-        ),
-      ),
+      pageBuilder:
+          (ctx, _, _) => AdaptiveModalScope(
+            presentation: AdaptiveModalPresentation.sideSheet,
+            child: Align(
+              alignment: Alignment.centerRight,
+              child: _SideSheetSurface(width: width, builder: builder),
+            ),
+          ),
     );
   }
 }
@@ -217,9 +223,10 @@ class _BottomSheetSurface extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     const maxSize = 0.96;
-    final snapSizes = <double>{
-      if (initialSize > minSize && initialSize < maxSize) initialSize,
-    }.toList();
+    final snapSizes =
+        <double>{
+          if (initialSize > minSize && initialSize < maxSize) initialSize,
+        }.toList();
 
     return DraggableScrollableSheet(
       initialChildSize: initialSize,
@@ -228,20 +235,25 @@ class _BottomSheetSurface extends StatelessWidget {
       expand: false,
       snap: true,
       snapSizes: snapSizes,
-      builder: (ctx, scrollController) => DecoratedBox(
-        decoration: BoxDecoration(
-          color: ctx.colors.popover,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-          border: Border.all(
-            color: ctx.colors.border,
-            width: ctx.tokens.border.hairline,
+      builder:
+          (ctx, scrollController) => DecoratedBox(
+            decoration: BoxDecoration(
+              color: ctx.colors.popover,
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(ctx.tokens.radius.lg),
+              ),
+              border: Border.all(
+                color: ctx.colors.border,
+                width: ctx.tokens.border.hairline,
+              ),
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.vertical(
+                top: Radius.circular(ctx.tokens.radius.lg),
+              ),
+              child: builder(ctx, scrollController),
+            ),
           ),
-        ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(16)),
-          child: builder(ctx, scrollController),
-        ),
-      ),
     );
   }
 }
@@ -257,19 +269,12 @@ class _SideSheetSurface extends StatelessWidget {
     return SafeArea(
       left: false,
       child: DecoratedBox(
-        // Depth reads as a crisp hard-edged offset, not a soft Material blur.
-        decoration: BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.black.withValues(alpha: 0.15),
-              blurRadius: 0,
-              offset: const Offset(-4, 0),
-            ),
-          ],
-        ),
+        decoration: BoxDecoration(boxShadow: context.tokens.shadows.lg),
         child: Material(
           elevation: 0,
-          borderRadius: const BorderRadius.horizontal(left: Radius.circular(6)),
+          borderRadius: BorderRadius.horizontal(
+            left: Radius.circular(context.tokens.radius.lg),
+          ),
           clipBehavior: Clip.antiAlias,
           child: SizedBox(
             width: width,

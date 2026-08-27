@@ -14,19 +14,27 @@ abstract final class AppPalette {
   static const Color black = Color(0xff000000);
   static const Color transparent = Color(0x00000000);
 
-  // Neutral (gray)
+  // Porcelain neutrals. These deliberately lean warm so the UI feels calm and
+  // tactile instead of clinical when paired with the soft colour surfaces.
   static const Color neutral0 = white;
-  static const Color neutral50 = Color(0xffFAFAFA);
-  static const Color neutral100 = Color(0xffF7F7F7);
-  static const Color neutral200 = Color(0xffE5E5E5);
-  static const Color neutral300 = Color(0xffD7D7D7);
-  static const Color neutral400 = Color(0xffA3A3A3);
-  static const Color neutral500 = Color(0xff757575);
-  static const Color neutral600 = Color(0xff525252);
-  static const Color neutral700 = Color(0xff464646);
-  static const Color neutral800 = Color(0xff282828);
-  static const Color neutral900 = Color(0xff141414);
-  static const Color neutral950 = Color(0xff0A0A0A);
+  static const Color neutral50 = Color(0xffFAF9FC);
+  static const Color neutral100 = Color(0xffF4F2F8);
+  static const Color neutral200 = Color(0xffE9E6EE);
+  static const Color neutral300 = Color(0xffD9D5E0);
+  static const Color neutral400 = Color(0xffAAA6B1);
+  static const Color neutral500 = Color(0xff77737F);
+  static const Color neutral600 = Color(0xff5A5660);
+  static const Color neutral700 = Color(0xff403D45);
+  static const Color neutral800 = Color(0xff29272D);
+  static const Color neutral900 = Color(0xff17161B);
+  static const Color neutral950 = Color(0xff0D0C10);
+
+  // Soft wellness surfaces. They are used as low-emphasis fills, never as the
+  // sole carrier of meaning, so their treatment remains accessible in either
+  // colour scheme.
+  static const Color lavender100 = Color(0xffE5E9FF);
+  static const Color mint100 = Color(0xffD9EFEC);
+  static const Color peach100 = Color(0xffF7E6DD);
 
   // Success
   static const Color success100 = Color(0xffDEF7EC);
