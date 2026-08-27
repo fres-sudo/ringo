@@ -16,8 +16,6 @@ dependencies:
     sdk: flutter
   onboarding:
     path: ../../features/onboarding
-  ring_setup:
-    path: ../../features/ring_setup
   ui_kit:
     path: ../../packages/ui_kit
 

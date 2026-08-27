@@ -11,6 +11,11 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^2.2.3
+  permission_handler: ^13.0.1
+  ring_protocol:
+    path: ../../packages/ring_protocol
+  ring_transport:
+    path: ../../packages/ring_transport
   ui_kit:
     path: ../../packages/ui_kit
 

@@ -1,7 +1,6 @@
 import 'package:app_shell/app_shell.dart';
 import 'package:flutter/material.dart';
 import 'package:onboarding/onboarding.dart';
-import 'package:ring_setup/ring_setup.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 class RingoApp extends StatelessWidget {
@@ -47,19 +46,9 @@ class _RingoStartPage extends StatelessWidget {
             builder:
                 (_) => OnboardingFlowPage(
                   onComplete:
-                      () => Navigator.of(context).push(
-                        MaterialPageRoute<void>(
-                          builder:
-                              (_) => RingSetupPage(
-                                onComplete:
-                                    () => Navigator.of(
-                                      context,
-                                    ).pushNamedAndRemoveUntil(
-                                      AppRoutes.dashboard,
-                                      (route) => false,
-                                    ),
-                              ),
-                        ),
+                      () => Navigator.of(context).pushNamedAndRemoveUntil(
+                        AppRoutes.dashboard,
+                        (route) => false,
                       ),
                 ),
           ),

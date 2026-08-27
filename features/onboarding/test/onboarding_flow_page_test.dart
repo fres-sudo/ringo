@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:onboarding/onboarding.dart';
+import 'package:ring_transport/ring_transport.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 void main() {
@@ -58,5 +59,47 @@ void main() {
           .isSelected,
       Tristate.isTrue,
     );
+  });
+
+  testWidgets('uses real ring pairing as the final onboarding step', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(375, 1024);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    final manager = RingConnectionManager(adapter: MockRingBleAdapter());
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: AppTheme.light,
+        home: OnboardingFlowPage(
+          ringConnectionManager: manager,
+          debugMockConnectionManager: manager,
+        ),
+      ),
+    );
+
+    for (final label in ['Birth year', 'Weight', 'Height']) {
+      await tester.tap(find.text(label));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Save'));
+      await tester.pumpAndSettle();
+    }
+    await tester.tap(find.text('Sex'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Female'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Next'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Skip'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Skip'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Continue'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Connect your ring'), findsOneWidget);
+    expect(find.text('Find my ring'), findsOneWidget);
+    expect(find.text('Smartwatch'), findsNothing);
   });
 }

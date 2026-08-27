@@ -12,7 +12,6 @@
     "remote_config",
     "result",
     "ring_protocol",
-    "ring_setup",
     "ring_transport",
     "ringo",
     "ringo_workspace",
@@ -36,7 +35,6 @@
         "app_shell",
         "flutter",
         "onboarding",
-        "ring_setup",
         "ui_kit"
       ],
       "devDependencies": [
@@ -50,19 +48,6 @@
       "dependencies": [
         "flutter",
         "flutter_svg",
-        "ui_kit"
-      ],
-      "devDependencies": [
-        "flutter_lints",
-        "flutter_test"
-      ]
-    },
-    {
-      "name": "ring_setup",
-      "version": "0.0.0",
-      "dependencies": [
-        "flutter",
-        "onboarding",
         "permission_handler",
         "ring_protocol",
         "ring_transport",
