@@ -33,6 +33,7 @@
       "name": "ringo",
       "version": "1.0.0+1",
       "dependencies": [
+        "app_shell",
         "flutter",
         "onboarding",
         "ring_setup",
@@ -669,6 +670,18 @@
         "permission_handler_html",
         "permission_handler_platform_interface",
         "permission_handler_windows"
+      ]
+    },
+    {
+      "name": "app_shell",
+      "version": "0.0.0",
+      "dependencies": [
+        "dashboard",
+        "exercise",
+        "flutter",
+        "food_tracking",
+        "profile",
+        "sleep"
       ]
     },
     {
@@ -1639,6 +1652,46 @@
       "dependencies": [
         "flutter",
         "permission_handler_platform_interface"
+      ]
+    },
+    {
+      "name": "sleep",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter",
+        "ui_kit"
+      ]
+    },
+    {
+      "name": "profile",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter",
+        "ui_kit"
+      ]
+    },
+    {
+      "name": "food_tracking",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter",
+        "ui_kit"
+      ]
+    },
+    {
+      "name": "exercise",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter",
+        "ui_kit"
+      ]
+    },
+    {
+      "name": "dashboard",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter",
+        "ui_kit"
       ]
     },
     {

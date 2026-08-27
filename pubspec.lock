@@ -41,6 +41,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "2.0.3"
+  app_shell:
+    dependency: transitive
+    description:
+      path: "features/app_shell"
+      relative: true
+    source: path
+    version: "0.0.0"
   archive:
     dependency: transitive
     description:
@@ -321,6 +328,20 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "3.1.3"
+  dashboard:
+    dependency: transitive
+    description:
+      path: "features/dashboard"
+      relative: true
+    source: path
+    version: "0.0.0"
+  exercise:
+    dependency: transitive
+    description:
+      path: "features/exercise"
+      relative: true
+    source: path
+    version: "0.0.0"
   fake_async:
     dependency: transitive
     description:
@@ -404,6 +425,13 @@ packages:
     dependency: transitive
     description: flutter
     source: sdk
+    version: "0.0.0"
+  food_tracking:
+    dependency: transitive
+    description:
+      path: "features/food_tracking"
+      relative: true
+    source: path
     version: "0.0.0"
   freezed:
     dependency: transitive
@@ -813,6 +841,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "5.0.5"
+  profile:
+    dependency: transitive
+    description:
+      path: "features/profile"
+      relative: true
+    source: path
+    version: "0.0.0"
   prompts:
     dependency: transitive
     description:
@@ -1002,6 +1037,13 @@ packages:
       url: "https://pub.dev"
     source: hosted
     version: "4.11.0"
+  sleep:
+    dependency: transitive
+    description:
+      path: "features/sleep"
+      relative: true
+    source: path
+    version: "0.0.0"
   source_gen:
     dependency: transitive
     description:

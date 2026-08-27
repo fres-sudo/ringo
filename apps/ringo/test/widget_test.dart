@@ -27,4 +27,39 @@ void main() {
 
     expect(find.text('Profile Setup'), findsOneWidget);
   });
+
+  testWidgets('opens each primary destination from its named route', (
+    WidgetTester tester,
+  ) async {
+    const destinations = [
+      ('/dashboard', 'Dashboard coming soon'),
+      ('/sleep', 'Sleep coming soon'),
+      ('/exercise', 'Exercise coming soon'),
+      ('/food-tracking', 'Food tracking coming soon'),
+      ('/profile', 'Profile coming soon'),
+    ];
+
+    for (final (route, placeholder) in destinations) {
+      await tester.pumpWidget(
+        KeyedSubtree(
+          key: ValueKey(route),
+          child: RingoApp(initialRoute: route),
+        ),
+      );
+
+      expect(find.text(placeholder), findsOneWidget);
+      expect(find.byType(NavigationDestination), findsNWidgets(5));
+    }
+  });
+
+  testWidgets('switches primary destinations from the bottom navigation', (
+    WidgetTester tester,
+  ) async {
+    await tester.pumpWidget(const RingoApp(initialRoute: '/dashboard'));
+
+    await tester.tap(find.text('Profile'));
+    await tester.pumpAndSettle();
+
+    expect(find.text('Profile coming soon'), findsOneWidget);
+  });
 }

@@ -1,0 +1,27 @@
+name: app_shell
+description: Primary navigation shell for the Ringo application.
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: '>=3.10.0 <4.0.0'
+  flutter: '>=3.38.5'
+
+dependencies:
+  dashboard:
+    path: ../dashboard
+  exercise:
+    path: ../exercise
+  flutter:
+    sdk: flutter
+  food_tracking:
+    path: ../food_tracking
+  profile:
+    path: ../profile
+  sleep:
+    path: ../sleep
+
+dev_dependencies:
+  flutter_lints: ^6.0.0
+  flutter_test:
+    sdk: flutter
