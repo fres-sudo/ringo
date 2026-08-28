@@ -1,21 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:sleep_analysis/sleep_analysis.dart';
 import 'package:ui_kit/ui_kit.dart';
 
+import '../controllers/sleep_controller.dart';
+
 /// Destination for locally analysed sleep history and insights.
 class SleepPage extends StatelessWidget {
-  const SleepPage({super.key, this.analysis});
-
-  /// The latest locally stored analysis. A sync repository will supply this
-  /// once COLMI sleep history is decoded for a supported firmware.
-  final SleepAnalysis? analysis;
+  const SleepPage({super.key});
 
   @override
   Widget build(BuildContext context) {
-    final sessions = analysis?.sessions;
-    final latestSession = sessions == null || sessions.isEmpty
-        ? null
-        : sessions.last;
+    final controller = context.watch<SleepController>();
+    final latestSession = controller.latestSession;
     return Scaffold(
       appBar: AppBar(title: const Text('Sleep')),
       body: Center(

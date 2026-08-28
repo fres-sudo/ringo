@@ -33,6 +33,7 @@ void main() {
     final session = analysis.sessions.single;
     expect(analysis.algorithmVersion, ColmiSleepHistoryMapper.algorithmVersion);
     expect(analysis.source, SleepStageSource.ringReported);
+    expect(analysis.generatedAt, DateTime.utc(2026, 8, 28, 14));
     expect(session.startsAt, DateTime(2026, 8, 26, 23, 30).toUtc());
     expect(session.endsAt, DateTime(2026, 8, 27, 7).toUtc());
     expect(session.stages.map((stage) => stage.stage), [

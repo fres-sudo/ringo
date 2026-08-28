@@ -22,6 +22,7 @@ final class ColmiSleepHistoryMapper {
       algorithmVersion: algorithmVersion,
       source: SleepStageSource.ringReported,
       sessions: sessions,
+      generatedAt: localNow.toUtc(),
     );
   }
 
@@ -53,10 +54,12 @@ final class ColmiSleepHistoryMapper {
     }
 
     return SleepSession(
+      id: 'colmi-${startsAt.microsecondsSinceEpoch}',
       startsAt: startsAt,
       endsAt: endsAt,
       source: SleepStageSource.ringReported,
       stages: stages,
+      timeZoneOffset: nightMidnight.timeZoneOffset,
     );
   }
 

@@ -33,6 +33,7 @@ final class SleepAnalysisEngine {
         algorithmVersion: algorithmVersion,
         source: SleepStageSource.inferred,
         sessions: const [],
+        generatedAt: DateTime.now().toUtc(),
       );
     }
 
@@ -64,6 +65,7 @@ final class SleepAnalysisEngine {
       if (endsAt.difference(startsAt) < _minimumSessionDuration) return;
       sessions.add(
         SleepSession(
+          id: 'inferred-${startsAt.microsecondsSinceEpoch}',
           startsAt: startsAt,
           endsAt: endsAt,
           source: SleepStageSource.inferred,
@@ -125,6 +127,7 @@ final class SleepAnalysisEngine {
       algorithmVersion: algorithmVersion,
       source: SleepStageSource.inferred,
       sessions: sessions,
+      generatedAt: DateTime.now().toUtc(),
     );
   }
 

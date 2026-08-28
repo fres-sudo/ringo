@@ -16,6 +16,7 @@
     "ring_transport",
     "ringo",
     "ringo_workspace",
+    "sleep",
     "sleep_analysis",
     "storage_tostore",
     "ui_kit",
@@ -37,9 +38,28 @@
         "app_shell",
         "flutter",
         "onboarding",
+        "path_provider",
+        "provider",
+        "ring_transport",
+        "sleep",
+        "storage_tostore",
+        "ui_kit"
+      ],
+      "devDependencies": [
+        "flutter_lints",
+        "flutter_test"
+      ]
+    },
+    {
+      "name": "sleep",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter",
+        "provider",
         "ring_sleep_sync",
         "ring_transport",
         "sleep_analysis",
+        "storage_tostore",
         "ui_kit"
       ],
       "devDependencies": [
@@ -226,6 +246,7 @@
       "name": "sleep_analysis",
       "version": "0.0.0",
       "dependencies": [
+        "equatable",
         "ffi"
       ],
       "devDependencies": [
@@ -525,6 +546,14 @@
       "dependencies": []
     },
     {
+      "name": "equatable",
+      "version": "2.1.0",
+      "dependencies": [
+        "collection",
+        "meta"
+      ]
+    },
+    {
       "name": "reactive_ble_platform_interface",
       "version": "5.4.0",
       "dependencies": [
@@ -690,6 +719,18 @@
       ]
     },
     {
+      "name": "path_provider",
+      "version": "2.1.5",
+      "dependencies": [
+        "flutter",
+        "path_provider_android",
+        "path_provider_foundation",
+        "path_provider_linux",
+        "path_provider_platform_interface",
+        "path_provider_windows"
+      ]
+    },
+    {
       "name": "app_shell",
       "version": "0.0.0",
       "dependencies": [
@@ -698,8 +739,7 @@
         "flutter",
         "food_tracking",
         "profile",
-        "sleep",
-        "sleep_analysis"
+        "sleep"
       ]
     },
     {
@@ -1230,18 +1270,6 @@
       ]
     },
     {
-      "name": "path_provider",
-      "version": "2.1.5",
-      "dependencies": [
-        "flutter",
-        "path_provider_android",
-        "path_provider_foundation",
-        "path_provider_linux",
-        "path_provider_platform_interface",
-        "path_provider_windows"
-      ]
-    },
-    {
       "name": "vector_graphics_compiler",
       "version": "1.1.19",
       "dependencies": [
@@ -1668,12 +1696,49 @@
       ]
     },
     {
-      "name": "sleep",
-      "version": "0.0.0",
+      "name": "path_provider_windows",
+      "version": "2.3.0",
+      "dependencies": [
+        "ffi",
+        "flutter",
+        "path",
+        "path_provider_platform_interface"
+      ]
+    },
+    {
+      "name": "path_provider_platform_interface",
+      "version": "2.1.2",
       "dependencies": [
         "flutter",
-        "sleep_analysis",
-        "ui_kit"
+        "platform",
+        "plugin_platform_interface"
+      ]
+    },
+    {
+      "name": "path_provider_linux",
+      "version": "2.2.1",
+      "dependencies": [
+        "ffi",
+        "flutter",
+        "path",
+        "path_provider_platform_interface",
+        "xdg_directories"
+      ]
+    },
+    {
+      "name": "path_provider_foundation",
+      "version": "2.5.1",
+      "dependencies": [
+        "flutter",
+        "path_provider_platform_interface"
+      ]
+    },
+    {
+      "name": "path_provider_android",
+      "version": "2.2.22",
+      "dependencies": [
+        "flutter",
+        "path_provider_platform_interface"
       ]
     },
     {
@@ -1775,36 +1840,6 @@
       "dependencies": []
     },
     {
-      "name": "path_provider_windows",
-      "version": "2.3.0",
-      "dependencies": [
-        "ffi",
-        "flutter",
-        "path",
-        "path_provider_platform_interface"
-      ]
-    },
-    {
-      "name": "path_provider_platform_interface",
-      "version": "2.1.2",
-      "dependencies": [
-        "flutter",
-        "platform",
-        "plugin_platform_interface"
-      ]
-    },
-    {
-      "name": "path_provider_linux",
-      "version": "2.2.1",
-      "dependencies": [
-        "ffi",
-        "flutter",
-        "path",
-        "path_provider_platform_interface",
-        "xdg_directories"
-      ]
-    },
-    {
       "name": "web_socket",
       "version": "1.0.1",
       "dependencies": [
@@ -1841,22 +1876,6 @@
         "path",
         "pool",
         "pub_semver"
-      ]
-    },
-    {
-      "name": "path_provider_foundation",
-      "version": "2.5.1",
-      "dependencies": [
-        "flutter",
-        "path_provider_platform_interface"
-      ]
-    },
-    {
-      "name": "path_provider_android",
-      "version": "2.2.22",
-      "dependencies": [
-        "flutter",
-        "path_provider_platform_interface"
       ]
     },
     {

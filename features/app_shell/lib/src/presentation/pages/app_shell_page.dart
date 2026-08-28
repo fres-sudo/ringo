@@ -4,18 +4,15 @@ import 'package:flutter/material.dart';
 import 'package:food_tracking/food_tracking.dart';
 import 'package:profile/profile.dart';
 import 'package:sleep/sleep.dart';
-import 'package:sleep_analysis/sleep_analysis.dart';
 
 /// Hosts the application's five primary destinations and bottom navigation.
 class AppShellPage extends StatefulWidget {
   const AppShellPage({
     super.key,
     this.initialDestination = AppDestination.dashboard,
-    this.sleepAnalysis,
   });
 
   final AppDestination initialDestination;
-  final SleepAnalysis? sleepAnalysis;
 
   @override
   State<AppShellPage> createState() => _AppShellPageState();
@@ -36,7 +33,7 @@ class _AppShellPageState extends State<AppShellPage> {
       index: _destination.index,
       children: [
         DashboardPage(),
-        SleepPage(analysis: widget.sleepAnalysis),
+        const SleepPage(),
         ExercisePage(),
         FoodTrackingPage(),
         ProfilePage(),

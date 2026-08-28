@@ -254,6 +254,12 @@
       "languageVersion": "3.10"
     },
     {
+      "name": "equatable",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/equatable-2.1.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
+    },
+    {
       "name": "exercise",
       "rootUri": "../features/exercise",
       "packageUri": "lib/",
@@ -794,12 +800,6 @@
       "languageVersion": "3.3"
     },
     {
-      "name": "sleep",
-      "rootUri": "../features/sleep",
-      "packageUri": "lib/",
-      "languageVersion": "3.10"
-    },
-    {
       "name": "source_gen",
       "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/source_gen-4.1.1",
       "packageUri": "lib/",
@@ -1054,6 +1054,12 @@
     {
       "name": "ringo",
       "rootUri": "../apps/ringo",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
+    },
+    {
+      "name": "sleep",
+      "rootUri": "../features/sleep",
       "packageUri": "lib/",
       "languageVersion": "3.10"
     },

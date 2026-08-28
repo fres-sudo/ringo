@@ -10,8 +10,15 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  provider: ^6.1.5+1
+  ring_sleep_sync:
+    path: ../../packages/ring_sleep_sync
+  ring_transport:
+    path: ../../packages/ring_transport
   sleep_analysis:
     path: ../../packages/sleep_analysis
+  storage_tostore:
+    path: ../../packages/storage_tostore
   ui_kit:
     path: ../../packages/ui_kit
 
