@@ -19,6 +19,7 @@ workspace:
   - packages/result
   - packages/ring_protocol
   - packages/ring_transport
+  - packages/sleep_analysis
   - packages/storage_tostore
   - packages/ui_kit
   - packages/utils

@@ -46,8 +46,10 @@ abstract interface class RingBleAdapter {
 abstract interface class RingBleConnection {
   Stream<RingConnectionState> get states;
   Stream<List<int>> get controlPackets;
+  Stream<List<int>> get bigDataPackets;
 
   Future<void> writeControl(List<int> packet);
+  Future<void> writeBigData(List<int> packet);
 
   Future<List<int>> readCharacteristic({
     required String serviceUuid,

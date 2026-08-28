@@ -37,6 +37,37 @@ android {
             signingConfig = signingConfigs.getByName("debug")
         }
     }
+
+    sourceSets {
+        getByName("main").jniLibs.srcDir(
+            layout.buildDirectory.dir("generated/ringoSleepCore/jniLibs"),
+        )
+    }
+}
+
+val ringoSleepCoreDirectory = rootProject.file("../../../native/ringo_sleep_core")
+val ringoSleepCoreOutput = layout.buildDirectory.dir("generated/ringoSleepCore/jniLibs")
+
+val buildRingoSleepCore by tasks.registering(Exec::class) {
+    group = "build"
+    description = "Builds the Rust sleep-analysis core for Android ABIs."
+    workingDir(ringoSleepCoreDirectory)
+    inputs.dir(ringoSleepCoreDirectory)
+    outputs.dir(ringoSleepCoreOutput)
+    commandLine(
+        "cargo",
+        "ndk",
+        "-t", "arm64-v8a",
+        "-t", "armeabi-v7a",
+        "-t", "x86_64",
+        "-o", ringoSleepCoreOutput.get().asFile.absolutePath,
+        "build",
+        "--release",
+    )
+}
+
+tasks.named("preBuild") {
+    dependsOn(buildRingoSleepCore)
 }
 
 flutter {

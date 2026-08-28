@@ -33,7 +33,7 @@ void main() {
   ) async {
     const destinations = [
       ('/dashboard', 'Dashboard coming soon'),
-      ('/sleep', 'Sleep coming soon'),
+      ('/sleep', 'No sleep data yet'),
       ('/exercise', 'Exercise coming soon'),
       ('/food-tracking', 'Food tracking coming soon'),
       ('/profile', 'Profile coming soon'),

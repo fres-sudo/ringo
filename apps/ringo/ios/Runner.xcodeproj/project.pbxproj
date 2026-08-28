@@ -194,6 +194,7 @@
 			buildConfigurationList = 97C147051CF9000F007C117D /* Build configuration list for PBXNativeTarget "Runner" */;
 			buildPhases = (
 				F3AF0E36E323418263072C23 /* [CP] Check Pods Manifest.lock */,
+				F2B8E4B1B90B4FDFA2E959B1 /* Build Ringo sleep core */,
 				9740EEB61CF901F6004384FC /* Run Script */,
 				97C146EA1CF9000F007C117D /* Sources */,
 				97C146EB1CF9000F007C117D /* Frameworks */,
@@ -273,6 +274,23 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		F2B8E4B1B90B4FDFA2E959B1 /* Build Ringo sleep core */ = {
+			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Build Ringo sleep core";
+			outputPaths = (
+				"$(PROJECT_DIR)/Runner/Native/$(PLATFORM_NAME)/libringo_sleep_core.a",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -e\nRUST_CRATE=\"${PROJECT_DIR}/../../../native/ringo_sleep_core\"\ncase \"${PLATFORM_NAME}\" in\n  iphoneos) RUST_TARGET=aarch64-apple-ios ;;\n  iphonesimulator) RUST_TARGET=aarch64-apple-ios-sim ;;\n  *) echo \"Unsupported Apple platform: ${PLATFORM_NAME}\" >&2; exit 1 ;;\nesac\nif [ \"${CONFIGURATION}\" = \"Debug\" ]; then\n  CARGO_PROFILE=debug\n  CARGO_ARGS=\"\"\nelse\n  CARGO_PROFILE=release\n  CARGO_ARGS=\"--release\"\nfi\ncargo build --manifest-path \"${RUST_CRATE}/Cargo.toml\" --target \"${RUST_TARGET}\" ${CARGO_ARGS}\nOUTPUT_DIR=\"${PROJECT_DIR}/Runner/Native/${PLATFORM_NAME}\"\nmkdir -p \"${OUTPUT_DIR}\"\ncp \"${RUST_CRATE}/target/${RUST_TARGET}/${CARGO_PROFILE}/libringo_sleep_core.a\" \"${OUTPUT_DIR}/\"\n";
+			showEnvVarsInLog = 0;
+		};
 		3B06AD1E1E4923F5004D2608 /* Thin Binary */ = {
 			isa = PBXShellScriptBuildPhase;
 			alwaysOutOfDate = 1;
@@ -495,6 +513,7 @@
 				DEVELOPMENT_TEAM = 4ZHXN7LTJY;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
+				OTHER_LDFLAGS = "$(inherited) -Wl,-force_load,$(PROJECT_DIR)/Runner/Native/$(PLATFORM_NAME)/libringo_sleep_core.a";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -678,6 +697,7 @@
 				DEVELOPMENT_TEAM = 4ZHXN7LTJY;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
+				OTHER_LDFLAGS = "$(inherited) -Wl,-force_load,$(PROJECT_DIR)/Runner/Native/$(PLATFORM_NAME)/libringo_sleep_core.a";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -701,6 +721,7 @@
 				DEVELOPMENT_TEAM = 4ZHXN7LTJY;
 				ENABLE_BITCODE = NO;
 				INFOPLIST_FILE = Runner/Info.plist;
+				OTHER_LDFLAGS = "$(inherited) -Wl,-force_load,$(PROJECT_DIR)/Runner/Native/$(PLATFORM_NAME)/libringo_sleep_core.a";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

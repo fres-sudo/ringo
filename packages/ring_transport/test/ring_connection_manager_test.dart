@@ -75,6 +75,7 @@ void main() {
       final info = await lease.session.readDeviceInfo();
       final battery = await lease.session.readBattery();
       final capabilities = await lease.session.setClock(DateTime(2026, 8, 27));
+      final sleep = await lease.session.readSleepHistory();
 
       expect(discovered.profile, same(ColmiDeviceProfiles.r02));
       expect(info.modelNumber, 'R02');
@@ -83,6 +84,9 @@ void main() {
       expect(battery.isCharging, isFalse);
       expect(capabilities.supportsTemperature, isTrue);
       expect(capabilities.usesNewSleepProtocol, isTrue);
+      expect(sleep.nights, hasLength(1));
+      expect(sleep.nights.single.sleepStartMinute, -30);
+      expect(sleep.nights.single.stages, hasLength(2));
       await lease.release();
     });
   });
@@ -117,6 +121,9 @@ final class _FakeConnection implements RingBleConnection {
   Stream<List<int>> get controlPackets => _packets.stream;
 
   @override
+  Stream<List<int>> get bigDataPackets => const Stream.empty();
+
+  @override
   Stream<RingConnectionState> get states =>
       Stream.value(RingConnectionState.connected);
 
@@ -137,5 +144,10 @@ final class _FakeConnection implements RingBleConnection {
   @override
   Future<void> writeControl(List<int> packet) async {
     writes.add(packet);
+  }
+
+  @override
+  Future<void> writeBigData(List<int> packet) async {
+    throw UnsupportedError('Big Data is not used in this fake.');
   }
 }

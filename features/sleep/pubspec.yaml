@@ -10,6 +10,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+  sleep_analysis:
+    path: ../../packages/sleep_analysis
   ui_kit:
     path: ../../packages/ui_kit
 

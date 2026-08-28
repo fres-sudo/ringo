@@ -1,0 +1,13 @@
+name: sleep_analysis
+description: Deterministic, local sleep-session analysis for Ringo.
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: '>=3.10.0 <4.0.0'
+
+dependencies:
+  ffi: ^2.1.4
+
+dev_dependencies:
+  test: ^1.26.3

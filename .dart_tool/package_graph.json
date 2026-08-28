@@ -15,6 +15,7 @@
     "ring_transport",
     "ringo",
     "ringo_workspace",
+    "sleep_analysis",
     "storage_tostore",
     "ui_kit",
     "utils"
@@ -203,6 +204,16 @@
       ],
       "devDependencies": [
         "flutter_test"
+      ]
+    },
+    {
+      "name": "sleep_analysis",
+      "version": "0.0.0",
+      "dependencies": [
+        "ffi"
+      ],
+      "devDependencies": [
+        "test"
       ]
     },
     {
@@ -491,6 +502,11 @@
         "path",
         "web"
       ]
+    },
+    {
+      "name": "ffi",
+      "version": "2.2.0",
+      "dependencies": []
     },
     {
       "name": "reactive_ble_platform_interface",
@@ -1356,11 +1372,6 @@
       ]
     },
     {
-      "name": "ffi",
-      "version": "2.2.0",
-      "dependencies": []
-    },
-    {
       "name": "archive",
       "version": "4.2.0",
       "dependencies": [
@@ -1644,6 +1655,7 @@
       "version": "0.0.0",
       "dependencies": [
         "flutter",
+        "sleep_analysis",
         "ui_kit"
       ]
     },

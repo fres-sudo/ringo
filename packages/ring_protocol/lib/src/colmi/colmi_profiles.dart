@@ -39,6 +39,7 @@ final class ColmiR02Profile extends RingDeviceProfile {
           RingOperation.deviceInformation,
           RingOperation.battery,
           RingOperation.setClock,
+          RingOperation.sleepHistory,
         },
       );
 
@@ -65,6 +66,7 @@ final class ColmiR08PlusProfile extends RingDeviceProfile {
           RingOperation.deviceInformation,
           RingOperation.battery,
           RingOperation.setClock,
+          RingOperation.sleepHistory,
         },
       );
 

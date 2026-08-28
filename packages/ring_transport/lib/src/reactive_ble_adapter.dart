@@ -51,6 +51,10 @@ final class ReactiveBleRingAdapter implements RingBleAdapter {
               Uuid.parse(gatt.controlWriteCharacteristicUuid),
               Uuid.parse(gatt.controlNotifyCharacteristicUuid),
             ],
+            Uuid.parse(ColmiGattProfile.bigDataServiceUuid): [
+              Uuid.parse(ColmiGattProfile.bigDataWriteCharacteristicUuid),
+              Uuid.parse(ColmiGattProfile.bigDataNotifyCharacteristicUuid),
+            ],
           },
           connectionTimeout: const Duration(seconds: 12),
         )
@@ -123,6 +127,19 @@ final class _ReactiveBleRingConnection implements RingBleConnection {
       .map(List<int>.unmodifiable)
       .asBroadcastStream();
 
+  late final Stream<List<int>> _bigDataPackets = _ble
+      .subscribeToCharacteristic(
+        QualifiedCharacteristic(
+          serviceId: Uuid.parse(ColmiGattProfile.bigDataServiceUuid),
+          characteristicId: Uuid.parse(
+            ColmiGattProfile.bigDataNotifyCharacteristicUuid,
+          ),
+          deviceId: deviceId,
+        ),
+      )
+      .map(List<int>.unmodifiable)
+      .asBroadcastStream();
+
   @override
   Stream<RingConnectionState> get states => _states;
 
@@ -130,11 +147,27 @@ final class _ReactiveBleRingConnection implements RingBleConnection {
   Stream<List<int>> get controlPackets => _controlPackets;
 
   @override
+  Stream<List<int>> get bigDataPackets => _bigDataPackets;
+
+  @override
   Future<void> writeControl(List<int> packet) =>
       _ble.writeCharacteristicWithoutResponse(
         QualifiedCharacteristic(
           serviceId: Uuid.parse(gatt.controlServiceUuid),
           characteristicId: Uuid.parse(gatt.controlWriteCharacteristicUuid),
+          deviceId: deviceId,
+        ),
+        value: packet,
+      );
+
+  @override
+  Future<void> writeBigData(List<int> packet) =>
+      _ble.writeCharacteristicWithoutResponse(
+        QualifiedCharacteristic(
+          serviceId: Uuid.parse(ColmiGattProfile.bigDataServiceUuid),
+          characteristicId: Uuid.parse(
+            ColmiGattProfile.bigDataWriteCharacteristicUuid,
+          ),
           deviceId: deviceId,
         ),
         value: packet,

@@ -35,12 +35,26 @@ final class MockRingDataSource {
       supportFlags4: 1,
       usesNewSleepProtocol: true,
     ),
+    this.sleepHistoryPayload = const <int>[
+      1,
+      0,
+      8,
+      226,
+      255,
+      164,
+      1,
+      2,
+      45,
+      3,
+      90,
+    ],
   });
 
   final RingAdvertisement advertisement;
   final RingDeviceInfo deviceInfo;
   final RingBattery battery;
   final RingProtocolCapabilities capabilities;
+  final List<int> sleepHistoryPayload;
 }
 
 /// An in-memory R02 ring for debug builds and deterministic integration tests.
@@ -85,10 +99,14 @@ final class _MockRingBleConnection implements RingBleConnection {
   // A real BLE notification is asynchronous. Delivering the in-memory reply
   // synchronously keeps this fake deterministic under Flutter's fake clock.
   final _packets = StreamController<List<int>>.broadcast(sync: true);
+  final _bigDataPackets = StreamController<List<int>>.broadcast(sync: true);
   var _disconnected = false;
 
   @override
   Stream<List<int>> get controlPackets => _packets.stream;
+
+  @override
+  Stream<List<int>> get bigDataPackets => _bigDataPackets.stream;
 
   @override
   Stream<RingConnectionState> get states =>
@@ -99,6 +117,7 @@ final class _MockRingBleConnection implements RingBleConnection {
     if (_disconnected) return;
     _disconnected = true;
     await _packets.close();
+    await _bigDataPackets.close();
   }
 
   @override
@@ -118,12 +137,11 @@ final class _MockRingBleConnection implements RingBleConnection {
         _dataSource.deviceInfo.hardwareRevision,
       ColmiGattProfile.manufacturerNameCharacteristicUuid =>
         _dataSource.deviceInfo.manufacturerName,
-      _ =>
-        throw ArgumentError.value(
-          characteristicUuid,
-          'characteristicUuid',
-          'Unknown characteristic.',
-        ),
+      _ => throw ArgumentError.value(
+        characteristicUuid,
+        'characteristicUuid',
+        'Unknown characteristic.',
+      ),
     };
     return latin1.encode('${value ?? ''}\u0000');
   }
@@ -141,12 +159,34 @@ final class _MockRingBleConnection implements RingBleConnection {
           _dataSource.battery.isCharging ? 1 : 0,
         ],
       ),
-      _ =>
-        throw UnsupportedError(
-          'The mock R02 does not support command ${request.commandId}.',
-        ),
+      _ => throw UnsupportedError(
+        'The mock R02 does not support command ${request.commandId}.',
+      ),
     };
     _packets.add(response.bytes);
+  }
+
+  @override
+  Future<void> writeBigData(List<int> packet) async {
+    if (_disconnected) throw StateError('The mock ring is disconnected.');
+    if (packet.length != 7 ||
+        packet[0] != ColmiBigData.magic ||
+        packet[1] != ColmiBigData.sleepDataId) {
+      throw UnsupportedError('The mock ring only supports sleep history.');
+    }
+    final payload = _dataSource.sleepHistoryPayload;
+    final message = <int>[
+      ColmiBigData.magic,
+      ColmiBigData.sleepDataId,
+      payload.length & 0xff,
+      payload.length >> 8,
+      0xff,
+      0xff,
+      ...payload,
+    ];
+    _bigDataPackets
+      ..add(message.sublist(0, 5))
+      ..add(message.sublist(5));
   }
 
   ColmiFrame _clockResponse() {

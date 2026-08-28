@@ -1,0 +1,9 @@
+[package]
+name = "ringo_sleep_core"
+version = "0.1.0"
+edition = "2024"
+description = "Local, deterministic sleep-stage estimation core for Ringo"
+license = "UNLICENSED"
+
+[lib]
+crate-type = ["cdylib", "staticlib", "rlib"]

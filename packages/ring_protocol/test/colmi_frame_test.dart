@@ -79,4 +79,68 @@ void main() {
       expect(profile!.support, RingProfileSupport.candidate);
     });
   });
+
+  group('COLMI Big Data sleep history', () {
+    test('builds the all-history sleep request', () {
+      expect(ColmiBigData.sleepHistoryRequest(), <int>[
+        0xbc,
+        0x27,
+        0x01,
+        0x00,
+        0xff,
+        0x00,
+        0xff,
+      ]);
+    });
+
+    test('reassembles fragmented history notifications', () {
+      final reassembler = ColmiBigDataReassembler();
+      expect(reassembler.add(<int>[0xbc, 0x27, 0x03, 0x00]), isNull);
+      final message = reassembler.add(<int>[0xff, 0xff, 10, 20, 30]);
+
+      expect(message?.dataId, ColmiBigData.sleepDataId);
+      expect(message?.usesCrcSentinel, isTrue);
+      expect(message?.payload, <int>[10, 20, 30]);
+    });
+
+    test('decodes stage spans and drops padding nights', () {
+      final history = parseColmiSleepHistory(<int>[
+        2,
+        ..._night(0, -30, 420, <List<int>>[
+          <int>[2, 45],
+          <int>[3, 90],
+          <int>[4, 30],
+          <int>[5, 10],
+        ]),
+        ..._night(1, 9000, 8000, const <List<int>>[]),
+      ]);
+
+      expect(history.nights, hasLength(1));
+      final night = history.nights.single;
+      expect(night.daysAgo, 0);
+      expect(night.sleepStartMinute, -30);
+      expect(night.sleepEndMinute, 420);
+      expect(night.stages.map((stage) => stage.stage), <RingSleepStage>[
+        RingSleepStage.light,
+        RingSleepStage.deep,
+        RingSleepStage.rem,
+        RingSleepStage.awake,
+      ]);
+    });
+  });
 }
+
+List<int> _night(
+  int daysAgo,
+  int startMinute,
+  int endMinute,
+  List<List<int>> stages,
+) => <int>[
+  daysAgo,
+  4 + stages.length * 2,
+  startMinute & 0xff,
+  (startMinute >> 8) & 0xff,
+  endMinute & 0xff,
+  (endMinute >> 8) & 0xff,
+  for (final stage in stages) ...stage,
+];
