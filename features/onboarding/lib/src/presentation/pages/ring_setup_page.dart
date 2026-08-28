@@ -12,8 +12,9 @@ import '../../services/bluetooth_permission_service.dart';
 
 /// Pairs a compatible ring and exposes a small, evidence-focused inspector.
 ///
-/// The screen intentionally stops at transport diagnostics: it does not sync
-/// health history or persist a selected device yet.
+/// After explicit confirmation, the screen performs one foreground sleep
+/// history sync while it still owns the BLE lease. It does not persist a
+/// selected device or keep a background connection.
 class RingSetupPage extends StatefulWidget {
   const RingSetupPage({
     super.key,
@@ -23,6 +24,7 @@ class RingSetupPage extends StatefulWidget {
     this.onBack,
     this.onSkip,
     this.onComplete,
+    this.onSyncSleep,
   });
 
   final RingConnectionManager? connectionManager;
@@ -33,6 +35,9 @@ class RingSetupPage extends StatefulWidget {
   final VoidCallback? onBack;
   final VoidCallback? onSkip;
   final VoidCallback? onComplete;
+
+  /// Invoked while pairing still owns the live BLE lease.
+  final Future<void> Function(RingConnectionLease lease)? onSyncSleep;
 
   @override
   State<RingSetupPage> createState() => _RingSetupPageState();
@@ -56,6 +61,7 @@ class _RingSetupPageState extends State<RingSetupPage> {
   var _isScanning = false;
   var _isConnecting = false;
   var _isSyncingClock = false;
+  var _isSyncingSleep = false;
 
   @override
   void initState() {
@@ -90,10 +96,9 @@ class _RingSetupPageState extends State<RingSetupPage> {
     if (!mounted) return;
     if (permission != BluetoothPermissionResult.granted) {
       setState(() {
-        _message =
-            permission == BluetoothPermissionResult.permanentlyDenied
-                ? 'Bluetooth access is disabled in system settings.'
-                : 'Bluetooth access is needed to find a compatible ring.';
+        _message = permission == BluetoothPermissionResult.permanentlyDenied
+            ? 'Bluetooth access is disabled in system settings.'
+            : 'Bluetooth access is needed to find a compatible ring.';
         _messageVariant = AppAlertVariant.warning;
       });
       return;
@@ -165,10 +170,9 @@ class _RingSetupPageState extends State<RingSetupPage> {
         _deviceInfo = info;
         _battery = battery;
         _message = diagnostic;
-        _messageVariant =
-            diagnostic == null
-                ? AppAlertVariant.success
-                : AppAlertVariant.warning;
+        _messageVariant = diagnostic == null
+            ? AppAlertVariant.success
+            : AppAlertVariant.warning;
       });
     } on Exception catch (error) {
       await lease?.release();
@@ -239,7 +243,29 @@ class _RingSetupPageState extends State<RingSetupPage> {
   }
 
   Future<void> _handlePrimaryAction() async {
-    if (_connectedRing != null) {
+    final lease = _lease;
+    if (_connectedRing != null && lease != null) {
+      if (widget.onSyncSleep != null) {
+        setState(() {
+          _isSyncingSleep = true;
+          _message = 'Syncing sleep history from your ring…';
+          _messageVariant = AppAlertVariant.info;
+        });
+        try {
+          await widget.onSyncSleep!(lease);
+        } on Exception catch (error) {
+          if (mounted) {
+            setState(() {
+              _message = 'Could not sync sleep history: $error';
+              _messageVariant = AppAlertVariant.warning;
+            });
+          }
+          return;
+        } finally {
+          if (mounted) setState(() => _isSyncingSleep = false);
+        }
+      }
+      if (!mounted) return;
       widget.onComplete?.call();
       return;
     }
@@ -254,27 +280,33 @@ class _RingSetupPageState extends State<RingSetupPage> {
   Widget build(BuildContext context) {
     final spacing = context.tokens.spacing;
     return OnboardingScaffold(
-      onBack: widget.onBack ?? () => Navigator.of(context).maybePop(),
-      trailingHeaderAction:
-          widget.onSkip == null
-              ? null
-              : TextButton(onPressed: widget.onSkip, child: const Text('Skip')),
+      onBack: _isSyncingSleep
+          ? () {}
+          : widget.onBack ?? () => Navigator.of(context).maybePop(),
+      trailingHeaderAction: widget.onSkip == null
+          ? null
+          : TextButton(
+              onPressed: _isSyncingSleep ? null : widget.onSkip,
+              child: const Text('Skip'),
+            ),
       footer: const OnboardingPrivacyNote(),
       actions: OnboardingActions(
         backLabel: null,
-        nextLabel:
-            _connectedRing != null
-                ? widget.onComplete == null
-                    ? 'Ring connected'
-                    : 'Get started'
-                : _isScanning
-                ? 'Stop scanning'
-                : 'Find my ring',
+        nextLabel: _connectedRing != null
+            ? _isSyncingSleep
+                  ? 'Syncing sleep…'
+                  : widget.onComplete == null
+                  ? 'Ring connected'
+                  : 'Get started'
+            : _isScanning
+            ? 'Stop scanning'
+            : 'Find my ring',
         onNext:
             _isConnecting ||
-                    (_connectedRing != null && widget.onComplete == null)
-                ? null
-                : _handlePrimaryAction,
+                _isSyncingSleep ||
+                (_connectedRing != null && widget.onComplete == null)
+            ? null
+            : _handlePrimaryAction,
       ),
       child: Column(
         children: [
@@ -291,28 +323,25 @@ class _RingSetupPageState extends State<RingSetupPage> {
           StreamBuilder<BleAdapterStatus>(
             stream: _manager.adapterStatus,
             initialData: BleAdapterStatus.unknown,
-            builder:
-                (context, snapshot) => _AdapterStatusCard(
-                  status: snapshot.data ?? BleAdapterStatus.unknown,
-                ),
+            builder: (context, snapshot) => _AdapterStatusCard(
+              status: snapshot.data ?? BleAdapterStatus.unknown,
+            ),
           ),
           if (_message != null) ...[
             SizedBox(height: spacing.md),
             AppAlert(
-              title:
-                  _messageVariant == AppAlertVariant.success
-                      ? 'Ready'
-                      : 'Connection note',
+              title: _messageVariant == AppAlertVariant.success
+                  ? 'Ready'
+                  : 'Connection note',
               message: _message!,
               variant: _messageVariant,
-              action:
-                  _messageVariant == AppAlertVariant.warning
-                      ? AppButton.ghost(
-                        label: 'Open settings',
-                        onPressed: _openSettings,
-                        size: AppButtonSize.sm,
-                      )
-                      : null,
+              action: _messageVariant == AppAlertVariant.warning
+                  ? AppButton.ghost(
+                      label: 'Open settings',
+                      onPressed: _openSettings,
+                      size: AppButtonSize.sm,
+                    )
+                  : null,
             ),
           ],
           SizedBox(height: spacing.xl),
@@ -533,8 +562,9 @@ class _RingCandidateTile extends StatelessWidget {
             ),
             Icon(
               isConnected ? Icons.check_circle : Icons.arrow_forward,
-              color:
-                  isConnected ? context.colors.success : context.colors.primary,
+              color: isConnected
+                  ? context.colors.success
+                  : context.colors.primary,
               size: context.tokens.iconSize.md,
             ),
           ],
@@ -582,10 +612,9 @@ class _DiagnosticsCard extends StatelessWidget {
         SizedBox(height: context.tokens.spacing.lg),
         _DiagnosticRow(
           label: 'Battery',
-          value:
-              battery == null
-                  ? 'Not available'
-                  : '${battery!.percent}%${battery!.isCharging ? ' · charging' : ''}',
+          value: battery == null
+              ? 'Not available'
+              : '${battery!.percent}%${battery!.isCharging ? ' · charging' : ''}',
         ),
         _DiagnosticRow(
           label: 'Model',
@@ -602,16 +631,15 @@ class _DiagnosticsCard extends StatelessWidget {
         SizedBox(height: context.tokens.spacing.md),
         StreamBuilder<List<int>>(
           stream: rawPackets,
-          builder:
-              (context, snapshot) => Text(
-                snapshot.hasData
-                    ? 'Latest packet: ${_hex(snapshot.data!)}'
-                    : 'Latest packet: waiting for a ring response',
-                style: context.typography.bodySm.copyWith(
-                  color: context.colors.mutedForeground,
-                  fontFeatures: const [FontFeature.tabularFigures()],
-                ),
-              ),
+          builder: (context, snapshot) => Text(
+            snapshot.hasData
+                ? 'Latest packet: ${_hex(snapshot.data!)}'
+                : 'Latest packet: waiting for a ring response',
+            style: context.typography.bodySm.copyWith(
+              color: context.colors.mutedForeground,
+              fontFeatures: const [FontFeature.tabularFigures()],
+            ),
+          ),
         ),
         SizedBox(height: context.tokens.spacing.lg),
         AppButton.outline(

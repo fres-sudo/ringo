@@ -16,6 +16,12 @@ dependencies:
     sdk: flutter
   onboarding:
     path: ../../features/onboarding
+  ring_sleep_sync:
+    path: ../../packages/ring_sleep_sync
+  ring_transport:
+    path: ../../packages/ring_transport
+  sleep_analysis:
+    path: ../../packages/sleep_analysis
   ui_kit:
     path: ../../packages/ui_kit
 

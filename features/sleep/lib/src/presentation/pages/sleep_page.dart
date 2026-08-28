@@ -59,24 +59,71 @@ class _SleepSessionSummary extends StatelessWidget {
   final SleepSession session;
 
   @override
-  Widget build(BuildContext context) => Semantics(
-    label: 'Latest sleep session lasted ${session.duration.inHours} hours',
-    child: Column(
+  Widget build(BuildContext context) {
+    final stageDurations = <SleepStage, Duration>{
+      for (final stage in SleepStage.values)
+        stage: session.stages
+            .where((segment) => segment.stage == stage)
+            .fold(Duration.zero, (total, segment) => total + segment.duration),
+    };
+    final reportedStages = stageDurations.entries
+        .where((entry) => entry.value > Duration.zero)
+        .toList();
+
+    return Semantics(
+      label: 'Latest sleep session lasted ${session.duration.inHours} hours',
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Text('Latest sleep', style: context.typography.titleLg),
+          SizedBox(height: context.tokens.spacing.sm),
+          Text(
+            '${session.duration.inHours}h ${session.duration.inMinutes % 60}m',
+          ),
+          SizedBox(height: context.tokens.spacing.sm),
+          Text(
+            session.source == SleepStageSource.ringReported
+                ? 'Stages reported by your ring'
+                : 'Stages are estimates, not clinical measurements',
+            textAlign: TextAlign.center,
+          ),
+          if (reportedStages.isNotEmpty) ...[
+            SizedBox(height: context.tokens.spacing.lg),
+            Text('Stage breakdown', style: context.typography.titleMd),
+            SizedBox(height: context.tokens.spacing.sm),
+            for (final entry in reportedStages)
+              _StageDurationRow(stage: entry.key, duration: entry.value),
+          ],
+        ],
+      ),
+    );
+  }
+}
+
+class _StageDurationRow extends StatelessWidget {
+  const _StageDurationRow({required this.stage, required this.duration});
+
+  final SleepStage stage;
+  final Duration duration;
+
+  @override
+  Widget build(BuildContext context) => Padding(
+    padding: EdgeInsets.only(bottom: context.tokens.spacing.xxs),
+    child: Row(
       mainAxisSize: MainAxisSize.min,
       children: [
-        Text('Latest sleep', style: context.typography.titleLg),
-        SizedBox(height: context.tokens.spacing.sm),
-        Text(
-          '${session.duration.inHours}h ${session.duration.inMinutes % 60}m',
-        ),
-        SizedBox(height: context.tokens.spacing.sm),
-        Text(
-          session.source == SleepStageSource.ringReported
-              ? 'Stages reported by your ring'
-              : 'Stages are estimates, not clinical measurements',
-          textAlign: TextAlign.center,
-        ),
+        Text(_label(stage)),
+        SizedBox(width: context.tokens.spacing.sm),
+        Text('${duration.inHours}h ${duration.inMinutes % 60}m'),
       ],
     ),
   );
+
+  String _label(SleepStage value) => switch (value) {
+    SleepStage.awake => 'Awake',
+    SleepStage.light => 'Light',
+    SleepStage.deep => 'Deep',
+    SleepStage.rem => 'REM',
+    SleepStage.unknown => 'Unknown',
+  };
 }

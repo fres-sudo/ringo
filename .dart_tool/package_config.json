@@ -1130,6 +1130,12 @@
       "languageVersion": "3.10"
     },
     {
+      "name": "ring_sleep_sync",
+      "rootUri": "../packages/ring_sleep_sync",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
+    },
+    {
       "name": "ring_transport",
       "rootUri": "../packages/ring_transport",
       "packageUri": "lib/",

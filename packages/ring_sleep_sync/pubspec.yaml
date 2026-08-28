@@ -1,0 +1,18 @@
+name: ring_sleep_sync
+description: Foreground sync and normalization for supported ring sleep history.
+publish_to: none
+resolution: workspace
+
+environment:
+  sdk: '>=3.10.0 <4.0.0'
+
+dependencies:
+  ring_protocol:
+    path: ../ring_protocol
+  ring_transport:
+    path: ../ring_transport
+  sleep_analysis:
+    path: ../sleep_analysis
+
+dev_dependencies:
+  test: ^1.25.15

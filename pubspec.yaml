@@ -18,6 +18,7 @@ workspace:
   - packages/remote_config
   - packages/result
   - packages/ring_protocol
+  - packages/ring_sleep_sync
   - packages/ring_transport
   - packages/sleep_analysis
   - packages/storage_tostore

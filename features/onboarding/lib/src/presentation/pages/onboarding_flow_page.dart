@@ -18,6 +18,7 @@ class OnboardingFlowPage extends StatefulWidget {
     this.ringConnectionManager,
     this.debugMockConnectionManager,
     this.permissionService,
+    this.onSyncSleep,
   });
 
   final VoidCallback? onComplete;
@@ -26,6 +27,7 @@ class OnboardingFlowPage extends StatefulWidget {
   final RingConnectionManager? ringConnectionManager;
   final RingConnectionManager? debugMockConnectionManager;
   final BluetoothPermissionService? permissionService;
+  final Future<void> Function(RingConnectionLease lease)? onSyncSleep;
 
   @override
   State<OnboardingFlowPage> createState() => _OnboardingFlowPageState();
@@ -116,6 +118,7 @@ class _OnboardingFlowPageState extends State<OnboardingFlowPage> {
       onBack: _goBack,
       onSkip: _advance,
       onComplete: _advance,
+      onSyncSleep: widget.onSyncSleep,
     ),
   };
 }
