@@ -290,6 +290,12 @@
       "languageVersion": "3.1"
     },
     {
+      "name": "fl_chart",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/fl_chart-1.2.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.6"
+    },
+    {
       "name": "flutter",
       "rootUri": "file:///Users/fres/flutter/packages/flutter",
       "packageUri": "lib/",
@@ -776,6 +782,12 @@
       "languageVersion": "3.5"
     },
     {
+      "name": "simple_gesture_detector",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/simple_gesture_detector-0.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "skeletonizer",
       "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/skeletonizer-2.1.2",
       "packageUri": "lib/",
@@ -846,6 +858,12 @@
       "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/string_scanner-1.4.1",
       "packageUri": "lib/",
       "languageVersion": "3.1"
+    },
+    {
+      "name": "table_calendar",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/table_calendar-3.2.1",
+      "packageUri": "lib/",
+      "languageVersion": "3.0"
     },
     {
       "name": "talker",

@@ -82,6 +82,7 @@ export 'src/widgets/data_table/data_table_pagination.dart';
 export 'src/widgets/data_table/data_table_view.dart';
 export 'src/widgets/money_keypad.dart';
 export 'src/widgets/quantity_button.dart';
+export 'src/widgets/app_week_calendar.dart';
 
 // -- Templates ---------------------------------------------------------------
 export 'src/templates/app_scaffold.dart';

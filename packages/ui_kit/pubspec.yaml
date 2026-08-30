@@ -18,6 +18,7 @@ dependencies:
   freezed_annotation: ^3.1.0
   google_fonts: ^6.2.1
   skeletonizer: ^2.1.2
+  table_calendar: ^3.2.1
   utils:
     path: ../utils
 
