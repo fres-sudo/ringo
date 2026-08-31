@@ -16,6 +16,8 @@ dependencies:
     path: ../../packages/ring_protocol
   ring_transport:
     path: ../../packages/ring_transport
+  storage_tostore:
+    path: ../../packages/storage_tostore
   ui_kit:
     path: ../../packages/ui_kit
 

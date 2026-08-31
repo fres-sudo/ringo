@@ -1,6 +1,9 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:ring_transport/ring_transport.dart';
 
+import '../../data/onboarding_profile_storage.dart';
 import 'device_benefits_page.dart';
 import 'onboarding_profile_page.dart';
 import 'onboarding_sleep_question_page.dart';
@@ -14,6 +17,7 @@ import '../../services/bluetooth_permission_service.dart';
 class OnboardingFlowPage extends StatefulWidget {
   const OnboardingFlowPage({
     super.key,
+    required this.profileStorage,
     this.onComplete,
     this.ringConnectionManager,
     this.debugMockConnectionManager,
@@ -21,7 +25,8 @@ class OnboardingFlowPage extends StatefulWidget {
     this.onSyncSleep,
   });
 
-  final VoidCallback? onComplete;
+  final OnboardingProfileStorage profileStorage;
+  final FutureOr<void> Function()? onComplete;
 
   /// Optional pairing dependencies for hosts that own the BLE lifecycle.
   final RingConnectionManager? ringConnectionManager;
@@ -41,13 +46,25 @@ class _OnboardingFlowPageState extends State<OnboardingFlowPage> {
   String? _height;
   String? _sleepLatency;
   String? _sleepHours;
+  bool _isCompleting = false;
 
   bool get _hasProfile =>
       [_birthYear, _sex, _weight, _height].every((value) => value != null);
 
-  void _advance() {
+  Future<void> _advance() async {
     if (_step == _OnboardingStep.ring) {
-      widget.onComplete?.call();
+      if (_isCompleting) return;
+      setState(() => _isCompleting = true);
+      await widget.profileStorage.save(
+        OnboardingProfile(
+          birthYear: _birthYear,
+          sex: _sex,
+          weight: _weight,
+          height: _height,
+        ),
+      );
+      if (!mounted) return;
+      await widget.onComplete?.call();
       return;
     }
     setState(() => _step = _OnboardingStep.values[_step.index + 1]);

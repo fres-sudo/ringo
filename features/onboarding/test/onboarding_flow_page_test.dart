@@ -4,11 +4,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:onboarding/onboarding.dart';
 import 'package:ring_transport/ring_transport.dart';
+import 'package:storage_tostore/storage_tostore.dart';
 import 'package:ui_kit/ui_kit.dart';
 
 void main() {
-  Widget subject() =>
-      MaterialApp(theme: AppTheme.light, home: const OnboardingFlowPage());
+  late ToStoreStorage storage;
+
+  setUp(() async => storage = await ToStoreStorage.inMemory());
+  tearDown(() => storage.close());
+
+  Widget subject() => MaterialApp(
+    theme: AppTheme.light,
+    home: OnboardingFlowPage(profileStorage: OnboardingProfileStorage(storage)),
+  );
 
   testWidgets('starts with the profile screen and opens a profile picker', (
     tester,
@@ -72,6 +80,7 @@ void main() {
       MaterialApp(
         theme: AppTheme.light,
         home: OnboardingFlowPage(
+          profileStorage: OnboardingProfileStorage(storage),
           ringConnectionManager: manager,
           debugMockConnectionManager: manager,
         ),
@@ -101,5 +110,54 @@ void main() {
     expect(find.text('Connect your ring'), findsOneWidget);
     expect(find.text('Find my ring'), findsOneWidget);
     expect(find.text('Smartwatch'), findsNothing);
+  });
+
+  testWidgets('persists the required profile when onboarding completes', (
+    tester,
+  ) async {
+    tester.view.physicalSize = const Size(375, 1024);
+    tester.view.devicePixelRatio = 1;
+    addTearDown(tester.view.reset);
+    final manager = RingConnectionManager(adapter: MockRingBleAdapter());
+    final profileStorage = OnboardingProfileStorage(storage);
+    var completed = false;
+    await tester.pumpWidget(
+      MaterialApp(
+        theme: AppTheme.light,
+        home: OnboardingFlowPage(
+          profileStorage: profileStorage,
+          ringConnectionManager: manager,
+          debugMockConnectionManager: manager,
+          onComplete: () async {
+            completed = true;
+          },
+        ),
+      ),
+    );
+
+    for (final label in ['Birth year', 'Weight', 'Height']) {
+      await tester.tap(find.text(label));
+      await tester.pumpAndSettle();
+      await tester.tap(find.text('Save'));
+      await tester.pumpAndSettle();
+    }
+    await tester.tap(find.text('Sex'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Female'));
+    await tester.pumpAndSettle();
+
+    await tester.tap(find.text('Next'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Skip'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Skip'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Continue'));
+    await tester.pumpAndSettle();
+    await tester.tap(find.text('Skip'));
+    await tester.pumpAndSettle();
+
+    expect(completed, isTrue);
+    expect(await profileStorage.hasCompletedOnboarding(), isTrue);
   });
 }

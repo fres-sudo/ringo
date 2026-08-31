@@ -1,5 +1,6 @@
 library;
 
+export 'src/data/onboarding_profile_storage.dart';
 export 'src/presentation/pages/welcome_page.dart';
 export 'src/presentation/pages/onboarding_flow_page.dart';
 export 'src/presentation/pages/onboarding_profile_page.dart';
