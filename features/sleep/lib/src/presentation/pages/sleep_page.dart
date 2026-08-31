@@ -27,21 +27,17 @@ class _SleepPageState extends State<SleepPage> {
       safeArea: true,
       body: ListView(
         padding: EdgeInsets.fromLTRB(
-          context.tokens.spacing.lg,
-          context.tokens.spacing.md,
-          context.tokens.spacing.lg,
+          context.tokens.spacing.sm,
+          context.tokens.spacing.sm,
+          context.tokens.spacing.sm,
           context.tokens.spacing.xxl,
         ),
         children: [
-          Text('Sleep', style: context.typography.headingLg),
-          SizedBox(height: context.tokens.spacing.xxs),
-          Text(
-            'Select a night to review your rest.',
-            style: context.typography.bodySm.copyWith(
-              color: context.colors.mutedForeground,
-            ),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: context.tokens.spacing.sm),
+            child: Text('Sleep', style: context.typography.headingLg),
           ),
-          SizedBox(height: context.tokens.spacing.md),
+          SizedBox(height: context.tokens.spacing.sm),
           AppWeekCalendar<SleepSession>(
             selectedDay: selectedDay,
             focusedDay: _selectedDay ?? DateTime.now(),
@@ -95,18 +91,13 @@ class _NoSleepForDay extends StatelessWidget {
     child: Text(
       'No sleep session was synced for this day. Connect your ring and sync '
       'its history to see sleep stages here.',
-      style: context.typography.bodySm.copyWith(
-        color: context.colors.mutedForeground,
-      ),
+      style: context.typography.bodySm.copyWith(color: context.colors.mutedForeground),
     ),
   );
 }
 
 class _SleepSessionDetails extends StatelessWidget {
-  const _SleepSessionDetails({
-    required this.session,
-    required this.selectedDay,
-  });
+  const _SleepSessionDetails({required this.session, required this.selectedDay});
 
   final SleepSession session;
   final DateTime selectedDay;
@@ -137,9 +128,7 @@ class _SleepSessionDetails extends StatelessWidget {
               ? 'Stages reported by your ring'
               : 'Stages are estimates, not clinical measurements',
           textAlign: TextAlign.center,
-          style: context.typography.caption.copyWith(
-            color: context.colors.mutedForeground,
-          ),
+          style: context.typography.caption.copyWith(color: context.colors.mutedForeground),
         ),
       ],
     );
@@ -180,24 +169,17 @@ class _SleepSummaryCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text(
-                _formatDuration(session.duration),
-                style: context.typography.displayMd,
-              ),
+              Text(_formatDuration(session.duration), style: context.typography.displayMd),
               Text(
                 'Time in bed',
-                style: context.typography.bodySm.copyWith(
-                  color: context.colors.mutedForeground,
-                ),
+                style: context.typography.bodySm.copyWith(color: context.colors.mutedForeground),
               ),
             ],
           ),
         ),
         Text(
           '${_formatDuration(session.asleepDuration)} asleep',
-          style: context.typography.titleMd.copyWith(
-            color: context.colors.success,
-          ),
+          style: context.typography.titleMd.copyWith(color: context.colors.success),
         ),
       ],
     ),
@@ -218,8 +200,7 @@ class _StageLegend extends StatelessWidget {
       spacing: context.tokens.spacing.sm,
       runSpacing: context.tokens.spacing.xs,
       children: [
-        for (final entry in reported)
-          _StageLegendItem(stage: entry.key, duration: entry.value),
+        for (final entry in reported) _StageLegendItem(stage: entry.key, duration: entry.value),
       ],
     );
   }
@@ -238,18 +219,13 @@ class _StageLegendItem extends StatelessWidget {
       mainAxisSize: MainAxisSize.min,
       children: [
         DecoratedBox(
-          decoration: BoxDecoration(
-            color: _colorFor(context, stage),
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: _colorFor(context, stage), shape: BoxShape.circle),
           child: const SizedBox(width: 8, height: 8),
         ),
         SizedBox(width: context.tokens.spacing.xxs),
         Text(
           '${sleepStageLabel(stage)} ${_formatDuration(duration)}',
-          style: context.typography.caption.copyWith(
-            color: context.colors.mutedForeground,
-          ),
+          style: context.typography.caption.copyWith(color: context.colors.mutedForeground),
         ),
       ],
     ),
@@ -267,9 +243,7 @@ class _StageLegendItem extends StatelessWidget {
 DateTime _startOfWeek(DateTime day, int firstDayOfWeekIndex) {
   final normalized = DateUtils.dateOnly(day);
   final offset =
-      (normalized.weekday % DateTime.daysPerWeek -
-          firstDayOfWeekIndex +
-          DateTime.daysPerWeek) %
+      (normalized.weekday % DateTime.daysPerWeek - firstDayOfWeekIndex + DateTime.daysPerWeek) %
       DateTime.daysPerWeek;
   return normalized.subtract(Duration(days: offset));
 }
