@@ -32,12 +32,6 @@
       "languageVersion": "3.0"
     },
     {
-      "name": "app_shell",
-      "rootUri": "../features/app_shell",
-      "packageUri": "lib/",
-      "languageVersion": "3.10"
-    },
-    {
       "name": "archive",
       "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/archive-4.2.0",
       "packageUri": "lib/",
@@ -129,7 +123,7 @@
     },
     {
       "name": "characters",
-      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/characters-1.4.1",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/characters-1.4.0",
       "packageUri": "lib/",
       "languageVersion": "3.4"
     },
@@ -248,22 +242,10 @@
       "languageVersion": "3.9"
     },
     {
-      "name": "dashboard",
-      "rootUri": "../features/dashboard",
-      "packageUri": "lib/",
-      "languageVersion": "3.10"
-    },
-    {
       "name": "equatable",
       "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/equatable-2.1.0",
       "packageUri": "lib/",
       "languageVersion": "3.0"
-    },
-    {
-      "name": "exercise",
-      "rootUri": "../features/exercise",
-      "packageUri": "lib/",
-      "languageVersion": "3.10"
     },
     {
       "name": "fake_async",
@@ -297,9 +279,9 @@
     },
     {
       "name": "flutter",
-      "rootUri": "file:///Users/fres/flutter/packages/flutter",
+      "rootUri": "file:///Users/fres/fvm/versions/3.38.5/packages/flutter",
       "packageUri": "lib/",
-      "languageVersion": "3.9"
+      "languageVersion": "3.8"
     },
     {
       "name": "flutter_bloc",
@@ -315,9 +297,9 @@
     },
     {
       "name": "flutter_localizations",
-      "rootUri": "file:///Users/fres/flutter/packages/flutter_localizations",
+      "rootUri": "file:///Users/fres/fvm/versions/3.38.5/packages/flutter_localizations",
       "packageUri": "lib/",
-      "languageVersion": "3.9"
+      "languageVersion": "3.8"
     },
     {
       "name": "flutter_reactive_ble",
@@ -333,21 +315,15 @@
     },
     {
       "name": "flutter_test",
-      "rootUri": "file:///Users/fres/flutter/packages/flutter_test",
+      "rootUri": "file:///Users/fres/fvm/versions/3.38.5/packages/flutter_test",
       "packageUri": "lib/",
-      "languageVersion": "3.9"
+      "languageVersion": "3.8"
     },
     {
       "name": "flutter_web_plugins",
-      "rootUri": "file:///Users/fres/flutter/packages/flutter_web_plugins",
+      "rootUri": "file:///Users/fres/fvm/versions/3.38.5/packages/flutter_web_plugins",
       "packageUri": "lib/",
-      "languageVersion": "3.9"
-    },
-    {
-      "name": "food_tracking",
-      "rootUri": "../features/food_tracking",
-      "packageUri": "lib/",
-      "languageVersion": "3.10"
+      "languageVersion": "3.8"
     },
     {
       "name": "freezed",
@@ -378,6 +354,12 @@
       "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/glob-2.1.3",
       "packageUri": "lib/",
       "languageVersion": "3.3"
+    },
+    {
+      "name": "go_router",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/go_router-16.3.0",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
     },
     {
       "name": "google_fonts",
@@ -428,6 +410,12 @@
       "languageVersion": "3.4"
     },
     {
+      "name": "js",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/js-0.7.2",
+      "packageUri": "lib/",
+      "languageVersion": "3.7"
+    },
+    {
       "name": "json_annotation",
       "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/json_annotation-4.9.0",
       "packageUri": "lib/",
@@ -465,15 +453,15 @@
     },
     {
       "name": "matcher",
-      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/matcher-0.12.18",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/matcher-0.12.17",
       "packageUri": "lib/",
-      "languageVersion": "3.7"
+      "languageVersion": "3.4"
     },
     {
       "name": "material_color_utilities",
-      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/material_color_utilities-0.13.0",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/material_color_utilities-0.11.1",
       "packageUri": "lib/",
-      "languageVersion": "3.5"
+      "languageVersion": "2.17"
     },
     {
       "name": "melos",
@@ -656,12 +644,6 @@
       "languageVersion": "3.5"
     },
     {
-      "name": "profile",
-      "rootUri": "../features/profile",
-      "packageUri": "lib/",
-      "languageVersion": "3.10"
-    },
-    {
       "name": "prompts",
       "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/prompts-2.0.0",
       "packageUri": "lib/",
@@ -795,9 +777,9 @@
     },
     {
       "name": "sky_engine",
-      "rootUri": "file:///Users/fres/flutter/bin/cache/pkg/sky_engine",
+      "rootUri": "file:///Users/fres/fvm/versions/3.38.5/bin/cache/pkg/sky_engine",
       "packageUri": "lib/",
-      "languageVersion": "3.9"
+      "languageVersion": "3.8"
     },
     {
       "name": "slang",
@@ -885,21 +867,21 @@
     },
     {
       "name": "test",
-      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/test-1.29.0",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/test-1.26.3",
       "packageUri": "lib/",
-      "languageVersion": "3.7"
+      "languageVersion": "3.5"
     },
     {
       "name": "test_api",
-      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/test_api-0.7.9",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/test_api-0.7.7",
       "packageUri": "lib/",
-      "languageVersion": "3.7"
+      "languageVersion": "3.5"
     },
     {
       "name": "test_core",
-      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/test_core-0.6.15",
+      "rootUri": "file:///Users/fres/.pub-cache/hosted/pub.dev/test_core-0.6.12",
       "packageUri": "lib/",
-      "languageVersion": "3.7"
+      "languageVersion": "3.5"
     },
     {
       "name": "timing",
@@ -1076,6 +1058,30 @@
       "languageVersion": "3.10"
     },
     {
+      "name": "app_shell",
+      "rootUri": "../features/app_shell",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
+    },
+    {
+      "name": "dashboard",
+      "rootUri": "../features/dashboard",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
+    },
+    {
+      "name": "exercise",
+      "rootUri": "../features/exercise",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
+    },
+    {
+      "name": "food_tracking",
+      "rootUri": "../features/food_tracking",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
+    },
+    {
       "name": "sleep",
       "rootUri": "../features/sleep",
       "packageUri": "lib/",
@@ -1084,6 +1090,12 @@
     {
       "name": "onboarding",
       "rootUri": "../features/onboarding",
+      "packageUri": "lib/",
+      "languageVersion": "3.10"
+    },
+    {
+      "name": "profile",
+      "rootUri": "../features/profile",
       "packageUri": "lib/",
       "languageVersion": "3.10"
     },
@@ -1191,8 +1203,8 @@
     }
   ],
   "generator": "pub",
-  "generatorVersion": "3.11.0",
-  "flutterRoot": "file:///Users/fres/flutter",
-  "flutterVersion": "3.41.2",
+  "generatorVersion": "3.10.4",
+  "flutterRoot": "file:///Users/fres/fvm/versions/3.38.5",
+  "flutterVersion": "3.38.5",
   "pubCache": "file:///Users/fres/.pub-cache"
 }

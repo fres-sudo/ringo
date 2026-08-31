@@ -1,48 +1,22 @@
-import 'package:dashboard/dashboard.dart';
-import 'package:exercise/exercise.dart';
 import 'package:flutter/material.dart';
-import 'package:food_tracking/food_tracking.dart';
-import 'package:profile/profile.dart';
-import 'package:sleep/sleep.dart';
+import 'package:go_router/go_router.dart';
 
 /// Hosts the application's five primary destinations and bottom navigation.
-class AppShellPage extends StatefulWidget {
-  const AppShellPage({
-    super.key,
-    this.initialDestination = AppDestination.dashboard,
-  });
+class AppShellPage extends StatelessWidget {
+  const AppShellPage({super.key, required this.navigationShell});
 
-  final AppDestination initialDestination;
-
-  @override
-  State<AppShellPage> createState() => _AppShellPageState();
-}
-
-class _AppShellPageState extends State<AppShellPage> {
-  late AppDestination _destination;
-
-  @override
-  void initState() {
-    super.initState();
-    _destination = widget.initialDestination;
-  }
+  final StatefulNavigationShell navigationShell;
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    body: IndexedStack(
-      index: _destination.index,
-      children: [
-        DashboardPage(),
-        const SleepPage(),
-        ExercisePage(),
-        FoodTrackingPage(),
-        ProfilePage(),
-      ],
-    ),
+    body: navigationShell,
     bottomNavigationBar: _FloatingNavigationBar(
-      selectedIndex: _destination.index,
+      selectedIndex: navigationShell.currentIndex,
       onSelected: (index) {
-        setState(() => _destination = AppDestination.values[index]);
+        navigationShell.goBranch(
+          index,
+          initialLocation: index == navigationShell.currentIndex,
+        );
       },
     ),
   );
@@ -95,24 +69,34 @@ class _FloatingNavigationBar extends StatelessWidget {
     top: false,
     child: Padding(
       padding: const EdgeInsets.fromLTRB(8, 12, 8, 12),
-      child: DecoratedBox(
-        decoration: const BoxDecoration(
-          color: Colors.black,
-          borderRadius: BorderRadius.all(Radius.circular(999)),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(8),
-          child: Row(
-            children: [
-              for (var index = 0; index < _destinations.length; index++) ...[
-                if (index > 0) const SizedBox(width: 8),
-                _FloatingNavigationItem(
-                  destination: _destinations[index],
-                  selected: selectedIndex == index,
-                  onTap: () => onSelected(index),
-                ),
-              ],
-            ],
+      child: Center(
+        child: AnimatedSize(
+          duration: const Duration(milliseconds: 260),
+          curve: Curves.easeInOutCubic,
+          child: DecoratedBox(
+            decoration: const BoxDecoration(
+              color: Colors.black,
+              borderRadius: BorderRadius.all(Radius.circular(999)),
+            ),
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                children: [
+                  for (
+                    var index = 0;
+                    index < _destinations.length;
+                    index++
+                  ) ...[
+                    if (index > 0) const SizedBox(width: 8),
+                    _FloatingNavigationItem(
+                      destination: _destinations[index],
+                      selected: selectedIndex == index,
+                      onTap: () => onSelected(index),
+                    ),
+                  ],
+                ],
+              ),
+            ),
           ),
         ),
       ),
@@ -139,48 +123,73 @@ class _FloatingNavigationItem extends StatelessWidget {
       button: true,
       selected: selected,
       label: destination.label,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 180),
-        curve: Curves.easeOutCubic,
-        height: 48,
-        decoration: BoxDecoration(
-          color: selected ? Colors.white : Colors.white.withValues(alpha: .1),
-          borderRadius: BorderRadius.circular(999),
-        ),
-        child: Material(
-          color: Colors.transparent,
-          clipBehavior: Clip.antiAlias,
-          shape: const StadiumBorder(),
-          child: InkWell(
-            onTap: onTap,
-            child: Padding(
-              padding: EdgeInsets.symmetric(horizontal: selected ? 14 : 12),
-              child: Row(
-                mainAxisSize: selected ? MainAxisSize.max : MainAxisSize.min,
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ExcludeSemantics(
-                    child: Icon(
-                      selected ? destination.selectedIcon : destination.icon,
-                      color: foreground,
-                      size: 24,
+      child: AnimatedSize(
+        duration: const Duration(milliseconds: 260),
+        curve: Curves.easeInOutCubic,
+        child: AnimatedContainer(
+          duration: const Duration(milliseconds: 180),
+          curve: Curves.easeOutCubic,
+          height: 48,
+          decoration: BoxDecoration(
+            color: selected ? Colors.white : Colors.white.withValues(alpha: .1),
+            borderRadius: BorderRadius.circular(999),
+          ),
+          child: Material(
+            color: Colors.transparent,
+            clipBehavior: Clip.antiAlias,
+            shape: const StadiumBorder(),
+            child: InkWell(
+              onTap: onTap,
+              child: Padding(
+                padding: EdgeInsets.symmetric(horizontal: selected ? 14 : 12),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    ExcludeSemantics(
+                      child: Icon(
+                        selected ? destination.selectedIcon : destination.icon,
+                        color: foreground,
+                        size: 24,
+                      ),
                     ),
-                  ),
-                  if (selected) ...[
-                    const SizedBox(width: 8),
                     Flexible(
-                      child: Text(
-                        destination.label,
-                        maxLines: 1,
-                        overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.titleSmall?.copyWith(
-                          color: foreground,
-                          fontWeight: FontWeight.w700,
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 180),
+                        switchInCurve: Curves.easeOutCubic,
+                        switchOutCurve: Curves.easeInCubic,
+                        transitionBuilder: (child, animation) => FadeTransition(
+                          opacity: animation,
+                          child: SizeTransition(
+                            sizeFactor: animation,
+                            axis: Axis.horizontal,
+                            child: child,
+                          ),
                         ),
+                        layoutBuilder: (currentChild, previousChildren) =>
+                            currentChild ?? const SizedBox.shrink(),
+                        child: selected
+                            ? Padding(
+                                key: const ValueKey('selected-label'),
+                                padding: const EdgeInsets.only(left: 8),
+                                child: Text(
+                                  destination.label,
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
+                                  style: Theme.of(context).textTheme.titleSmall
+                                      ?.copyWith(
+                                        color: foreground,
+                                        fontWeight: FontWeight.w700,
+                                      ),
+                                    ),
+                              )
+                            : const SizedBox.shrink(
+                                key: ValueKey('unselected-label'),
+                              ),
                       ),
                     ),
                   ],
-                ],
+                ),
               ),
             ),
           ),
@@ -203,6 +212,3 @@ class _NavigationDestination {
   final IconData icon;
   final IconData selectedIcon;
 }
-
-/// The selectable destinations within [AppShellPage].
-enum AppDestination { dashboard, sleep, exercise, foodTracking, profile }

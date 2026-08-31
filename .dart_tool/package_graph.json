@@ -1,14 +1,19 @@
 {
   "roots": [
     "app_info",
+    "app_shell",
     "bloc_exports",
+    "dashboard",
     "design_lint",
     "errors",
+    "exercise",
+    "food_tracking",
     "i18n",
     "launcher",
     "logger",
     "observer",
     "onboarding",
+    "profile",
     "remote_config",
     "result",
     "ring_protocol",
@@ -36,7 +41,9 @@
       "version": "1.0.0+1",
       "dependencies": [
         "app_shell",
+        "dashboard",
         "flutter",
+        "go_router",
         "onboarding",
         "path_provider",
         "provider",
@@ -51,11 +58,68 @@
       ]
     },
     {
+      "name": "app_shell",
+      "version": "0.0.0",
+      "dependencies": [
+        "dashboard",
+        "exercise",
+        "flutter",
+        "food_tracking",
+        "go_router",
+        "profile",
+        "sleep"
+      ],
+      "devDependencies": [
+        "flutter_lints",
+        "flutter_test"
+      ]
+    },
+    {
+      "name": "dashboard",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter",
+        "go_router",
+        "ui_kit"
+      ],
+      "devDependencies": [
+        "flutter_lints",
+        "flutter_test"
+      ]
+    },
+    {
+      "name": "exercise",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter",
+        "go_router",
+        "ui_kit"
+      ],
+      "devDependencies": [
+        "flutter_lints",
+        "flutter_test"
+      ]
+    },
+    {
+      "name": "food_tracking",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter",
+        "go_router",
+        "ui_kit"
+      ],
+      "devDependencies": [
+        "flutter_lints",
+        "flutter_test"
+      ]
+    },
+    {
       "name": "sleep",
       "version": "0.0.0",
       "dependencies": [
         "fl_chart",
         "flutter",
+        "go_router",
         "provider",
         "ring_sleep_sync",
         "ring_transport",
@@ -74,10 +138,26 @@
       "dependencies": [
         "flutter",
         "flutter_svg",
+        "go_router",
         "permission_handler",
+        "provider",
         "ring_protocol",
         "ring_transport",
+        "sleep",
         "storage_tostore",
+        "ui_kit"
+      ],
+      "devDependencies": [
+        "flutter_lints",
+        "flutter_test"
+      ]
+    },
+    {
+      "name": "profile",
+      "version": "0.0.0",
+      "dependencies": [
+        "flutter",
+        "go_router",
         "ui_kit"
       ],
       "devDependencies": [
@@ -513,7 +593,7 @@
     },
     {
       "name": "test",
-      "version": "1.29.0",
+      "version": "1.26.3",
       "dependencies": [
         "analyzer",
         "async",
@@ -522,6 +602,7 @@
         "coverage",
         "http_multi_server",
         "io",
+        "js",
         "matcher",
         "node_preamble",
         "package_config",
@@ -718,6 +799,17 @@
       ]
     },
     {
+      "name": "go_router",
+      "version": "16.3.0",
+      "dependencies": [
+        "collection",
+        "flutter",
+        "flutter_web_plugins",
+        "logging",
+        "meta"
+      ]
+    },
+    {
       "name": "permission_handler",
       "version": "13.0.1",
       "dependencies": [
@@ -749,18 +841,6 @@
         "path_provider_linux",
         "path_provider_platform_interface",
         "path_provider_windows"
-      ]
-    },
-    {
-      "name": "app_shell",
-      "version": "0.0.0",
-      "dependencies": [
-        "dashboard",
-        "exercise",
-        "flutter",
-        "food_tracking",
-        "profile",
-        "sleep"
       ]
     },
     {
@@ -982,7 +1062,7 @@
     },
     {
       "name": "matcher",
-      "version": "0.12.18",
+      "version": "0.12.17",
       "dependencies": [
         "async",
         "meta",
@@ -993,7 +1073,7 @@
     },
     {
       "name": "test_api",
-      "version": "0.7.9",
+      "version": "0.7.7",
       "dependencies": [
         "async",
         "boolean_selector",
@@ -1071,14 +1151,14 @@
     },
     {
       "name": "material_color_utilities",
-      "version": "0.13.0",
+      "version": "0.11.1",
       "dependencies": [
         "collection"
       ]
     },
     {
       "name": "characters",
-      "version": "1.4.1",
+      "version": "1.4.0",
       "dependencies": []
     },
     {
@@ -1353,7 +1433,7 @@
     },
     {
       "name": "test_core",
-      "version": "0.6.15",
+      "version": "0.6.12",
       "dependencies": [
         "analyzer",
         "args",
@@ -1417,6 +1497,11 @@
     {
       "name": "node_preamble",
       "version": "2.0.2",
+      "dependencies": []
+    },
+    {
+      "name": "js",
+      "version": "0.7.2",
       "dependencies": []
     },
     {
@@ -1767,38 +1852,6 @@
       "dependencies": [
         "flutter",
         "path_provider_platform_interface"
-      ]
-    },
-    {
-      "name": "profile",
-      "version": "0.0.0",
-      "dependencies": [
-        "flutter",
-        "ui_kit"
-      ]
-    },
-    {
-      "name": "food_tracking",
-      "version": "0.0.0",
-      "dependencies": [
-        "flutter",
-        "ui_kit"
-      ]
-    },
-    {
-      "name": "exercise",
-      "version": "0.0.0",
-      "dependencies": [
-        "flutter",
-        "ui_kit"
-      ]
-    },
-    {
-      "name": "dashboard",
-      "version": "0.0.0",
-      "dependencies": [
-        "flutter",
-        "ui_kit"
       ]
     },
     {

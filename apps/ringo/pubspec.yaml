@@ -12,8 +12,11 @@ environment:
 dependencies:
   app_shell:
     path: ../../features/app_shell
+  dashboard:
+    path: ../../features/dashboard
   flutter:
     sdk: flutter
+  go_router: ^16.3.0
   onboarding:
     path: ../../features/onboarding
   path_provider: ^2.1.5

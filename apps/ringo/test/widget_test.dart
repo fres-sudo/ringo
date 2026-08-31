@@ -1,18 +1,26 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 import 'package:storage_tostore/storage_tostore.dart';
 
 import 'package:ringo/app/app.dart';
+import 'package:ringo/app/dependency_injector.dart';
 
 void main() {
   late ToStoreStorage storage;
 
   setUp(() async => storage = await ToStoreStorage.inMemory());
 
+  Widget subject({String? initialRoute}) => DependencyInjector(
+    services: [Provider<Storage>.value(value: storage)],
+    child: RingoApp(initialRoute: initialRoute),
+  );
+
   testWidgets('renders the onboarding welcome screen', (
     WidgetTester tester,
   ) async {
-    await tester.pumpWidget(RingoApp(storage: storage));
+    await tester.pumpWidget(subject());
+    await tester.pumpAndSettle();
 
     expect(find.text('Sleepyal'), findsOneWidget);
     expect(find.text('Continue'), findsOneWidget);
@@ -25,7 +33,8 @@ void main() {
     tester.view.physicalSize = const Size(375, 1024);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.reset);
-    await tester.pumpWidget(RingoApp(storage: storage));
+    await tester.pumpWidget(subject());
+    await tester.pumpAndSettle();
 
     await tester.tap(find.text('Continue'));
     await tester.pumpAndSettle();
@@ -38,7 +47,7 @@ void main() {
   ) async {
     const destinations = [
       ('/dashboard', 'Dashboard coming soon'),
-      ('/sleep', 'No sleep data yet'),
+      ('/sleep', 'Sleep'),
       ('/exercise', 'Exercise coming soon'),
       ('/food-tracking', 'Food tracking coming soon'),
       ('/profile', 'Profile coming soon'),
@@ -48,9 +57,10 @@ void main() {
       await tester.pumpWidget(
         KeyedSubtree(
           key: ValueKey(route),
-          child: RingoApp(storage: storage, initialRoute: route),
+          child: subject(initialRoute: route),
         ),
       );
+      await tester.pumpAndSettle();
 
       expect(find.text(placeholder), findsOneWidget);
       for (final label in ['Home', 'Sleep', 'Exercise', 'Food', 'Profile']) {
@@ -68,9 +78,7 @@ void main() {
     tester.view.physicalSize = const Size(375, 812);
     tester.view.devicePixelRatio = 1;
     addTearDown(tester.view.reset);
-    await tester.pumpWidget(
-      RingoApp(storage: storage, initialRoute: '/dashboard'),
-    );
+    await tester.pumpWidget(subject(initialRoute: '/dashboard'));
 
     await tester.tap(find.byKey(const ValueKey('bottom-navigation-profile')));
     await tester.pumpAndSettle();

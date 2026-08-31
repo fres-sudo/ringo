@@ -11,13 +11,17 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_svg: ^2.2.3
+  go_router: ^16.3.0
   permission_handler: ^13.0.1
+  provider: ^6.1.5+1
   ring_protocol:
     path: ../../packages/ring_protocol
   ring_transport:
     path: ../../packages/ring_transport
   storage_tostore:
     path: ../../packages/storage_tostore
+  sleep:
+    path: ../sleep
   ui_kit:
     path: ../../packages/ui_kit
 

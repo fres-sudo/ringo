@@ -10,3 +10,5 @@ export 'src/presentation/pages/ring_setup_page.dart';
 export 'src/services/bluetooth_permission_service.dart';
 export 'src/presentation/widgets/onboarding_content.dart';
 export 'src/presentation/widgets/onboarding_scaffold.dart';
+export 'src/routing/onboarding_destinations.dart';
+export 'src/routing/onboarding_routes.dart';

@@ -5,3 +5,5 @@ export 'src/data/repositories/sleep_repository_impl.dart';
 export 'src/domain/repositories/sleep_repository.dart';
 export 'src/presentation/controllers/sleep_controller.dart';
 export 'src/presentation/pages/sleep_page.dart';
+export 'src/routing/sleep_destinations.dart';
+export 'src/routing/sleep_routes.dart';

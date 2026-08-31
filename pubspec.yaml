@@ -6,8 +6,13 @@ environment:
 
 workspace:
   - apps/ringo
+  - features/app_shell
+  - features/dashboard
+  - features/exercise
+  - features/food_tracking
   - features/sleep
   - features/onboarding
+  - features/profile
   - packages/app_info
   - packages/bloc
   - packages/design_lint
